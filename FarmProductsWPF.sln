@@ -5,6 +5,14 @@ VisualStudioVersion = 17.14.36221.1 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmProductsWPF", "FarmProductsWPF\FarmProductsWPF.csproj", "{FF147BF5-6BAF-42E0-A474-C30BF56D36D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmProductsWPF_BOs", "FarmProductsWPF_BOs\FarmProductsWPF_BOs.csproj", "{1F4FA27D-1670-438E-9700-48530CA563A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmProductsWPF_DAOs", "FarmProductsWPF_DAOs\FarmProductsWPF_DAOs.csproj", "{AB529681-80DB-4729-80CA-C2C7C24E7D34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmProductsWPF_Repositories", "FarmProductsWPF_Repositories\FarmProductsWPF_Repositories.csproj", "{C01A64CA-BC58-4CEB-AD33-8F29C0ADED8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmProductsWPF_DTOs", "FarmProductsWPF_DTOs\FarmProductsWPF_DTOs.csproj", "{7A3C80C7-DB90-41BD-BEE9-2059F05CC261}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,22 @@ Global
 		{FF147BF5-6BAF-42E0-A474-C30BF56D36D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF147BF5-6BAF-42E0-A474-C30BF56D36D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF147BF5-6BAF-42E0-A474-C30BF56D36D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F4FA27D-1670-438E-9700-48530CA563A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F4FA27D-1670-438E-9700-48530CA563A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F4FA27D-1670-438E-9700-48530CA563A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F4FA27D-1670-438E-9700-48530CA563A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB529681-80DB-4729-80CA-C2C7C24E7D34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB529681-80DB-4729-80CA-C2C7C24E7D34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB529681-80DB-4729-80CA-C2C7C24E7D34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB529681-80DB-4729-80CA-C2C7C24E7D34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C01A64CA-BC58-4CEB-AD33-8F29C0ADED8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C01A64CA-BC58-4CEB-AD33-8F29C0ADED8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C01A64CA-BC58-4CEB-AD33-8F29C0ADED8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C01A64CA-BC58-4CEB-AD33-8F29C0ADED8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A3C80C7-DB90-41BD-BEE9-2059F05CC261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A3C80C7-DB90-41BD-BEE9-2059F05CC261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A3C80C7-DB90-41BD-BEE9-2059F05CC261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A3C80C7-DB90-41BD-BEE9-2059F05CC261}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

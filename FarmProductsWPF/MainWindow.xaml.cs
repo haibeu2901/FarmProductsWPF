@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using FarmProductsWPF_Repositories.Implements;
+using FarmProductsWPF_Repositories.Interfaces;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +18,17 @@ namespace FarmProductsWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly IProductRepo _productRepo;
+
         public MainWindow()
         {
             InitializeComponent();
+            _productRepo = new ProductRepo();
+        }
+
+        private void dtgProduct_Loaded(object sender, RoutedEventArgs e)
+        {
+            dtgProduct.ItemsSource = _productRepo.GetAllProducts();
         }
     }
 }
