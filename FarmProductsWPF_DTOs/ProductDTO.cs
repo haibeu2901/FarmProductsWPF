@@ -21,5 +21,7 @@ namespace FarmProductsWPF_DTOs
         public DateTime? UpdatedDate { get; set; }
 
         public string? CategoryName { get; set; }
+
+        public int CategoryId { get; set; }
     }
 }

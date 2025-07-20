@@ -10,5 +10,6 @@ namespace FarmProductsWPF_Repositories.Interfaces
     public interface IProductRepo
     {
         List<ProductDTO> GetAllProducts();
+        List<ProductDTO> SearchProduct(string searchText);
     }
 }
