@@ -211,7 +211,7 @@
                 <Button x:Name="btnShutDown" Content="⛔ Shutdown"
                         Style="{StaticResource ShutdownButton}"
                         HorizontalAlignment="Left"
-                        Margin="1038,0,0,0" Width="112" Click="btnShutDown_Click"/>
+                        Margin="1027,0,0,0" Width="112" Click="btnShutDown_Click"/>
             </Grid>
         </Border>
 
@@ -231,7 +231,7 @@
 
                 <!-- Search Label -->
                 <TextBlock Grid.Column="0"
-                           Text="Search Products:"
+                           Text="Search Products"
                            FontSize="14"
                            FontWeight="SemiBold"
                            VerticalAlignment="Center"
