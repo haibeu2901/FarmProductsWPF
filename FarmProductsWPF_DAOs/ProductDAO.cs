@@ -34,5 +34,17 @@ namespace FarmProductsWPF_DAOs
         {
             return _context.Products.Include(p => p.Category).ToList();
         }
+
+        public List<Product> SearchProduct(string searchText)
+        {
+            return _context.Products
+                .Include(p => p.Category)
+                .AsEnumerable() // Switch to client-side evaluation
+                .Where(p => p.ProductName.ToLower().Contains(searchText.ToLower()) ||
+                            p.ProductId.ToString().Equals(searchText) ||
+                            p.Category.CategoryName.ToLower().Contains(searchText.ToLower()) ||
+                            p.Description.ToLower().Contains(searchText.ToLower()))
+                .ToList();
+        }
     }
 }

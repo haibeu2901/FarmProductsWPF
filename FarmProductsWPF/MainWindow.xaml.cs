@@ -1,4 +1,5 @@
-﻿using FarmProductsWPF_Repositories.Implements;
+﻿using FarmProductsWPF_DTOs;
+using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
 using System.Text;
 using System.Windows;
@@ -29,6 +30,24 @@ namespace FarmProductsWPF
         private void dtgProduct_Loaded(object sender, RoutedEventArgs e)
         {
             dtgProduct.ItemsSource = _productRepo.GetAllProducts();
+        }
+
+        private void btnShutDown_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = txtSearch.Text.Trim();
+            dtgProduct.ItemsSource = _productRepo.SearchProduct(searchText);
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
         }
     }
 }

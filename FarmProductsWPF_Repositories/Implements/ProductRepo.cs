@@ -22,6 +22,7 @@ namespace FarmProductsWPF_Repositories.Implements
                 SellingPrice = productDTO.SellingPrice,
                 Description = productDTO.Description,
                 UpdatedDate = productDTO.UpdatedDate,
+                CategoryId = productDTO.CategoryId
             };
         }
 
@@ -47,6 +48,14 @@ namespace FarmProductsWPF_Repositories.Implements
                 .Select(product => MapToDTO(product))
                 .Where(dto => dto != null)
                 .ToList();
+        }
+
+        public List<ProductDTO> SearchProduct(string searchText)
+        {
+            var products = ProductDAO.Instance.SearchProduct(searchText);
+            return products.Select(product => MapToDTO(product))
+                           .Where(dto => dto != null)
+                           .ToList();
         }
     }
 }
