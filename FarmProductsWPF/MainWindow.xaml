@@ -314,7 +314,7 @@
                                         Binding="{Binding ProductName}"
                                         Width="2*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Category"
-                                        Binding="{Binding CategoryName}"
+                                        Binding="{Binding Category}"
                                         Width="1.5*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Unit"
                                         Binding="{Binding Unit}"
