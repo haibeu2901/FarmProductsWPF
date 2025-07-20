@@ -1,4 +1,4 @@
-﻿using FarmProductsWPF_DTOs;
+﻿using FarmProductsWPF_BOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace FarmProductsWPF_Repositories.Interfaces
 {
     public interface IProductRepo
     {
-        List<ProductDTO> GetAllProducts();
-        List<ProductDTO> SearchProduct(string searchText);
+        List<Product> GetAllProducts();
+        List<Product> SearchProduct(string searchText);
     }
 }

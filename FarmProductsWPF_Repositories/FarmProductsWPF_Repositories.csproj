@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FarmProductsWPF_DAOs\FarmProductsWPF_DAOs.csproj" />
-    <ProjectReference Include="..\FarmProductsWPF_DTOs\FarmProductsWPF_DTOs.csproj" />
   </ItemGroup>
 
 </Project>

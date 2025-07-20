@@ -1,5 +1,4 @@
-﻿using FarmProductsWPF_DTOs;
-using FarmProductsWPF_Repositories.Implements;
+﻿using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
 using System.Text;
 using System.Windows;
@@ -29,7 +28,28 @@ namespace FarmProductsWPF
 
         private void dtgProduct_Loaded(object sender, RoutedEventArgs e)
         {
-            dtgProduct.ItemsSource = _productRepo.GetAllProducts();
+            dtgProduct.ItemsSource = _productRepo.GetAllProducts().Select(p => new
+            {
+                p.ProductId,
+                p.ProductName,
+                Category = p.Category.CategoryName,
+                p.Unit,
+                p.SellingPrice,
+                p.Description
+            }).ToList();
+        }
+
+        private void LoadDataGrid(string text)
+        {
+            dtgProduct.ItemsSource = _productRepo.SearchProduct(text).Select(p => new
+            {
+                p.ProductId,
+                p.ProductName,
+                Category = p.Category.CategoryName,
+                p.Unit,
+                p.SellingPrice,
+                p.Description
+            }).ToList();
         }
 
         private void btnShutDown_Click(object sender, RoutedEventArgs e)
@@ -40,7 +60,7 @@ namespace FarmProductsWPF
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             string searchText = txtSearch.Text.Trim();
-            dtgProduct.ItemsSource = _productRepo.SearchProduct(searchText);
+            LoadDataGrid(searchText);
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)

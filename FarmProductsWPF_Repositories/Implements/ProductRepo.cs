@@ -1,6 +1,5 @@
 ﻿using FarmProductsWPF_BOs;
 using FarmProductsWPF_DAOs;
-using FarmProductsWPF_DTOs;
 using FarmProductsWPF_Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,50 +11,14 @@ namespace FarmProductsWPF_Repositories.Implements
 {
     public class ProductRepo : IProductRepo
     {
-        private Product MapToEntity(ProductDTO productDTO)
+        public List<Product> GetAllProducts()
         {
-            return new Product
-            {
-                ProductId = productDTO.ProductId,
-                ProductName = productDTO.ProductName,
-                Unit = productDTO.Unit,
-                SellingPrice = productDTO.SellingPrice,
-                Description = productDTO.Description,
-                UpdatedDate = productDTO.UpdatedDate,
-                CategoryId = productDTO.CategoryId
-            };
+            return ProductDAO.Instance.GetAllProducts();
         }
 
-        private ProductDTO MapToDTO(Product product)
+        public List<Product> SearchProduct(string searchText)
         {
-            if (product == null) return null;
-            
-            return new ProductDTO
-            {
-                ProductId = product.ProductId,
-                ProductName = product.ProductName,
-                Unit = product.Unit,
-                SellingPrice = product.SellingPrice,
-                Description = product.Description,
-                UpdatedDate = product.UpdatedDate,
-                CategoryName = product.Category?.CategoryName
-            };
-        }
-
-        public List<ProductDTO> GetAllProducts()
-        {
-            return ProductDAO.Instance.GetAllProducts()
-                .Select(product => MapToDTO(product))
-                .Where(dto => dto != null)
-                .ToList();
-        }
-
-        public List<ProductDTO> SearchProduct(string searchText)
-        {
-            var products = ProductDAO.Instance.SearchProduct(searchText);
-            return products.Select(product => MapToDTO(product))
-                           .Where(dto => dto != null)
-                           .ToList();
+            return ProductDAO.Instance.SearchProduct(searchText);
         }
     }
 }
