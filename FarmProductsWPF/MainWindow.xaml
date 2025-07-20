@@ -193,7 +193,7 @@
 
                 <!-- Title -->
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="🌾" FontSize="28" Margin="0,0,10,0" Foreground="#FF1CCE27"/>
+                    <TextBlock Text="🌾" FontSize="28" Margin="0,0,10,0" Foreground="Green"/>
                     <TextBlock Text="Farm Products Management"
                                FontSize="24"
                                FontWeight="Bold"
