@@ -205,13 +205,10 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="🔍" FontSize="16"
-                                       VerticalAlignment="Center" Margin="0,0,8,0"
-                                       Foreground="{StaticResource TextGray}"/>
                             <TextBox Grid.Column="1" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
                                      Background="Transparent" BorderThickness="0"
                                      Foreground="{StaticResource TextGray}"
-                                     VerticalAlignment="Center">
+                                     VerticalAlignment="Center" Height="28">
                                 <TextBox.Style>
                                     <Style TargetType="TextBox">
                                         <Setter Property="Template">
