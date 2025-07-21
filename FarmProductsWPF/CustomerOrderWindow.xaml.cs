@@ -62,7 +62,14 @@ namespace FarmProductsWPF
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            dtgOrders.ItemsSource = _orderRepo.SearchOrdersByAccountId(user.AccountId, txtSearch.Text).Select(o => new
+            {
+                o.OrderId,
+                StaffName = o.Staff.FullName,
+                o.OrderDate,
+                o.TotalAmount,
+                TotalItems = o.OrderDetails.Count
+            }).ToList();
         }
     }
 }

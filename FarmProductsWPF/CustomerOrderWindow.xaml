@@ -221,7 +221,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="1" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                            <TextBox x:Name="txtSearch" Grid.Column="1" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
                                      Background="Transparent" BorderThickness="0"
                                      Foreground="{StaticResource TextGray}"
                                      VerticalAlignment="Center" Height="28">
@@ -231,8 +231,7 @@
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="TextBox">
                                                     <Grid>
-                                                        <TextBox x:Name="txtSearch" 
-                                                                 Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
+                                                        <TextBox Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
                                                                  Background="{TemplateBinding Background}"
                                                                  Foreground="{TemplateBinding Foreground}"
                                                                  BorderThickness="0"/>
