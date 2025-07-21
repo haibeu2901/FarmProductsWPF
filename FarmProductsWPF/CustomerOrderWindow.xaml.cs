@@ -1,4 +1,6 @@
 ﻿using FarmProductsWPF_BOs;
+using FarmProductsWPF_Repositories.Implements;
+using FarmProductsWPF_Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,7 @@ namespace FarmProductsWPF
     public partial class CustomerOrderWindow : Window
     {
         private Account user;
+        private readonly IOrderRepo _orderRepo;
         
         // Add public property for binding
         public Account CurrentUser
@@ -35,6 +38,7 @@ namespace FarmProductsWPF
             user = account;
             // Set the DataContext to this window instance
             this.DataContext = this;
+            _orderRepo = new OrderRepo();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -42,6 +46,23 @@ namespace FarmProductsWPF
             LoginWindow login = new LoginWindow();
             this.Close();
             login.Show();
+        }
+
+        private void dtgOrders_Loaded(object sender, RoutedEventArgs e)
+        {
+            dtgOrders.ItemsSource = _orderRepo.GetOrdersByAccountId(user.AccountId).Select(o => new
+            {
+                o.OrderId,
+                StaffName = o.Staff.FullName,
+                o.OrderDate,
+                o.TotalAmount,
+                TotalItems = o.OrderDetails.Count
+            }).ToList();
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

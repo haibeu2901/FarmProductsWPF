@@ -125,6 +125,22 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="OrderRowStyle" TargetType="DataGridRow">
+            <Setter Property="Background" Value="{StaticResource BackgroundWhite}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderGray}"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource PrimaryGreen}"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource LightGreen}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource PrimaryGreen}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -161,7 +177,7 @@
                     <TextBlock Text="{Binding CurrentUser.FullName}" FontWeight="Medium"
                                Foreground="#1F2937" VerticalAlignment="Center" Margin="0,0,15,0"/>
                     <!-- Search button -->
-                    
+
 
                     <!-- Logout button -->
                     <Button x:Name="btnLogout" Style="{StaticResource LogoutButtonStyle}" 
@@ -215,7 +231,7 @@
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="TextBox">
                                                     <Grid>
-                                                        <TextBox x:Name="textBox" 
+                                                        <TextBox x:Name="txtSearch" 
                                                                  Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
                                                                  Background="{TemplateBinding Background}"
                                                                  Foreground="{TemplateBinding Foreground}"
@@ -245,7 +261,7 @@
                             </TextBox>
                             <Button x:Name="btnSearch" Grid.Column="2" Margin="8,0,0,0"
                                     Command="{Binding SearchCommand}"
-                                    Style="{StaticResource SearchButtonStyle}">
+                                    Style="{StaticResource SearchButtonStyle}" Click="btnSearch_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="🔍 Search" FontSize="14" Padding="5"/>
                                 </StackPanel>
@@ -253,83 +269,89 @@
                         </Grid>
                     </Border>
 
-                    <ListBox Grid.Row="2"
-                             ItemsSource="{Binding Orders}"
-                             SelectedItem="{Binding SelectedOrder}"
-                             ItemContainerStyle="{StaticResource OrderItemContainerStyle}"
+                    <ListBox x:Name="dtgOrders" Grid.Row="2"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             BorderThickness="0" Background="Transparent">
+                             BorderThickness="0"
+                             Background="Transparent"
+                             Loaded="dtgOrders_Loaded">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Margin" Value="0,0,0,8"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border x:Name="Border"
+                                                    Background="{StaticResource BackgroundWhite}"
+                                                    BorderBrush="{StaticResource BorderGray}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="8">
+                                                <ContentPresenter Margin="16"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PrimaryGreen}"/>
+                                                    <Setter TargetName="Border" Property="BorderThickness" Value="1.5"/>
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource LightGreen}"/>
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PrimaryGreen}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
+                                    <!-- Header Row -->
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
+                                    <!-- Order ID and Amount -->
                                     <Grid Grid.Row="0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding OrderNumber, StringFormat='Order #{0}'}"
-                                                   FontSize="16" FontWeight="Bold"
-                                                   Foreground="#1F2937"/>
-                                        <Border Grid.Column="1">
-                                            <Border.Style>
-                                                <Style TargetType="Border" BasedOn="{StaticResource StatusBadgeStyle}">
-                                                    <Setter Property="Background" Value="{StaticResource PrimaryGreen}"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Status}" Value="Processing">
-                                                            <Setter Property="Background" Value="{StaticResource ProcessingOrange}"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Status}" Value="Shipped">
-                                                            <Setter Property="Background" Value="{StaticResource ShippedBlue}"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Margin="0,0,4,0">
-                                                    <TextBlock.Style>
-                                                        <Style TargetType="TextBlock">
-                                                            <Setter Property="Text" Value="✓"/>
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding Status}" Value="Processing">
-                                                                    <Setter Property="Text" Value="⏳"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding Status}" Value="Shipped">
-                                                                    <Setter Property="Text" Value="🚚"/>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </TextBlock.Style>
-                                                </TextBlock>
-                                                <TextBlock Text="{Binding Status}"/>
-                                            </StackPanel>
-                                        </Border>
+                                        <TextBlock Grid.Column="0" 
+                                                 Text="{Binding OrderId, StringFormat='Order #{0}'}"
+                                                 FontSize="16" 
+                                                 FontWeight="Bold"
+                                                 Foreground="#1F2937"/>
+                                        <TextBlock Grid.Column="1"
+                                                 Text="{Binding TotalAmount, StringFormat='{}{0:N0} VND'}"
+                                                 FontSize="16"
+                                                 FontWeight="Bold"
+                                                 Foreground="{StaticResource PrimaryGreen}"/>
                                     </Grid>
 
-                                    <TextBlock Grid.Row="1" Text="{Binding OrderDate, StringFormat='📅 {0:MMM dd, yyyy, hh:mm tt}'}"
-                                               FontSize="12" Foreground="{StaticResource TextGray}"
-                                               Margin="0,5,0,0"/>
+                                    <!-- Date -->
+                                    <TextBlock Grid.Row="1"
+                                             Text="{Binding OrderDate, StringFormat='{}{0:MMM dd, yyyy, hh:mm tt}'}"
+                                             Foreground="{StaticResource TextGray}"
+                                             Margin="0,8,0,0"/>
 
-                                    <TextBlock Grid.Row="2" Text="{Binding TotalAmount, StringFormat='💰 {0:C}'}"
-                                               FontSize="16" FontWeight="Bold"
-                                               Foreground="{StaticResource PrimaryGreen}"
-                                               Margin="0,8,0,0"/>
-
-                                    <StackPanel Grid.Row="3" Margin="0,8,0,0">
-                                        <TextBlock Text="{Binding ProcessedBy, StringFormat='Processed by: {0}'}" FontSize="12"
-                                                   Foreground="{StaticResource TextGray}"/>
-                                        <TextBlock FontSize="12" Foreground="{StaticResource TextGray}" Margin="0,2,0,0">
-                                            <Run Text="{Binding ItemCount}"/>
-                                            <Run Text="items • "/>
-                                            <Run Text="{Binding ItemSummary}"/>
-                                        </TextBlock>
-                                    </StackPanel>
+                                    <!-- Staff and Items -->
+                                    <Grid Grid.Row="2" Margin="0,8,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                 Text="{Binding StaffName, StringFormat='Processed by: {0}'}"
+                                                 Foreground="{StaticResource TextGray}"/>
+                                        <TextBlock Grid.Column="1"
+                                                 Text="{Binding TotalItems, StringFormat='{}{0} items'}"
+                                                 Foreground="{StaticResource TextGray}"/>
+                                    </Grid>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -345,7 +367,7 @@
                         <TextBlock Text="Order Details" FontSize="20" FontWeight="Bold"
                                    Foreground="#1F2937" Margin="0,0,0,15"/>
 
-                        <Border Visibility="{Binding SelectedOrder}">
+                        <Border>
                             <Grid Margin="0,0,0,20">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
