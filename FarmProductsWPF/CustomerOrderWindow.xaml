@@ -167,8 +167,7 @@
                     <Button x:Name="btnLogout" Style="{StaticResource LogoutButtonStyle}" 
                             Command="{Binding LogoutCommand}" Click="btnLogout_Click">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="🚪" Margin="0,0,5,0" Padding="5"/>
-                            <TextBlock Text="Logout" Padding="5"/>
+                            <TextBlock Text="🚪 Logout" Padding="5"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
