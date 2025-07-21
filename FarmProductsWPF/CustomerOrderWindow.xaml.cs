@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FarmProductsWPF_BOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,16 +20,28 @@ namespace FarmProductsWPF
     /// </summary>
     public partial class CustomerOrderWindow : Window
     {
-        public CustomerOrderWindow()
+        private Account user;
+        
+        // Add public property for binding
+        public Account CurrentUser
+        {
+            get { return user; }
+            private set { user = value; }
+        }
+
+        public CustomerOrderWindow(Account account)
         {
             InitializeComponent();
+            user = account;
+            // Set the DataContext to this window instance
+            this.DataContext = this;
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
+            LoginWindow login = new LoginWindow();
             this.Close();
-            mainWindow.Show();
+            login.Show();
         }
     }
 }

@@ -17,28 +17,32 @@
         <SolidColorBrush x:Key="BorderGray" Color="#E5E7EB"/>
         <SolidColorBrush x:Key="TextGray" Color="#6B7280"/>
         <SolidColorBrush x:Key="BackgroundWhite" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="SearchBlue" Color="#3B82F6"/>
+        <SolidColorBrush x:Key="SearchBlueHover" Color="#2563EB"/>
+        <SolidColorBrush x:Key="LogoutRed" Color="#EF4444"/>
+        <SolidColorBrush x:Key="LogoutRedHover" Color="#DC2626"/>
 
         <!-- Add a converter for null to visibility conversion -->
 
         <Style x:Key="LogoutButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Background" Value="{StaticResource LogoutRed}"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Foreground" Value="{StaticResource TextGray}"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Padding" Value="12,6"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4">
+                                CornerRadius="6">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#F3F4F6"/>
+                                <Setter Property="Background" Value="{StaticResource LogoutRedHover}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -95,6 +99,32 @@
             <Setter Property="Margin" Value="0,0,5,0"/>
             <Setter Property="TextElement.FontSize" Value="10"/>
         </Style>
+
+        <Style x:Key="SearchButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource SearchBlue}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource SearchBlueHover}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -128,12 +158,17 @@
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="👤" FontSize="16" Margin="0,0,5,0"
                                VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding CurrentUser.Name}" FontWeight="Medium"
+                    <TextBlock Text="{Binding CurrentUser.FullName}" FontWeight="Medium"
                                Foreground="#1F2937" VerticalAlignment="Center" Margin="0,0,15,0"/>
-                    <Button x:Name="btnLogout" Style="{StaticResource LogoutButtonStyle}" Command="{Binding LogoutCommand}" Click="btnLogout_Click">
+                    <!-- Search button -->
+                    
+
+                    <!-- Logout button -->
+                    <Button x:Name="btnLogout" Style="{StaticResource LogoutButtonStyle}" 
+                            Command="{Binding LogoutCommand}" Click="btnLogout_Click">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="🚪" Margin="0,0,5,0"/>
-                            <TextBlock Text="Logout"/>
+                            <TextBlock Text="🚪" Margin="0,0,5,0" Padding="5"/>
+                            <TextBlock Text="Logout" Padding="5"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -214,9 +249,9 @@
                             </TextBox>
                             <Button x:Name="btnSearch" Grid.Column="2" Margin="8,0,0,0"
                                     Command="{Binding SearchCommand}"
-                                    Style="{StaticResource LogoutButtonStyle}">
+                                    Style="{StaticResource SearchButtonStyle}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Search" FontSize="14"/>
+                                    <TextBlock Text="🔍 Search" FontSize="14" Padding="5"/>
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -433,7 +468,7 @@
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" FontWeight="Medium"
                                        Foreground="#1F2937" Margin="0,0,15,10"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentUser.Name}"
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentUser.FullName}"
                                        Foreground="{StaticResource TextGray}" Margin="0,0,0,10"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Email:" FontWeight="Medium"
@@ -443,7 +478,7 @@
 
                             <TextBlock Grid.Row="2" Grid.Column="0" Text="Phone:" FontWeight="Medium"
                                        Foreground="#1F2937" Margin="0,0,15,10"/>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding CurrentUser.Phone}"
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding CurrentUser.PhoneNumber}"
                                        Foreground="{StaticResource TextGray}" Margin="0,0,0,10"/>
 
                             <TextBlock Grid.Row="3" Grid.Column="0" Text="Address:" FontWeight="Medium"
