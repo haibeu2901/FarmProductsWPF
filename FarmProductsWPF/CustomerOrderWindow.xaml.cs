@@ -26,7 +26,7 @@ namespace FarmProductsWPF
         private Order _order;
         private readonly IOrderRepo _orderRepo;
         private readonly IOrderDetailRepo _orderDetailRepo;
-
+        
         // Add public property for binding
         public Account CurrentUser
         {
@@ -96,19 +96,29 @@ namespace FarmProductsWPF
                     txtOrderDate.Text = _order.OrderDate.ToString();
                     txtStaffName.Text = _order.Staff.FullName;
                     txtTotalAmount.Text = _order.TotalAmount.ToString("N0") + " VND";
-                }
-            }
-        }
 
-        private void dtgOrderDetail_Loaded(object sender, RoutedEventArgs e)
-        {
-            dtgOrderDetail.ItemsSource = _orderDetailRepo.GetOrderDetailsByOrderId(_order.OrderId).Select(od => new
-            {
-                ProductName = od.Product.ProductName,
-                Category = od.Product.Category.CategoryName,
-                od.Quantity,
-                od.Product.SellingPrice
-            }).ToList();
+                    // Set dtgOrderDetail.ItemsSource
+                    dtgOrderDetail.ItemsSource = _orderDetailRepo.GetOrderDetailsByOrderId(orderId)
+                    .Select(od => new
+                    {
+                        ProductName = od.Product?.ProductName ?? "Unknown Product",
+                        CategoryName = od.Product?.Category?.CategoryName ?? "No Category",
+                        Quantity = od.Quantity,
+                        Unit = od.Product?.Unit ?? "pcs",
+                        UnitPrice = od.Product?.SellingPrice ?? 0,
+                        SellingPrice = od.Quantity * (od.Product?.SellingPrice ?? 0)
+                        }).ToList();
+                    }
+                }
+                else
+                {
+                    // Clear details when no order is selected
+                    txtOrderId.Text = string.Empty;
+                    txtOrderDate.Text = string.Empty;
+                    txtStaffName.Text = string.Empty;
+                    txtTotalAmount.Text = string.Empty;
+                    dtgOrderDetail.ItemsSource = null;
+                }
         }
     }
 }

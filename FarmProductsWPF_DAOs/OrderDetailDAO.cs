@@ -34,6 +34,7 @@ namespace FarmProductsWPF_DAOs
         {
             return _context.OrderDetails
                 .Include(od => od.Product)
+                .Include(od => od.Product.Category)
                 .Include(od => od.Order)
                 .Where(od => od.Order.OrderId == orderId)
                 .ToList();
