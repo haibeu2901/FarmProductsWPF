@@ -202,7 +202,7 @@
                 </StackPanel>
 
                 <!-- Login Button -->
-                <Button x:Name="btnLogin" Content="👤 Login"
+                <Button x:Name="btnLogin" Content="🛬 Login"
                         Style="{StaticResource LoginButton}"
                         HorizontalAlignment="Left"
                         Margin="927,0,0,0" Width="83" Click="btnLogin_Click"/>
