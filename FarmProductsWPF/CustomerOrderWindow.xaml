@@ -398,8 +398,8 @@
                         <TextBlock Text="Items Ordered" FontSize="16"
                                    FontWeight="Bold" Foreground="#1F2937" Margin="0,0,0,15"/>
 
-                        <ListBox ItemsSource="{Binding SelectedOrder.Items}"
-                                 ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="0" Background="Transparent">
+                        <ListBox x:Name="dtgOrderDetail" ItemsSource="{Binding SelectedOrder.Items}"
+                                 ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="0" Background="Transparent" Loaded="dtgOrderDetail_Loaded">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Border Background="#F9FAFB" BorderBrush="{StaticResource BorderGray}"
@@ -463,7 +463,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="Total Amount:" FontSize="16"
                                            FontWeight="Bold" Foreground="#1F2937"/>
-                                <TextBlock Grid.Column="1" Text="{Binding SelectedOrder.TotalAmount, StringFormat='{}{0:C}'}"
+                                <TextBlock x:Name="txtTotalAmount" Grid.Column="1" Text="{Binding SelectedOrder.TotalAmount, StringFormat='{}{0:N0} VND'}"
                                            FontSize="20" FontWeight="Bold" Foreground="{StaticResource PrimaryGreen}"/>
                             </Grid>
                         </Border>

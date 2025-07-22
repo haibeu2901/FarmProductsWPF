@@ -25,6 +25,7 @@ namespace FarmProductsWPF
         private Account _user;
         private Order _order;
         private readonly IOrderRepo _orderRepo;
+        private readonly IOrderDetailRepo _orderDetailRepo;
 
         // Add public property for binding
         public Account CurrentUser
@@ -47,6 +48,7 @@ namespace FarmProductsWPF
             // Set the DataContext to this window instance
             this.DataContext = this;
             _orderRepo = new OrderRepo();
+            _orderDetailRepo = new OrderDetailRepo();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -93,10 +95,20 @@ namespace FarmProductsWPF
                     txtOrderId.Text = _order.OrderId.ToString();
                     txtOrderDate.Text = _order.OrderDate.ToString();
                     txtStaffName.Text = _order.Staff.FullName;
+                    txtTotalAmount.Text = _order.TotalAmount.ToString("N0") + " VND";
                 }
             }
         }
 
-
+        private void dtgOrderDetail_Loaded(object sender, RoutedEventArgs e)
+        {
+            dtgOrderDetail.ItemsSource = _orderDetailRepo.GetOrderDetailsByOrderId(_order.OrderId).Select(od => new
+            {
+                ProductName = od.Product.ProductName,
+                Category = od.Product.Category.CategoryName,
+                od.Quantity,
+                od.Product.SellingPrice
+            }).ToList();
+        }
     }
 }
