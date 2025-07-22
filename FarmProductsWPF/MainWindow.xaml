@@ -180,7 +180,7 @@
 
         <!-- Header Section -->
         <Border Grid.Row="0"
-                Background="#343A40"
+                Background="White"
                 Padding="20,15">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -197,7 +197,7 @@
                     <TextBlock Text="Farm Products Management"
                                FontSize="24"
                                FontWeight="Bold"
-                               Foreground="White"
+                               Foreground="Black"
                                VerticalAlignment="Center"/>
                 </StackPanel>
 

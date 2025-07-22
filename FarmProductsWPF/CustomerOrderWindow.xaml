@@ -326,7 +326,7 @@
                                                  FontWeight="Bold"
                                                  Foreground="#1F2937"/>
                                         <TextBlock Grid.Column="1"
-                                                 Text="{Binding TotalAmount, StringFormat='{}{0:N0} VND'}"
+                                                 Text="{Binding TotalAmount, StringFormat='{}{0:N0} đ'}"
                                                  FontSize="16"
                                                  FontWeight="Bold"
                                                  Foreground="{StaticResource PrimaryGreen}"/>
@@ -449,7 +449,7 @@
                                                        FontWeight="Medium"
                                                        Foreground="#1F2937"/>
                                             <TextBlock Grid.Column="1" Grid.Row="0"
-                                                       Text="{Binding SellingPrice, StringFormat='{}{0:N0} VND'}"
+                                                       Text="{Binding SellingPrice, StringFormat='{}{0:N0} đ'}"
                                                        FontSize="16"
                                                        FontWeight="Bold"
                                                        Foreground="#1F2937"
@@ -495,7 +495,7 @@
                             <TextBlock Grid.Column="0" Text="Total Amount:" FontSize="16"
                                        FontWeight="Bold" Foreground="#1F2937"/>
                             <TextBlock x:Name="txtTotalAmount" Grid.Column="1" 
-                                       Text="{Binding SelectedOrder.TotalAmount, StringFormat='{}{0:N0} VND'}"
+                                       Text="{Binding SelectedOrder.TotalAmount, StringFormat='{}{0:N0} đ'}"
                                        FontSize="20" FontWeight="Bold" 
                                        Foreground="{StaticResource PrimaryGreen}"/>
                         </Grid>
