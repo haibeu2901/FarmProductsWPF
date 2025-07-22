@@ -488,34 +488,54 @@
                             </DataGridTemplateColumn.HeaderStyle>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border Style="{StaticResource CategoryPillStyle}">
-                                        <TextBlock FontSize="12"
-                                                  FontWeight="SemiBold"
-                                                  TextAlignment="Center">
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock">
-                                                    <!-- Default style for "In Stock" -->
-                                                    <Setter Property="Text" Value="In Stock"/>
-                                                    <Setter Property="Foreground" Value="#2E7D32"/>
-                                                    <Style.Triggers>
-                                                        <!-- Out of Stock -->
-                                                        <DataTrigger Binding="{Binding Quantity}" Value="0">
-                                                            <Setter Property="Text" Value="Out of Stock"/>
-                                                            <Setter Property="Foreground" Value="#DC2626"/>
-                                                        </DataTrigger>
-                                                        <!-- Low Stock -->
-                                                        <DataTrigger Binding="{Binding Quantity}" Value="25">
-                                                            <Setter Property="Text" Value="Low Stock"/>
-                                                            <Setter Property="Foreground" Value="#B45309"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-                                    </Border>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                                    <Border>
+                <Border.Style>
+                    <Style TargetType="Border" BasedOn="{StaticResource CategoryPillStyle}">
+                        <Style.Triggers>
+                            <!-- Out of Stock -->
+                            <DataTrigger Binding="{Binding Status}" Value="Out of Stock">
+                                <Setter Property="Background" Value="#FEE2E2"/>
+                                <Setter Property="BorderBrush" Value="#FCA5A5"/>
+                            </DataTrigger>
+                            <!-- Low Stock -->
+                            <DataTrigger Binding="{Binding Status}" Value="Low Stock">
+                                <Setter Property="Background" Value="#FEF3C7"/>
+                                <Setter Property="BorderBrush" Value="#FCD34D"/>
+                            </DataTrigger>
+                            <!-- In Stock (default state) -->
+                            <DataTrigger Binding="{Binding Status}" Value="In Stock">
+                                <Setter Property="Background" Value="#E8F5E9"/>
+                                <Setter Property="BorderBrush" Value="#81C784"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <TextBlock FontSize="12"
+                          FontWeight="SemiBold"
+                          TextAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="In Stock"/>
+                            <Setter Property="Foreground" Value="#2E7D32"/>
+                            <Style.Triggers>
+                                <!-- Out of Stock -->
+                                <DataTrigger Binding="{Binding Status}" Value="Out of Stock">
+                                    <Setter Property="Text" Value="Out of Stock"/>
+                                    <Setter Property="Foreground" Value="#DC2626"/>
+                                </DataTrigger>
+                                <!-- Low Stock (0 < Quantity ≤ 25) -->
+                                <DataTrigger Binding="{Binding Status}" Value="Low Stock">
+                                    <Setter Property="Text" Value="Low Stock"/>
+                                    <Setter Property="Foreground" Value="#B45309"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+        </DataTemplate>
+    </DataGridTemplateColumn.CellTemplate>
+</DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

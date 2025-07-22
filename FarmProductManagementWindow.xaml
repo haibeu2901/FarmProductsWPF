@@ -1,0 +1,49 @@
+<DataGridTemplateColumn Header="Status" Width="120">
+    <DataGridTemplateColumn.HeaderStyle>
+        <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </DataGridTemplateColumn.HeaderStyle>
+    <DataGridTemplateColumn.CellTemplate>
+        <DataTemplate>
+            <Border Style="{StaticResource CategoryPillStyle}">
+                <TextBlock FontSize="12"
+                          FontWeight="SemiBold"
+                          TextAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <!-- Out of Stock -->
+                                <DataTrigger Binding="{Binding Quantity}" Value="0">
+                                    <Setter Property="Text" Value="Out of Stock"/>
+                                    <Setter Property="Foreground" Value="#DC2626"/>
+                                </DataTrigger>
+                                <!-- Low Stock - less than or equal to 25 -->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Quantity}" Value="25"/>
+                                        <Condition Binding="{Binding Path=Quantity, Converter={x:Static IsLessThanOrEqual}}" Value="True"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Text" Value="Low Stock"/>
+                                    <Setter Property="Foreground" Value="#B45309"/>
+                                </MultiDataTrigger>
+                                <!-- In Stock - greater than 25 -->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Quantity}" Value="25"/>
+                                        <Condition Binding="{Binding Path=Quantity, Converter={x:Static IsGreaterThan}}" Value="True"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Text" Value="In Stock"/>
+                                    <Setter Property="Foreground" Value="#2E7D32"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                            <!-- Default style -->
+                            <Setter Property="Text" Value="Low Stock"/>
+                            <Setter Property="Foreground" Value="#B45309"/>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+        </DataTemplate>
+    </DataGridTemplateColumn.CellTemplate>
+</DataGridTemplateColumn>
