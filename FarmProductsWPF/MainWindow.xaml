@@ -169,6 +169,17 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <!-- Category Pill Style -->
+        <Style x:Key="CategoryPillStyle" TargetType="Border">
+            <Setter Property="Background" Value="#E8F5E9"/>
+            <Setter Property="BorderBrush" Value="#81C784"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -318,10 +329,31 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Product Name"
                                         Binding="{Binding ProductName}"
-                                        Width="2*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Category"
-                                        Binding="{Binding Category}"
-                                        Width="1.5*" IsReadOnly="True"/>
+                                        Width="2*" IsReadOnly="True">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Category" Width="1.5*" IsReadOnly="True">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource CategoryPillStyle}">
+                                    <TextBlock Text="{Binding Category}"
+                                               Foreground="#2E7D32"
+                                               FontSize="12"
+                                               FontWeight="SemiBold"
+                                               TextAlignment="Center"/>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Unit"
                                         Binding="{Binding Unit}"
                                         Width="0.8*" IsReadOnly="True">
@@ -355,7 +387,13 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Description"
                                         Binding="{Binding Description}"
-                                        Width="3*" IsReadOnly="True"/>
+                                        Width="3*" IsReadOnly="True">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
