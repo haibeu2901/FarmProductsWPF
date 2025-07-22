@@ -176,9 +176,7 @@
                                VerticalAlignment="Center"/>
                     <TextBlock Text="{Binding CurrentUser.FullName}" FontWeight="Medium"
                                Foreground="#1F2937" VerticalAlignment="Center" Margin="0,0,15,0"/>
-                    <!-- Search button -->
-
-
+                   
                     <!-- Logout button -->
                     <Button x:Name="btnLogout" Style="{StaticResource LogoutButtonStyle}" 
                             Command="{Binding LogoutCommand}" Click="btnLogout_Click">

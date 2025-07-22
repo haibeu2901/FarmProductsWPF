@@ -1,4 +1,6 @@
 ﻿using FarmProductsWPF_BOs;
+using FarmProductsWPF_Repositories.Implements;
+using FarmProductsWPF_Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +22,21 @@ namespace FarmProductsWPF
     /// </summary>
     public partial class FarmProductManagementWindow : Window
     {
+        private Account _user;
+        private readonly IStockRepo _stockRepo;
+
+        public Account CurrentUser
+        {
+            get { return _user; }
+            private set { _user = value; }
+        }
+
         public FarmProductManagementWindow(Account account)
         {
             InitializeComponent();
+            _user = account;
+            this.DataContext = this;
+            _stockRepo = new StockRepo();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -30,6 +44,35 @@ namespace FarmProductsWPF
             LoginWindow login = new LoginWindow();
             this.Close();
             login.Show();
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = txtSearch.Text.Trim();
+            dtgStock.ItemsSource = _stockRepo.SearchStock(searchText).Select(s => new
+            {
+                s.ProductId,
+                s.Product.ProductName,
+                s.Product.Category.CategoryName,
+                s.Product.Unit,
+                s.Product.SellingPrice,
+                s.Quantity,
+                Status = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
+            }).ToList();
+        }
+
+        private void dtgStock_Loaded(object sender, RoutedEventArgs e)
+        {
+            dtgStock.ItemsSource = _stockRepo.GetAllStocks().Select(s => new
+            {
+                ProductId = s.ProductId,
+                ProductName = s.Product.ProductName,
+                CategoryName = s.Product.Category.CategoryName,
+                Unit = s.Product.Unit,
+                SellingPrice = s.Product.SellingPrice,
+                Quantity = s.Quantity,
+                Status = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
+            }).ToList();
         }
     }
 }
