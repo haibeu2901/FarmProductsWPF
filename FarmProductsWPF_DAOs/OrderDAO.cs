@@ -77,7 +77,7 @@ namespace FarmProductsWPF_DAOs
             // Search by staff name or product name
             else
             {
-                query = query.Where(o => 
+                query = query.Where(o =>
                     (o.Staff != null && o.Staff.FullName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) ||
                     o.OrderDetails.Any(od => od.Product.ProductName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
                 );
@@ -87,6 +87,15 @@ namespace FarmProductsWPF_DAOs
                 .OrderByDescending(o => o.OrderId)
                 .ThenByDescending(o => o.OrderDate)
                 .ToList();
+        }
+
+        public Order? GetOrderById(int orderId)
+        {
+            return _context.Orders
+                .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Product)
+                .Include(o => o.Staff)
+                .FirstOrDefault(o => o.OrderId == orderId);
         }
     }
 }

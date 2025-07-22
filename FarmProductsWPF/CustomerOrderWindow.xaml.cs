@@ -22,20 +22,28 @@ namespace FarmProductsWPF
     /// </summary>
     public partial class CustomerOrderWindow : Window
     {
-        private Account user;
+        private Account _user;
+        private Order _order;
         private readonly IOrderRepo _orderRepo;
-        
+
         // Add public property for binding
         public Account CurrentUser
         {
-            get { return user; }
-            private set { user = value; }
+            get { return _user; }
+            private set { _user = value; }
+        }
+
+        public Order SelectedOrder
+        {
+            get { return _order; }
+            private set { _order = value; }
         }
 
         public CustomerOrderWindow(Account account)
         {
             InitializeComponent();
-            user = account;
+            _user = account;
+            _order = new Order();
             // Set the DataContext to this window instance
             this.DataContext = this;
             _orderRepo = new OrderRepo();
@@ -50,7 +58,7 @@ namespace FarmProductsWPF
 
         private void dtgOrders_Loaded(object sender, RoutedEventArgs e)
         {
-            dtgOrders.ItemsSource = _orderRepo.GetOrdersByAccountId(user.AccountId).Select(o => new
+            dtgOrders.ItemsSource = _orderRepo.GetOrdersByAccountId(_user.AccountId).Select(o => new
             {
                 o.OrderId,
                 StaffName = o.Staff.FullName,
@@ -62,7 +70,7 @@ namespace FarmProductsWPF
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            dtgOrders.ItemsSource = _orderRepo.SearchOrdersByAccountId(user.AccountId, txtSearch.Text).Select(o => new
+            dtgOrders.ItemsSource = _orderRepo.SearchOrdersByAccountId(_user.AccountId, txtSearch.Text).Select(o => new
             {
                 o.OrderId,
                 StaffName = o.Staff.FullName,
@@ -71,5 +79,24 @@ namespace FarmProductsWPF
                 TotalItems = o.OrderDetails.Count
             }).ToList();
         }
+
+        private void dtgOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dtgOrders.SelectedItem != null)
+            {
+                dynamic selected = dtgOrders.SelectedItem;
+                int orderId = selected.OrderId;
+
+                _order = _orderRepo.GetOrderById(orderId);
+                if (_order != null)
+                {
+                    txtOrderId.Text = _order.OrderId.ToString();
+                    txtOrderDate.Text = _order.OrderDate.ToString();
+                    txtStaffName.Text = _order.Staff.FullName;
+                }
+            }
+        }
+
+
     }
 }

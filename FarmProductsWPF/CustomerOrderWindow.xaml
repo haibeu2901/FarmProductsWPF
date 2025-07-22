@@ -273,7 +273,7 @@
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
                              BorderThickness="0"
                              Background="Transparent"
-                             Loaded="dtgOrders_Loaded">
+                             Loaded="dtgOrders_Loaded" SelectionChanged="dtgOrders_SelectionChanged">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="Margin" Value="0,0,0,8"/>
@@ -381,16 +381,16 @@
 
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Order ID:" FontWeight="Medium"
                                            Foreground="#1F2937" Margin="0,0,20,8"/>
-                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedOrder.OrderNumber}"
+                                <TextBlock x:Name="txtOrderId" Grid.Row="0" Grid.Column="1" Text="{Binding SelectedOrder.OrderId}"
                                            Foreground="{StaticResource TextGray}" Margin="0,0,0,8"/>
                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Order Date:" FontWeight="Medium"
                                            Foreground="#1F2937" Margin="0,0,20,8"/>
-                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedOrder.OrderDate, StringFormat='{}{0:MMM dd, yyyy, hh:mm tt}'}"
+                                <TextBlock x:Name="txtOrderDate" Grid.Row="2" Grid.Column="1" Text="{Binding SelectedOrder.OrderDate, StringFormat='{}{0:MMM dd, yyyy, hh:mm tt}'}"
                                            Foreground="{StaticResource TextGray}" Margin="0,0,0,8"/>
 
                                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Processed by:" FontWeight="Medium"
                                            Foreground="#1F2937" Margin="0,0,20,0"/>
-                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedOrder.ProcessedBy}"
+                                <TextBlock x:Name="txtStaffName" Grid.Row="3" Grid.Column="1" Text="{Binding SelectedOrder.StaffName}"
                                            Foreground="{StaticResource TextGray}"/>
                             </Grid>
                         </Border>

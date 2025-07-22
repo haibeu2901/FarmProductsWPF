@@ -16,6 +16,11 @@ namespace FarmProductsWPF_Repositories.Implements
             return OrderDAO.Instance.GetAllOrders();
         }
 
+        public Order? GetOrderById(int orderId)
+        {
+            return OrderDAO.Instance.GetOrderById(orderId);
+        }
+
         public List<Order> GetOrdersByAccountId(int accountId)
         {
             return OrderDAO.Instance.GetOrdersByAccountId(accountId);
