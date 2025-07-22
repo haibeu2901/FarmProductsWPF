@@ -134,7 +134,7 @@
 
         <!-- DataGrid Header Style (General) -->
         <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#495057"/>
+            <Setter Property="Background" Value="#27AE60"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="FontSize" Value="14"/>
@@ -208,12 +208,18 @@
                         Margin="927,0,0,0" Width="83" Click="btnLogin_Click"/>
 
                 <!-- Shutdown App Button -->
-                <Button x:Name="btnShutDown" Content="⛔ Shutdown"
+                <Button x:Name="btnShutDown" Content="❌ Shutdown"
                         Style="{StaticResource ShutdownButton}"
                         HorizontalAlignment="Left"
                         Margin="1027,0,0,0" Width="112" Click="btnShutDown_Click"/>
             </Grid>
         </Border>
+
+        <!-- Green Separator Line -->
+        <Border Grid.Row="0" 
+        BorderBrush="#27AE60" 
+        BorderThickness="0,0,0,3" 
+        Margin="20,55,20,0"/>
 
         <!-- Search Section -->
         <Border Grid.Row="1"
@@ -251,7 +257,7 @@
                                         <Setter.Value>
                                             <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None">
                                                 <VisualBrush.Visual>
-                                                    <TextBlock Text="Search by name, category, or description..."
+                                                    <TextBlock Text="🔍 Search by name, category, or description..."
                                                                Foreground="#6C757D"
                                                                FontStyle="Italic"
                                                                Margin="5,0"/>
