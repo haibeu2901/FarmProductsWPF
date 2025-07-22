@@ -47,7 +47,8 @@ namespace FarmProductsWPF
                 // Login successful
                 if (account.Role == 1 || account.Role == 2)
                 {
-                    MessageBox.Show("Login successful!");
+                    FarmProductManagementWindow managementWindow = new FarmProductManagementWindow(account);
+                    managementWindow.Show();
                 }
                 else if (account.Role == 3)
                 {
