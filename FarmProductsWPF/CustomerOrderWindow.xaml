@@ -268,12 +268,12 @@
                         </Grid>
                     </Border>
 
-                    <ListBox x:Name="dtgOrders" Grid.Row="2"
+                    <ListBox x:Name="dtgOrders" Grid.Row="4"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
                              BorderThickness="0"
                              Background="Transparent"
-                             Loaded="dtgOrders_Loaded">
+                             Loaded="dtgOrders_Loaded" SelectionChanged="dtgOrders_SelectionChanged">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="Margin" Value="0,0,0,8"/>
@@ -361,150 +361,146 @@
             <Border Grid.Column="1" Background="{StaticResource BackgroundWhite}"
                     BorderBrush="{StaticResource BorderGray}" BorderThickness="1"
                     CornerRadius="12" Padding="20" Margin="10,0,0,0">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock Text="Order Details" FontSize="20" FontWeight="Bold"
-                                   Foreground="#1F2937" Margin="0,0,0,15"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                        <Border>
-                            <Grid Margin="0,0,0,20">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock Text="Order Details" FontSize="20" FontWeight="Bold"
+                                       Foreground="#1F2937" Margin="0,0,0,15"/>
 
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Order ID:" FontWeight="Medium"
-                                           Foreground="#1F2937" Margin="0,0,20,8"/>
-                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedOrder.OrderNumber}"
-                                           Foreground="{StaticResource TextGray}" Margin="0,0,0,8"/>
-                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Order Date:" FontWeight="Medium"
-                                           Foreground="#1F2937" Margin="0,0,20,8"/>
-                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedOrder.OrderDate, StringFormat='{}{0:MMM dd, yyyy, hh:mm tt}'}"
-                                           Foreground="{StaticResource TextGray}" Margin="0,0,0,8"/>
+                            <Border>
+                                <Grid Margin="0,0,0,20">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Processed by:" FontWeight="Medium"
-                                           Foreground="#1F2937" Margin="0,0,20,0"/>
-                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedOrder.ProcessedBy}"
-                                           Foreground="{StaticResource TextGray}"/>
-                            </Grid>
-                        </Border>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Order ID:" FontWeight="Medium"
+                                               Foreground="#1F2937" Margin="0,0,20,8"/>
+                                    <TextBlock x:Name="txtOrderId" Grid.Row="0" Grid.Column="1" Text="{Binding SelectedOrder.OrderId}"
+                                               Foreground="{StaticResource TextGray}" Margin="0,0,0,8"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Order Date:" FontWeight="Medium"
+                                               Foreground="#1F2937" Margin="0,0,20,8"/>
+                                    <TextBlock x:Name="txtOrderDate" Grid.Row="2" Grid.Column="1" Text="{Binding SelectedOrder.OrderDate, StringFormat='{}{0:MMM dd, yyyy, hh:mm tt}'}"
+                                               Foreground="{StaticResource TextGray}" Margin="0,0,0,8"/>
 
-                        <TextBlock Text="Items Ordered" FontSize="16"
-                                   FontWeight="Bold" Foreground="#1F2937" Margin="0,0,0,15"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Processed by:" FontWeight="Medium"
+                                               Foreground="#1F2937" Margin="0,0,20,0"/>
+                                    <TextBlock x:Name="txtStaffName" Grid.Row="3" Grid.Column="1" Text="{Binding SelectedOrder.StaffName}"
+                                               Foreground="{StaticResource TextGray}"/>
+                                </Grid>
+                            </Border>
 
-                        <ListBox ItemsSource="{Binding SelectedOrder.Items}"
-                                 ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="0" Background="Transparent">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="#F9FAFB" BorderBrush="{StaticResource BorderGray}"
-                                            BorderThickness="1" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                            <TextBlock Text="Items Ordered" FontSize="16"
+                                       FontWeight="Bold" Foreground="#1F2937" Margin="0,0,0,15"/>
+
+                            <!-- ListBox goes here -->
+                            <ListBox x:Name="dtgOrderDetail" Height="280" 
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     ItemsSource="{Binding SelectedOrder.OrderDetails}">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Margin" Value="0,0,0,8"/>
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <Border x:Name="Border"
+                                                            Background="{StaticResource BackgroundWhite}"
+                                                            BorderBrush="{StaticResource BorderGray}"
+                                                            BorderThickness="1"
+                                                            CornerRadius="8">
+                                                        <ContentPresenter Margin="16,12"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
                                         <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
 
-                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}"
-                                                       FontWeight="Medium" Foreground="#1F2937"/>
-                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Price, StringFormat='{}{0:C}'}"
-                                                       FontWeight="Bold" Foreground="#1F2937"/>
+                                            <!-- Product Name and Selling Price -->
+                                            <TextBlock Grid.Column="0" Grid.Row="0"
+                                                       Text="{Binding ProductName}"
+                                                       FontSize="16"
+                                                       FontWeight="Medium"
+                                                       Foreground="#1F2937"/>
+                                            <TextBlock Grid.Column="1" Grid.Row="0"
+                                                       Text="{Binding SellingPrice, StringFormat='{}{0:N0} VND'}"
+                                                       FontSize="16"
+                                                       FontWeight="Bold"
+                                                       Foreground="#1F2937"
+                                                       HorizontalAlignment="Right"/>
 
-                                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal"
-                                                        Margin="0,5,0,0">
-                                                <Border>
-                                                    <Border.Style>
-                                                        <Style TargetType="Border" BasedOn="{StaticResource CategoryBadgeStyle}">
-                                                            <Setter Property="Background" Value="{StaticResource LightGreen}"/>
-                                                            <Setter Property="TextElement.Foreground" Value="{StaticResource PrimaryGreen}"/>
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding Category}" Value="Dairy &amp; Eggs">
-                                                                    <Setter Property="Background" Value="#DBEAFE"/>
-                                                                    <Setter Property="TextElement.Foreground" Value="{StaticResource ShippedBlue}"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding Category}" Value="Pantry">
-                                                                    <Setter Property="Background" Value="#FEF3C7"/>
-                                                                    <Setter Property="TextElement.Foreground" Value="{StaticResource ProcessingOrange}"/>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Border.Style>
-                                                    <TextBlock Text="{Binding Category}"/>
+                                            <!-- Category, Quantity, Unit and Unit Price -->
+                                            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                                        Orientation="Horizontal"
+                                                        Margin="0,8,0,0">
+                                                <!-- Category Badge -->
+                                                <Border Style="{StaticResource CategoryBadgeStyle}"
+                                                        Background="{StaticResource LightGreen}">
+                                                    <TextBlock Text="{Binding CategoryName}"
+                                                               Foreground="{StaticResource PrimaryGreen}"/>
                                                 </Border>
-                                                <TextBlock FontSize="12" Foreground="{StaticResource TextGray}"
-                                                           VerticalAlignment="Center">
-                                                    <Run Text="{Binding Quantity}"/>
-                                                    <Run Text=" × "/>
-                                                    <Run Text="{Binding UnitPrice, StringFormat='{}{0:C}'}"/>
-                                                </TextBlock>
+
+                                                <!-- Quantity, Unit and Unit Price -->
+                                                <TextBlock Text="{Binding Quantity, StringFormat='{}'}"
+                                                           Foreground="{StaticResource TextGray}"/>
+                                                <TextBlock Text="{Binding Unit, StringFormat=' {0}'}"
+                                                           Foreground="{StaticResource TextGray}"/>
+                                                <TextBlock Text=" × "
+                                                           Foreground="{StaticResource TextGray}"/>
+                                                <TextBlock Text="{Binding UnitPrice, StringFormat='{}{0:N0} VND'}"
+                                                           Foreground="{StaticResource TextGray}"/>
                                             </StackPanel>
                                         </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </ScrollViewer>
 
-                        <Border Background="{StaticResource LightGreen}"
-                                BorderBrush="{StaticResource PrimaryGreen}" BorderThickness="1"
-                                CornerRadius="8" Padding="15" Margin="0,15,0,0">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="Total Amount:" FontSize="16"
-                                           FontWeight="Bold" Foreground="#1F2937"/>
-                                <TextBlock Grid.Column="1" Text="{Binding SelectedOrder.TotalAmount, StringFormat='{}{0:C}'}"
-                                           FontSize="20" FontWeight="Bold" Foreground="{StaticResource PrimaryGreen}"/>
-                            </Grid>
-                        </Border>
-
-                        <TextBlock Text="Account Information" FontSize="16" FontWeight="Bold"
-                                   Foreground="#1F2937" Margin="0,30,0,15"/>
-
+                    <!-- Total Amount moved to bottom -->
+                    <Border Grid.Row="1" Background="{StaticResource LightGreen}"
+                            BorderBrush="{StaticResource PrimaryGreen}" BorderThickness="1"
+                            CornerRadius="8" Padding="15" Margin="0,20,0,0">
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" FontWeight="Medium"
-                                       Foreground="#1F2937" Margin="0,0,15,10"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentUser.FullName}"
-                                       Foreground="{StaticResource TextGray}" Margin="0,0,0,10"/>
-
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Email:" FontWeight="Medium"
-                                       Foreground="#1F2937" Margin="0,0,15,10"/>
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding CurrentUser.Email}"
-                                       Foreground="{StaticResource TextGray}" Margin="0,0,0,10"/>
-
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Phone:" FontWeight="Medium"
-                                       Foreground="#1F2937" Margin="0,0,15,10"/>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding CurrentUser.PhoneNumber}"
-                                       Foreground="{StaticResource TextGray}" Margin="0,0,0,10"/>
-
-                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Address:" FontWeight="Medium"
-                                       Foreground="#1F2937" Margin="0,0,15,0"/>
-                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding CurrentUser.Address}"
-                                       Foreground="{StaticResource TextGray}" TextWrapping="Wrap"/>
+                            <TextBlock Grid.Column="0" Text="Total Amount:" FontSize="16"
+                                       FontWeight="Bold" Foreground="#1F2937"/>
+                            <TextBlock x:Name="txtTotalAmount" Grid.Column="1" 
+                                       Text="{Binding SelectedOrder.TotalAmount, StringFormat='{}{0:N0} VND'}"
+                                       FontSize="20" FontWeight="Bold" 
+                                       Foreground="{StaticResource PrimaryGreen}"/>
                         </Grid>
-                    </StackPanel>
-                </ScrollViewer>
+                    </Border>
+                </Grid>
             </Border>
         </Grid>
     </Grid>
