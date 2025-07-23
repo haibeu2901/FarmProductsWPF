@@ -49,6 +49,11 @@ namespace FarmProductsWPF
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             string searchText = txtSearch.Text.Trim();
+            LoadDataGrid(searchText);
+        }
+
+        private void LoadDataGrid(string searchText)
+        {
             dtgStock.ItemsSource = _stockRepo.SearchStock(searchText).Select(s => new
             {
                 s.ProductId,
@@ -63,16 +68,7 @@ namespace FarmProductsWPF
 
         private void dtgStock_Loaded(object sender, RoutedEventArgs e)
         {
-            dtgStock.ItemsSource = _stockRepo.GetAllStocks().Select(s => new
-            {
-                ProductId = s.ProductId,
-                ProductName = s.Product.ProductName,
-                CategoryName = s.Product?.Category?.CategoryName,
-                Unit = s.Product?.Unit,
-                SellingPrice = s.Product?.SellingPrice,
-                Quantity = s.Quantity,
-                Status = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
-            }).ToList();
+            LoadDataGrid("");
         }
 
         private void btnCreateOrderWindow_Click(object sender, RoutedEventArgs e)

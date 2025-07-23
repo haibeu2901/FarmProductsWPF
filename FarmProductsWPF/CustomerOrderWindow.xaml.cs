@@ -58,9 +58,9 @@ namespace FarmProductsWPF
             login.Show();
         }
 
-        private void dtgOrders_Loaded(object sender, RoutedEventArgs e)
+        private void LoadOrderDataGrid(string searchText)
         {
-            dtgOrders.ItemsSource = _orderRepo.GetOrdersByAccountId(_user.AccountId).Select(o => new
+            dtgOrders.ItemsSource = _orderRepo.SearchOrdersByAccountId(_user.AccountId, searchText).Select(o => new
             {
                 o.OrderId,
                 StaffName = o.Staff.FullName,
@@ -70,16 +70,14 @@ namespace FarmProductsWPF
             }).ToList();
         }
 
+        private void dtgOrders_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadOrderDataGrid("");
+        }
+
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            dtgOrders.ItemsSource = _orderRepo.SearchOrdersByAccountId(_user.AccountId, txtSearch.Text).Select(o => new
-            {
-                o.OrderId,
-                StaffName = o.Staff.FullName,
-                o.OrderDate,
-                o.TotalAmount,
-                TotalItems = o.OrderDetails.Count
-            }).ToList();
+            LoadOrderDataGrid(txtSearch.Text);
         }
 
         private void dtgOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -95,7 +93,7 @@ namespace FarmProductsWPF
                     txtOrderId.Text = _order.OrderId.ToString();
                     txtOrderDate.Text = _order.OrderDate.ToString();
                     txtStaffName.Text = _order.Staff.FullName;
-                    txtTotalAmount.Text = _order.TotalAmount.ToString("N0") + " đ";
+                    txtTotalAmount.Text = _order.TotalAmount.ToString("N0") + " VND";
 
                     // Set dtgOrderDetail.ItemsSource
                     dtgOrderDetail.ItemsSource = _orderDetailRepo.GetOrderDetailsByOrderId(orderId)

@@ -65,9 +65,9 @@ namespace FarmProductsWPF
             this.Close();
         }
 
-        private void lstOrders_Loaded(object sender, RoutedEventArgs e)
+        private void LoadOrderHistoryDataGrid(string searchText)
         {
-            lstOrders.ItemsSource = _orderRepo.GetOrdersHistory().Select(o => new
+            lstOrders.ItemsSource = _orderRepo.SearchOrdersHistory(searchText).Select(o => new
             {
                 OrderId = o.OrderId,
                 OrderDate = o.OrderDate,
@@ -78,18 +78,15 @@ namespace FarmProductsWPF
             }).ToList();
         }
 
+        private void lstOrders_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadOrderHistoryDataGrid("");
+        }
+
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             string searchText = txtSearch.Text.Trim();
-            lstOrders.ItemsSource = _orderRepo.SearchOrdersHistory(searchText).Select(o => new
-            {
-                OrderId = o.OrderId,
-                OrderDate = o.OrderDate,
-                CustomerName = o.Customer?.FullName ?? "Guest",
-                CustomerPhoneNumber = o.Customer?.PhoneNumber ?? "N/A",
-                TotalAmount = o.TotalAmount,
-                OrderDetailsCount = o.OrderDetails.Count,
-            }).ToList();
+            LoadOrderHistoryDataGrid(searchText);
         }
 
         private void lstOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)

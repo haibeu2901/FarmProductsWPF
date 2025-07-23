@@ -28,15 +28,7 @@ namespace FarmProductsWPF
 
         private void dtgProduct_Loaded(object sender, RoutedEventArgs e)
         {
-            dtgProduct.ItemsSource = _productRepo.GetAllProducts().Select(p => new
-            {
-                p.ProductId,
-                p.ProductName,
-                Category = p.Category.CategoryName,
-                p.Unit,
-                p.SellingPrice,
-                p.Description
-            }).ToList();
+            LoadDataGrid("");
         }
 
         private void LoadDataGrid(string text)
