@@ -258,19 +258,19 @@
             <Setter Property="BorderThickness" Value="0,0,1,0"/>
             <Setter Property="BorderBrush" Value="#5a6268"/>
         </Style>
-        
+
         <!-- DataGrid Column Header Style with centered content -->
         <Style x:Key="CenteredColumnHeaderStyle" TargetType="DataGridColumnHeader" 
                BasedOn="{StaticResource DataGridColumnHeaderStyle}">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
-        
+
         <!-- DataGrid Cell Style with centered content -->
         <Style x:Key="CenteredCellStyle" TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        
+
         <!-- Category Pill Style -->
         <Style x:Key="StockIndicatorStyle" TargetType="Border">
             <Setter Property="Background" Value="{StaticResource PrimaryGreenLight}"/>
@@ -281,7 +281,29 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        
+
+        <!-- Category Pill Style -->
+        <Style x:Key="CategoryPillStyle" TargetType="Border">
+            <Setter Property="Background" Value="#E8F5E9"/>
+            <Setter Property="BorderBrush" Value="#81C784"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Status Pill Style -->
+        <Style x:Key="StatusPill" TargetType="Border">
+            <Setter Property="Background" Value="#E8F5E9"/>
+            <Setter Property="BorderBrush" Value="#81C784"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
         <!-- Watermark Style for TextBox -->
         <Style x:Key="WatermarkStyle" TargetType="TextBox" BasedOn="{StaticResource SearchBox}">
             <Style.Triggers>
@@ -301,7 +323,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style x:Key="CustomerSearchStyle" TargetType="TextBox" BasedOn="{StaticResource SearchBox}">
             <Style.Triggers>
                 <Trigger Property="Text" Value="">
@@ -319,6 +341,15 @@
                     </Setter>
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <!-- Add this style to Window.Resources section -->
+        <Style x:Key="PriceStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#28A745"/>
+            <Setter Property="TextAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
 
@@ -454,44 +485,97 @@
                               x:Name="dtgProducts" 
                               Style="{StaticResource ModernDataGrid}"
                               ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                              IsReadOnly="True">
+                              IsReadOnly="True" Loaded="dtgProducts_Loaded">
+                        <!-- Replace the current DataGrid columns section in dtgProducts -->
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" Width="*" 
-                                               HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
-                                               ElementStyle="{StaticResource CenteredCellStyle}"/>
-                            
-                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="1.5*"
-                                               HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
-                                               ElementStyle="{StaticResource CenteredCellStyle}"/>
-                            
-                            <DataGridTextColumn Header="Price" Binding="{Binding PriceDisplay}" Width="0.7*"
-                                               HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
-                                               ElementStyle="{StaticResource CenteredCellStyle}"/>
+                       HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
+                       ElementStyle="{StaticResource CenteredCellStyle}"/>
 
-                            <!-- Stock Status Column with Template -->
-                            <DataGridTemplateColumn Header="Stock Status" Width="0.7*"
-                                                   HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
+                            <!-- Category column with pill style -->
+                            <DataGridTemplateColumn Header="Category" 
+                          Width="0.8*"
+                          HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Border Style="{StaticResource StockIndicatorStyle}">
-                                            <TextBlock Text="{Binding StockDisplay}" 
-                                                       FontSize="12" 
-                                                       FontWeight="SemiBold" 
-                                                       Foreground="#2E7D32"/>
+                                        <Border Style="{StaticResource CategoryPillStyle}">
+                                            <TextBlock Text="{Binding CategoryName}"
+                             Foreground="#2E7D32"
+                             FontSize="12"
+                             FontWeight="SemiBold"
+                             TextAlignment="Center"/>
                                         </Border>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            
+
+                            <DataGridTextColumn Header="Price" 
+                   Binding="{Binding PriceDisplay, StringFormat='{}{0:#,##0}₫'}" 
+                   Width="0.7*"
+                   HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
+                   ElementStyle="{StaticResource PriceStyle}"/>
+
+                            <!-- Stock Status Column with conditional formatting -->
+                            <DataGridTemplateColumn Header="Stock Status" Width="0.7*"
+                           HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border>
+                                            <Border.Style>
+                                                <Style TargetType="Border" BasedOn="{StaticResource StatusPill}">
+                                                    <Style.Triggers>
+                                                        <!-- Out of Stock -->
+                                                        <DataTrigger Binding="{Binding StockDisplay}" Value="Out of Stock">
+                                                            <Setter Property="Background" Value="#FEE2E2"/>
+                                                            <Setter Property="BorderBrush" Value="#FCA5A5"/>
+                                                        </DataTrigger>
+                                                        <!-- Low Stock -->
+                                                        <DataTrigger Binding="{Binding StockDisplay}" Value="Low Stock">
+                                                            <Setter Property="Background" Value="#FEF3C7"/>
+                                                            <Setter Property="BorderBrush" Value="#FCD34D"/>
+                                                        </DataTrigger>
+                                                        <!-- In Stock (default state) -->
+                                                        <DataTrigger Binding="{Binding StockDisplay}" Value="In Stock">
+                                                            <Setter Property="Background" Value="#E8F5E9"/>
+                                                            <Setter Property="BorderBrush" Value="#81C784"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <TextBlock FontSize="12"
+                              FontWeight="SemiBold"
+                              TextAlignment="Center">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Text" Value="{Binding StockDisplay}"/>
+                                                        <Setter Property="Foreground" Value="#2E7D32"/>
+                                                        <Style.Triggers>
+                                                            <!-- Out of Stock -->
+                                                            <DataTrigger Binding="{Binding StockDisplay}" Value="Out of Stock">
+                                                                <Setter Property="Foreground" Value="#DC2626"/>
+                                                            </DataTrigger>
+                                                            <!-- Low Stock -->
+                                                            <DataTrigger Binding="{Binding StockDisplay}" Value="Low Stock">
+                                                                <Setter Property="Foreground" Value="#B45309"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
                             <!-- Add Button Column -->
                             <DataGridTemplateColumn Header="Action" Width="0.5*"
-                                                   HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
+                           HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button Content="Add" 
-                                                Style="{StaticResource AddButton}"
-                                                Command="{Binding AddToCartCommand}"
-                                                CommandParameter="{Binding}"/>
+                        Style="{StaticResource AddButton}"
+                        Command="{Binding AddToCartCommand}"
+                        CommandParameter="{Binding}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -586,11 +670,13 @@
                             <DataGridTextColumn Header="Product" Binding="{Binding ProductName}" Width="*"
                                                HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
                                                ElementStyle="{StaticResource CenteredCellStyle}"/>
-                            
-                            <DataGridTextColumn Header="Price" Binding="{Binding PriceDisplay}" Width="0.7*"
-                                               HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
-                                               ElementStyle="{StaticResource CenteredCellStyle}"/>
-                            
+
+                            <DataGridTextColumn Header="Price" 
+                   Binding="{Binding PriceDisplay, StringFormat='{}{0:#,##0}₫'}" 
+                   Width="0.7*"
+                   HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
+                   ElementStyle="{StaticResource PriceStyle}"/>
+
                             <!-- Quantity Control Column -->
                             <DataGridTemplateColumn Header="Quantity" Width="1.2*"
                                                    HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
@@ -613,7 +699,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            
+
                             <!-- Remove Button Column -->
                             <DataGridTemplateColumn Header="Remove" Width="0.4*"
                                                    HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
@@ -653,10 +739,10 @@
                                       Foreground="{StaticResource TextPrimary}"/>
 
                             <TextBlock Grid.Column="1" 
-                                      Text="$10.25" 
+                                      Text="{Binding TotalPrice, StringFormat='{}{0:#,##0}₫'}" 
                                       FontSize="18" 
                                       FontWeight="Bold" 
-                                      Foreground="#27AE60"/>
+                                      Foreground="#28A745"/>
                         </Grid>
 
                         <Button Grid.Row="1" 
