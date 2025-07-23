@@ -40,5 +40,10 @@ namespace FarmProductsWPF_Repositories.Implements
         {
             return OrderDAO.Instance.SearchOrdersByAccountId(accountId, searchTerm);
         }
+
+        public List<Order> SearchOrdersHistory(string searchTerm)
+        {
+            return OrderDAO.Instance.SearchOrdersHistory(searchTerm);
+        }
     }
 }

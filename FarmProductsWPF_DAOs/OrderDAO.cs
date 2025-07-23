@@ -111,7 +111,24 @@ namespace FarmProductsWPF_DAOs
                 .Include(o => o.OrderDetails)
                 .Include(o => o.Staff)
                 .Include(o => o.Customer == null ? null : o.Customer)
-                .Where(o => o.OrderDate.HasValue && o.OrderDate.Value.Date < DateTime.Now.Date)
+                .Where(o => o.OrderDate.HasValue)
+                .OrderByDescending(o => o.OrderId)
+                .ThenByDescending(o => o.OrderDate)
+                .ToList();
+        }
+
+        public List<Order> SearchOrdersHistory(string searchTerm)
+        {
+            return _context.Orders
+                .Include(o => o.OrderDetails)
+                .Include(o => o.Staff)
+                .Include(o => o.Customer == null ? null : o.Customer)
+                .Where(o => o.OrderDate.HasValue)
+                .Where(o => o.OrderId.ToString() == searchTerm ||
+                            (o.Staff != null && o.Staff.FullName.ToLower().Contains(searchTerm.ToLower()) ||
+                            (o.Customer != null && (o.Customer.FullName.ToLower().Contains(searchTerm.ToLower()) ||
+                            o.Customer.PhoneNumber.ToLower().Contains(searchTerm.ToLower())) ||
+                            o.OrderDetails.Any(od => od.Product.ProductName.ToLower().Contains(searchTerm.ToLower())))))
                 .OrderByDescending(o => o.OrderId)
                 .ThenByDescending(o => o.OrderDate)
                 .ToList();

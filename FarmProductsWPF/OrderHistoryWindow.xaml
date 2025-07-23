@@ -195,6 +195,18 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Category Pill Style -->
+        <Style x:Key="CategoryPillStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="Background" Value="#E8F5E9"/>
+            <Setter Property="BorderBrush" Value="#81C784"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -258,23 +270,26 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="btnViewStockWindow" Grid.Column="0" Content="📦 View Stock" 
-                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" 
+                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"
                         Click="btnViewStockWindow_Click" />
                 <Button x:Name="btnCreateOrderWindow" Grid.Column="1" Content="🛒 Create Order" 
-                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" 
+                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"
                         Click="btnCreateOrderWindow_Click" />
                 <Button Grid.Column="2" Content="📅 Order History" 
-                        Style="{StaticResource NavButton}" HorizontalAlignment="Center"
+                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"
                         Background="#F3F4F6" Foreground="#4F46E5"/>
                 <Button Grid.Column="3" Content="👥 Accounts" 
-                        Style="{StaticResource NavButton}" HorizontalAlignment="Center"/>
+                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button Grid.Column="4" Content="🏷️ Categories" 
-                        Style="{StaticResource NavButton}" HorizontalAlignment="Center"/>
+                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button Grid.Column="5" Content="🌾 Products" 
-                        Style="{StaticResource NavButton}" HorizontalAlignment="Center"/>
+                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Grid.Column="6" Content="📋 Stock Management"
+                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </Border>
 
@@ -327,7 +342,8 @@
                                      BorderThickness="0"
                                      Foreground="{StaticResource TextGray}"
                                      VerticalAlignment="Center"
-                                     Height="28" Margin="10,0,59,0">
+                                     HorizontalAlignment="Center"
+                                     Height="28" Width="254">
                                 <TextBox.Style>
                                     <Style TargetType="TextBox">
                                         <Setter Property="Template">
@@ -337,12 +353,13 @@
                                                         <TextBox Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
                                                                  Background="{TemplateBinding Background}"
                                                                  Foreground="{TemplateBinding Foreground}"
+                                                                 VerticalContentAlignment="Center"
                                                                  BorderThickness="0"/>
                                                         <TextBlock Text="Search orders..." 
                                                                    Foreground="#9CA3AF" 
                                                                    IsHitTestVisible="False"
-                                                                   Margin="2,0,0,0"
-                                                                   VerticalAlignment="Center">
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center" Width="254">
                                                             <TextBlock.Style>
                                                                 <Style TargetType="TextBlock">
                                                                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -365,7 +382,7 @@
                                     Grid.Column="2" 
                                     Margin="8,0,0,0"
                                     Style="{StaticResource SearchButtonStyle}" 
-                                    >
+                                    Click="btnSearch_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="🔍 Search" 
                                                FontSize="14" 
@@ -381,7 +398,7 @@
                          BorderThickness="0"
                          Background="Transparent"
                          ItemContainerStyle="{StaticResource OrderItemStyle}"
-                         ScrollViewer.VerticalScrollBarVisibility="Auto" Loaded="lstOrders_Loaded">
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" Loaded="lstOrders_Loaded" SelectionChanged="lstOrders_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -407,7 +424,7 @@
 
                                     <Border Grid.Column="1"
                                             Style="{StaticResource StatusBadgeStyle}">
-                                        <TextBlock Text="Completed"
+                                        <TextBlock Text="✔ Completed"
                                                    Foreground="{StaticResource StatusGreen}"
                                                    FontSize="12"
                                                    FontWeight="Medium"/>
@@ -583,7 +600,18 @@
                              x:Name="lstOrderItems"
                              BorderThickness="0"
                              Background="Transparent"
-                             ItemContainerStyle="{StaticResource OrderItemStyle}">
+                             SelectionMode="Single"
+                             IsHitTestVisible="True"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <!-- Only set ItemContainerStyle once -->
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource OrderItemStyle}">
+                                <Setter Property="IsHitTestVisible" Value="False"/>
+                                <Setter Property="Focusable" Value="False"/>
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -598,28 +626,43 @@
 
                                     <!-- Product Name and Price -->
                                     <TextBlock Grid.Row="0" Grid.Column="0"
-                                               Text="{Binding Product.ProductName}"
+                                               Text="{Binding DetailProductName}"
                                                FontSize="16"
                                                FontWeight="Medium"
                                                Foreground="#1F2937"/>
 
                                     <TextBlock Grid.Row="0" Grid.Column="1"
-                                               Text="{Binding TotalPrice, StringFormat='{}{0:C2}'}"
+                                               Text="{Binding DetailTotalPrice, StringFormat='{}{0:N0} đ'}"
                                                FontSize="16"
                                                FontWeight="Bold"
                                                Foreground="#1F2937"/>
 
-                                    <!-- Quantity and Unit Price -->
+                                    <!-- Category, Quantity and Unit Price -->
                                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                                 Orientation="Horizontal"
-                                                Margin="0,5,0,0">
-                                        <TextBlock Text="{Binding Quantity}"
+                                                Margin="0,8,0,0">
+                                        <!-- Category Badge -->
+                                        <Border Style="{StaticResource CategoryPillStyle}"
+                                                Background="#E8F5E9"
+                                                BorderBrush="#81C784"
+                                                BorderThickness="1"
+                                                CornerRadius="12"
+                                                Padding="8,4"
+                                                Margin="0,0,5,0">
+                                            <TextBlock Text="{Binding CategoryName}"
+                                                       Foreground="#2E7D32"
+                                                       FontSize="12"
+                                                       FontWeight="SemiBold"/>
+                                        </Border>
+
+                                        <!-- Quantity and Unit Price -->
+                                        <TextBlock Text="{Binding DetailQuantity}"
                                                    Foreground="{StaticResource TextGray}"/>
-                                        <TextBlock Text="{Binding Product.Unit, StringFormat=' {0}'}"
+                                        <TextBlock Text="{Binding DetailProductUnit}"
                                                    Foreground="{StaticResource TextGray}"/>
                                         <TextBlock Text=" × "
                                                    Foreground="{StaticResource TextGray}"/>
-                                        <TextBlock Text="{Binding Product.SellingPrice, StringFormat='{}{0:C2}'}"
+                                        <TextBlock Text="{Binding DetailSellingPrice, StringFormat='{}{0:N0} đ'}"
                                                    Foreground="{StaticResource TextGray}"/>
                                     </StackPanel>
                                 </Grid>

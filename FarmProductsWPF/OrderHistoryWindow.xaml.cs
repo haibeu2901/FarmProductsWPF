@@ -24,7 +24,9 @@ namespace FarmProductsWPF
     public partial class OrderHistoryWindow : Window
     {
         private Account _user;
+        private Order _order;
         private readonly IOrderRepo _orderRepo;
+        private readonly IOrderDetailRepo _orderDetailRepo;
 
         public Account CurrentUser
         {
@@ -36,8 +38,10 @@ namespace FarmProductsWPF
         {
             InitializeComponent();
             _user = account;
+            _order = new Order();
             this.DataContext = this;
             _orderRepo = new OrderRepo();
+            _orderDetailRepo = new OrderDetailRepo();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -67,8 +71,8 @@ namespace FarmProductsWPF
             {
                 OrderId = o.OrderId,
                 OrderDate = o.OrderDate,
-                CustomerName = o.Customer?.FullName,
-                CustomerPhoneNumber = o.Customer?.PhoneNumber,
+                CustomerName = o.Customer?.FullName ?? "Guest",
+                CustomerPhoneNumber = o.Customer?.PhoneNumber ?? "N/A",
                 TotalAmount = o.TotalAmount,
                 OrderDetailsCount = o.OrderDetails.Count,
             }).ToList();
@@ -76,7 +80,56 @@ namespace FarmProductsWPF
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            string searchText = txtSearch.Text.Trim();
+            lstOrders.ItemsSource = _orderRepo.SearchOrdersHistory(searchText).Select(o => new
+            {
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate,
+                CustomerName = o.Customer?.FullName ?? "Guest",
+                CustomerPhoneNumber = o.Customer?.PhoneNumber ?? "N/A",
+                TotalAmount = o.TotalAmount,
+                OrderDetailsCount = o.OrderDetails.Count,
+            }).ToList();
+        }
 
+        private void lstOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lstOrders.SelectedItem != null)
+            {
+                dynamic selected = lstOrders.SelectedItem;
+                int orderId = selected.OrderId;
+
+                _order = _orderRepo.GetOrderById(orderId);
+                if (_order != null)
+                {
+                    txtSelectedOrderDate.Text = _order.OrderDate.ToString();
+                    txtSelectedCustomerName.Text = _order.Customer?.FullName ?? "Guest";
+                    txtSelectedCustomerPhone.Text = _order.Customer?.PhoneNumber ?? "N/A";
+                    txtSelectedStaffName.Text = _order.Staff?.FullName;
+                    txtSelectedTotalAmount.Text = _order.TotalAmount.ToString("N0") + " đ";
+
+                    lstOrderItems.ItemsSource = _orderDetailRepo.GetOrderDetailsByOrderId(orderId).Select(od => new
+                    {
+                        DetailProductName = od.Product?.ProductName,
+                        DetailTotalPrice = od.Quantity * od.UnitPrice,
+                        CategoryName = od.Product?.Category?.CategoryName ?? "No Category",
+                        DetailProductUnit = od.Product?.Unit ?? "pcs",
+                        DetailQuantity = od.Quantity,
+                        DetailUnitPrice = od.UnitPrice,
+                        DetailSellingPrice = od.UnitPrice,
+                    }).ToList();
+                }
+                else
+                {
+                    // Clear details when no order is selected
+                    txtSelectedOrderDate.Text = string.Empty;
+                    txtSelectedCustomerName.Text = string.Empty;
+                    txtSelectedCustomerPhone.Text = string.Empty;
+                    txtSelectedStaffName.Text = string.Empty;
+                    txtSelectedTotalAmount.Text = string.Empty;
+                    lstOrderItems.ItemsSource = null;
+                }
+            }
         }
     }
 }
