@@ -297,6 +297,14 @@ namespace FarmProductsWPF
                 }
             }
             MessageBox.Show("Order created successfully!");
+            // Clear the order and UI
+            dtgOrderCart.ItemsSource = null;
+            _order = null;
+            txtOrderTotalPrice.Text = "0₫";
+            txtCustomerSearch.Clear();
+            txtCustomerName.Text = string.Empty;
+            txtCustomerPhone.Text = string.Empty;
+            customerInfoPanel.Visibility = Visibility.Collapsed;
         }
     }
 
