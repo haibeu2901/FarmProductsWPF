@@ -39,5 +39,12 @@ namespace FarmProductsWPF_DAOs
                 .Where(od => od.Order.OrderId == orderId)
                 .ToList();
         }
+
+        public OrderDetail CreateOrderDetail(OrderDetail orderDetail)
+        {
+            _context.OrderDetails.Add(orderDetail);
+            _context.SaveChanges();
+            return orderDetail;
+        }
     }
 }

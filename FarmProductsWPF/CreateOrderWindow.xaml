@@ -860,7 +860,7 @@
                                                Background="Transparent" 
                                                BorderThickness="0"
                                                Command="{Binding RemoveCommand}"
-                                               CommandParameter="{Binding}">
+                                               CommandParameter="{Binding}" Click="btnRemoveItem_Click">
                                             <TextBlock Text="🗑" FontSize="14"/>
                                         </Button>
                                     </DataTemplate>

@@ -10,5 +10,6 @@ namespace FarmProductsWPF_Repositories.Interfaces
     public interface IOrderDetailRepo
     {
         List<OrderDetail> GetOrderDetailsByOrderId(int orderId);
+        OrderDetail CreateOrderDetail(OrderDetail orderDetail);
     }
 }
