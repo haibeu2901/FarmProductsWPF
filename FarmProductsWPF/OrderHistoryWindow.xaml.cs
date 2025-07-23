@@ -1,4 +1,7 @@
 ﻿using FarmProductsWPF_BOs;
+using FarmProductsWPF_DAOs;
+using FarmProductsWPF_Repositories.Implements;
+using FarmProductsWPF_Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +24,7 @@ namespace FarmProductsWPF
     public partial class OrderHistoryWindow : Window
     {
         private Account _user;
+        private readonly IOrderRepo _orderRepo;
 
         public Account CurrentUser
         {
@@ -33,6 +37,7 @@ namespace FarmProductsWPF
             InitializeComponent();
             _user = account;
             this.DataContext = this;
+            _orderRepo = new OrderRepo();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -54,6 +59,24 @@ namespace FarmProductsWPF
             FarmProductManagementWindow viewStockWindow = new FarmProductManagementWindow(_user);
             viewStockWindow.Show();
             this.Close();
+        }
+
+        private void lstOrders_Loaded(object sender, RoutedEventArgs e)
+        {
+            lstOrders.ItemsSource = _orderRepo.GetOrdersHistory().Select(o => new
+            {
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate,
+                CustomerName = o.Customer?.FullName,
+                CustomerPhoneNumber = o.Customer?.PhoneNumber,
+                TotalAmount = o.TotalAmount,
+                OrderDetailsCount = o.OrderDetails.Count,
+            }).ToList();
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

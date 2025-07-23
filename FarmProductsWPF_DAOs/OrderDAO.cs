@@ -104,5 +104,17 @@ namespace FarmProductsWPF_DAOs
             _context.SaveChanges();
             return order;
         }
+
+        public List<Order> GetOrdersHistory()
+        {
+            return _context.Orders
+                .Include(o => o.OrderDetails)
+                .Include(o => o.Staff)
+                .Include(o => o.Customer == null ? null : o.Customer)
+                .Where(o => o.OrderDate.HasValue && o.OrderDate.Value.Date < DateTime.Now.Date)
+                .OrderByDescending(o => o.OrderId)
+                .ThenByDescending(o => o.OrderDate)
+                .ToList();
+        }
     }
 }

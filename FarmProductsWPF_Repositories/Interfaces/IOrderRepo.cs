@@ -14,5 +14,6 @@ namespace FarmProductsWPF_Repositories.Interfaces
         List<Order> SearchOrdersByAccountId(int accountId, string searchTerm);
         Order? GetOrderById(int orderId);
         Order CreateOrder(Order order);
+        List<Order> GetOrdersHistory();
     }
 }
