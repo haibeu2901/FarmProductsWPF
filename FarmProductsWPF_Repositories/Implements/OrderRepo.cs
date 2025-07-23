@@ -11,6 +11,11 @@ namespace FarmProductsWPF_Repositories.Implements
 {
     public class OrderRepo : IOrderRepo
     {
+        public Order CreateOrder(Order order)
+        {
+            return OrderDAO.Instance.CreateOrder(order);
+        }
+
         public List<Order> GetAllOrders()
         {
             return OrderDAO.Instance.GetAllOrders();

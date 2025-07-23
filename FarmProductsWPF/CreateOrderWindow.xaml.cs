@@ -3,6 +3,7 @@ using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,8 @@ namespace FarmProductsWPF
         private readonly IAccountRepo _accountRepo;
         private Account? _selectedCustomer;
         private Order _order;
+        private readonly IOrderRepo _orderRepo;
+        private readonly IOrderDetailRepo _orderDetailRepo;
 
         public Account CurrentUser
         {
@@ -41,6 +44,8 @@ namespace FarmProductsWPF
             this.DataContext = this;
             _stockRepo = new StockRepo();
             _accountRepo = new AccountRepo();
+            _orderRepo = new OrderRepo();
+            _orderDetailRepo = new OrderDetailRepo();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -129,8 +134,10 @@ namespace FarmProductsWPF
             {
                 if (orderDetail.Product == null)
                     continue;
-                orderDetail.UnitPrice = orderDetail.Product.SellingPrice * orderDetail.Quantity;
-                totalPrice += orderDetail.UnitPrice;
+                    
+                // Don't modify UnitPrice, just calculate the total
+                orderDetail.Total = orderDetail.UnitPrice * orderDetail.Quantity;
+                totalPrice += orderDetail.Total ?? 0;
             }
             return totalPrice;
         }
@@ -168,12 +175,12 @@ namespace FarmProductsWPF
                 {
                     var orderDetail = new OrderDetail
                     {
-                        OrderId = _order.OrderId,
+                        // Remove this line: OrderId = _order.OrderId,
                         ProductId = selectedProduct?.ProductId,
                         Product = selectedProduct?.Product,
                         Quantity = 1,
                         UnitPrice = selectedProduct?.Product?.SellingPrice ?? 0,
-                        Total = selectedProduct?.Product?.SellingPrice * 1 ?? 0,
+                        Total = selectedProduct?.Product?.SellingPrice ?? 0,
                     };
                     
                     _order.OrderDetails.Add(orderDetail);
@@ -253,6 +260,43 @@ namespace FarmProductsWPF
                     dtgOrderCart_Loaded(sender, e);
                 }
             }
+        }
+
+        private void btnCreateOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (_order == null || _order.OrderDetails.Count == 0)
+            {
+                MessageBox.Show("Please add products to the order before creating it.");
+                return;
+            }
+            _order.CustomerId = _selectedCustomer?.AccountId;
+
+            var orderToCreated = new Order
+            {
+                CustomerId = _order.CustomerId,
+                StaffId = _user.AccountId,
+                OrderDate = DateTime.Now,
+                TotalAmount = _order.TotalAmount,
+            };
+            var createdOrder = _orderRepo.CreateOrder(orderToCreated);
+            if (createdOrder != null)
+            {
+                var orderDetails = _order.OrderDetails.Select(od => new OrderDetail
+                {
+                    OrderId = createdOrder.OrderId,
+                    ProductId = od.ProductId,
+                    Quantity = od.Quantity,
+                    UnitPrice = od.UnitPrice,
+                    Total = od.Total
+                }).ToList();
+                var createdOrderDetails = _orderDetailRepo.CreateOrderDetails(createdOrder.OrderId, orderDetails);
+                if (createdOrderDetails == null || createdOrderDetails.Count == 0)
+                {
+                    MessageBox.Show("Failed to create order & order details. Please try again.");
+                    return;
+                }
+            }
+            MessageBox.Show("Order created successfully!");
         }
     }
 

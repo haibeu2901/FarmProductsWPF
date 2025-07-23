@@ -897,7 +897,7 @@
 
                         <Button x:Name="btnCreateOrder" Grid.Row="1" 
                                 Style="{StaticResource CreateOrderButton}"
-                                HorizontalAlignment="Stretch">
+                                HorizontalAlignment="Stretch" Click="btnCreateOrder_Click">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🛒" Margin="0,0,8,0"/>
                                 <TextBlock Text="Create Order"/>

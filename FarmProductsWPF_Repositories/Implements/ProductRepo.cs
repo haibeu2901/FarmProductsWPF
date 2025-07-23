@@ -16,6 +16,11 @@ namespace FarmProductsWPF_Repositories.Implements
             return ProductDAO.Instance.GetAllProducts();
         }
 
+        public Product? GetProductById(int productId)
+        {
+            return ProductDAO.Instance.GetProductById(productId);
+        }
+
         public List<Product> SearchProduct(string searchText)
         {
             return ProductDAO.Instance.SearchProduct(searchText);

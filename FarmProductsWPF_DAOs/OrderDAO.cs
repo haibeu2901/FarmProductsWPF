@@ -97,5 +97,12 @@ namespace FarmProductsWPF_DAOs
                 .Include(o => o.Staff)
                 .FirstOrDefault(o => o.OrderId == orderId);
         }
+
+        public Order CreateOrder(Order order)
+        {
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+            return order;
+        }
     }
 }

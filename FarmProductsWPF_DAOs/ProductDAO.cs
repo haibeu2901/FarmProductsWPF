@@ -46,5 +46,12 @@ namespace FarmProductsWPF_DAOs
                             p.Description.ToLower().Contains(searchText.ToLower()))
                 .ToList();
         }
+
+        public Product? GetProductById(int productId)
+        {
+            return _context.Products
+                .Include(p => p.Category)
+                .FirstOrDefault(p => p.ProductId == productId);
+        }
     }
 }

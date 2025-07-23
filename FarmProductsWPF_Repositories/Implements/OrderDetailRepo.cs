@@ -11,9 +11,14 @@ namespace FarmProductsWPF_Repositories.Implements
 {
     public class OrderDetailRepo : IOrderDetailRepo
     {
-        public OrderDetail CreateOrderDetail(OrderDetail orderDetail)
+        public OrderDetail CreateOrderDetail(int orderId, OrderDetail orderDetail)
         {
-            return OrderDetailDAO.Instance.CreateOrderDetail(orderDetail);
+            return OrderDetailDAO.Instance.CreateOrderDetail(orderId, orderDetail);
+        }
+
+        public List<OrderDetail> CreateOrderDetails(int orderId, List<OrderDetail> orderDetails)
+        {
+            return OrderDetailDAO.Instance.CreateOrderDetails(orderId, orderDetails);
         }
 
         public List<OrderDetail> GetOrderDetailsByOrderId(int orderId)

@@ -40,11 +40,35 @@ namespace FarmProductsWPF_DAOs
                 .ToList();
         }
 
-        public OrderDetail CreateOrderDetail(OrderDetail orderDetail)
+        public OrderDetail CreateOrderDetail(int orderId, OrderDetail orderDetail)
         {
+            orderDetail.OrderId = orderId;
             _context.OrderDetails.Add(orderDetail);
             _context.SaveChanges();
             return orderDetail;
+        }
+
+        public List<OrderDetail> CreateOrderDetails(int orderId, List<OrderDetail> orderDetails)
+        {
+            foreach (var orderDetail in orderDetails)
+            {
+                orderDetail.OrderId = orderId;
+                _context.OrderDetails.Add(orderDetail);
+
+                // Update the product stock
+                var stock = _context.Stocks.Find(orderDetail.ProductId);
+                if (stock != null)
+                {
+                    stock.Quantity -= orderDetail.Quantity;
+                    _context.Stocks.Update(stock);
+                }
+                else
+                {
+                    throw new Exception($"Product with ID {orderDetail.ProductId} not found.");
+                }
+            }
+            _context.SaveChanges();
+            return orderDetails;
         }
     }
 }

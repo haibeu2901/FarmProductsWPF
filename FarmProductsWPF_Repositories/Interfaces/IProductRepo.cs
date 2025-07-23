@@ -11,5 +11,6 @@ namespace FarmProductsWPF_Repositories.Interfaces
     {
         List<Product> GetAllProducts();
         List<Product> SearchProduct(string searchText);
+        Product? GetProductById(int productId);
     }
 }
