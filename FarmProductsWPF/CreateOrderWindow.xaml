@@ -602,7 +602,7 @@
                                                        TextAlignment="Center">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Text" Value="{Binding StockDisplay}"/>
+                                                        <Setter Property="Text" Value="{Binding CombinedStockDisplay}"/>
                                                         <Setter Property="Foreground" Value="#2E7D32"/>
                                                         <Style.Triggers>
                                                             <!-- Out of Stock -->

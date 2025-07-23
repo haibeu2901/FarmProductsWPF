@@ -72,6 +72,7 @@ namespace FarmProductsWPF
                 ProductName = s.Product.ProductName,
                 CategoryName = s.Product?.Category?.CategoryName,
                 PriceDisplay = s.Product?.SellingPrice,
+                StockQuantity = s.Quantity,
                 StockDisplay = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
             }).ToList();
         }
@@ -87,6 +88,7 @@ namespace FarmProductsWPF
                 ProductName = s.Product.ProductName,
                 CategoryName = s.Product?.Category?.CategoryName,
                 PriceDisplay = s.Product?.SellingPrice,
+                StockQuantity = s.Quantity,
                 StockDisplay = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
             }).ToList();
         }
@@ -313,7 +315,9 @@ namespace FarmProductsWPF
         public Stock? Stock { get; set; }
         public string? ProductName { get; set; }
         public string? CategoryName { get; set; }
+        public int? StockQuantity { get; set; }
         public decimal? PriceDisplay { get; set; }
         public string? StockDisplay { get; set; }
+        public string CombinedStockDisplay => $"{StockQuantity} {StockDisplay}";
     }
 }
