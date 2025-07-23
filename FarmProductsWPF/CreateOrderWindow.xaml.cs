@@ -220,7 +220,23 @@ namespace FarmProductsWPF
             }
         }
 
-
+        private void btnIncreaseItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (dtgOrderCart.SelectedItem != null)
+            {
+                dynamic selectedItem = dtgOrderCart.SelectedItem;
+                var orderDetail = _order.OrderDetails.FirstOrDefault(od => od.Product?.ProductName == selectedItem.OrderDetailName);
+                
+                if (orderDetail != null)
+                {
+                    orderDetail.Quantity += 1;
+                    orderDetail.Total = orderDetail.UnitPrice * orderDetail.Quantity;
+                    _order.TotalAmount = CalculateTotalPrice();
+                    txtOrderTotalPrice.Text = string.Format("{0:#,##0}₫", _order.TotalAmount);
+                    dtgOrderCart_Loaded(sender, e);
+                }
+            }
+        }
     }
 
     public class ProductViewModel

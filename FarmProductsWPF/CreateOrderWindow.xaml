@@ -844,7 +844,7 @@
                                             <Button x:Name="btnIncreaseItem" Style="{StaticResource QuantityButton}" 
                                                     Content="➕" 
                                                     Command="{Binding IncreaseQuantityCommand}"
-                                                    CommandParameter="{Binding}"/>
+                                                    CommandParameter="{Binding}" Click="btnIncreaseItem_Click"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
