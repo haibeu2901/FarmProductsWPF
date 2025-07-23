@@ -180,7 +180,7 @@ namespace FarmProductsWPF
                 }
 
                 _order.TotalAmount = CalculateTotalPrice();
-                txtOrderTotalPrice.Text = _order.TotalAmount.ToString("C2");
+                txtOrderTotalPrice.Text = string.Format("{0:#,##0}₫", _order.TotalAmount);
                 dtgOrderCart_Loaded(sender, e);
             }
         }
