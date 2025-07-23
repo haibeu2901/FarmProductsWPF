@@ -63,5 +63,17 @@ namespace FarmProductsWPF
                 StockDisplay = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
             });
         }
+
+        private void btnProductSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = txtProductSearch.Text.Trim();
+            dtgProducts.ItemsSource = _stockRepo.SearchStock(searchText).Select(s => new
+            {
+                ProductName = s.Product.ProductName,
+                CategoryName = s.Product.Category.CategoryName,
+                PriceDisplay = s.Product.SellingPrice,
+                StockDisplay = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
+            }).ToList();
+        }
     }
 }

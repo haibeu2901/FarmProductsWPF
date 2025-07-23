@@ -473,12 +473,61 @@
                                    Margin="0,4,0,16"/>
                     </StackPanel>
 
-                    <!-- Search Box -->
-                    <TextBox Grid.Row="1" 
-                             x:Name="txtProductSearch"
-                             Style="{StaticResource WatermarkStyle}"
-                             Margin="0,0,0,20"
-                             Height="40"/>
+                    <!-- Search Box - Updated to match FarmProductManagement.xaml -->
+                    <Grid Grid.Row="1" Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBox Grid.Column="0" 
+                                 x:Name="txtProductSearch"
+                                 Style="{StaticResource SearchBox}">
+                            <TextBox.Resources>
+                                <Style TargetType="TextBox" BasedOn="{StaticResource SearchBox}">
+                                    <Style.Triggers>
+                                        <Trigger Property="Text" Value="">
+                                            <Setter Property="Background">
+                                                <Setter.Value>
+                                                    <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                                        <VisualBrush.Visual>
+                                                            <TextBlock Text="🔍 Search by name, category, or description..."
+                                                                       Foreground="#6C757D"
+                                                                       FontStyle="Italic"
+                                                                       Margin="5,0"
+                                                                       IsEnabled="False"/>
+                                                        </VisualBrush.Visual>
+                                                    </VisualBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        
+                        <!-- Search Button -->
+                        <Button x:Name="btnProductSearch" 
+                                Grid.Column="1"
+                                Content="🔍 Search"
+                                Style="{StaticResource NavButton}"
+                                Background="#007BFF"
+                                Foreground="White"
+                                Margin="10,0,0,0"
+                                Padding="20,10"
+                                VerticalAlignment="Center" Click="btnProductSearch_Click">
+                            <Button.Resources>
+                                <Style TargetType="Button" BasedOn="{StaticResource NavButton}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#0056B3"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
 
                     <!-- Products DataGrid -->
                     <DataGrid Grid.Row="2" 
