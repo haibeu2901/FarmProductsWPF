@@ -515,7 +515,7 @@
                 <!-- Order Number -->
                 <TextBlock Grid.Row="1"
                            x:Name="txtSelectedOrderId"
-                           Text="Order #1001"
+                           Text="Order #10101010"
                            FontSize="16"
                            FontWeight="Medium"
                            Margin="0,0,0,15"/>

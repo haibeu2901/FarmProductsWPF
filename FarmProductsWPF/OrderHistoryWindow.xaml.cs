@@ -102,6 +102,7 @@ namespace FarmProductsWPF
                 _order = _orderRepo.GetOrderById(orderId);
                 if (_order != null)
                 {
+                    txtSelectedOrderId.Text = string.Format("Order #{0}", _order.OrderId);
                     txtSelectedOrderDate.Text = _order.OrderDate.ToString();
                     txtSelectedCustomerName.Text = _order.Customer?.FullName ?? "Guest";
                     txtSelectedCustomerPhone.Text = _order.Customer?.PhoneNumber ?? "N/A";
@@ -122,6 +123,7 @@ namespace FarmProductsWPF
                 else
                 {
                     // Clear details when no order is selected
+                    txtSelectedOrderId.Text = string.Empty;
                     txtSelectedOrderDate.Text = string.Empty;
                     txtSelectedCustomerName.Text = string.Empty;
                     txtSelectedCustomerPhone.Text = string.Empty;
