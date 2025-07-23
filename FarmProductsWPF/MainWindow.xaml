@@ -256,31 +256,69 @@
                            Foreground="#495057"/>
 
                 <!-- Search TextBox -->
-                <TextBox Grid.Column="1"
-                         x:Name="txtSearch"
-                         Style="{StaticResource ModernTextBox}"
-                         Margin="5,5,148,5">
-                    <TextBox.Resources>
-                        <Style TargetType="TextBox" BasedOn="{StaticResource ModernTextBox}">
-                            <Style.Triggers>
-                                <Trigger Property="Text" Value="">
-                                    <Setter Property="Background">
+                <Border Grid.Column="1"
+                        Background="White"
+                        BorderBrush="#DEE2E6"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        Margin="5,5,148,5"
+                        Width="750"
+                        Height="40">
+                    <Grid>
+                        <!-- Permanent Search Icon -->
+                        <TextBlock Text="🔍" 
+                                   FontSize="16"
+                                   Foreground="#6B7280"
+                                   Margin="12,0,0,0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"/>
+
+                        <TextBox x:Name="txtSearch"
+                                 Background="Transparent" 
+                                 BorderThickness="0"
+                                 Foreground="#6B7280"
+                                 VerticalAlignment="Center"
+                                 Margin="40,0,0,0"
+                                 Padding="0"
+                                 Width="700"
+                                 Height="38">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Template">
                                         <Setter.Value>
-                                            <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None">
-                                                <VisualBrush.Visual>
-                                                    <TextBlock Text="🔍 Search by name, category, or description..."
-                                                               Foreground="#6C757D"
-                                                               FontStyle="Italic"
-                                                               Margin="5,0"/>
-                                                </VisualBrush.Visual>
-                                            </VisualBrush>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Grid>
+                                                    <TextBox Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
+                                                             Background="{TemplateBinding Background}"
+                                                             Foreground="{TemplateBinding Foreground}"
+                                                             VerticalContentAlignment="Center"
+                                                             Height="{TemplateBinding Height}"
+                                                             BorderThickness="0"/>
+                                                    <TextBlock Text="Search by name, category, or description..." 
+                                                               Foreground="#9CA3AF" 
+                                                               IsHitTestVisible="False"
+                                                               VerticalAlignment="Center"
+                                                               HorizontalAlignment="Left">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Path=Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
+                                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </Grid>
+                                            </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </Grid>
+                </Border>
 
                 <!-- Search Button -->
                 <Button x:Name="btnSearch" Grid.Column="1"
