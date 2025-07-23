@@ -307,6 +307,25 @@ namespace FarmProductsWPF
             txtCustomerName.Text = string.Empty;
             txtCustomerPhone.Text = string.Empty;
             customerInfoPanel.Visibility = Visibility.Collapsed;
+            
+            // Refresh the stock data displayed in the products grid
+            RefreshProductsGrid();
+        }
+
+        // Add this new method to refresh the products grid
+        private void RefreshProductsGrid()
+        {
+            var stocks = _stockRepo.GetAllStocks();
+            
+            dtgProducts.ItemsSource = stocks.Select(s => new ProductViewModel
+            {
+                Stock = s,
+                ProductName = s.Product.ProductName,
+                CategoryName = s.Product?.Category?.CategoryName,
+                PriceDisplay = s.Product?.SellingPrice,
+                StockQuantity = s.Quantity,
+                StockDisplay = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
+            }).ToList();
         }
 
         private void btnOrderHistoryWindow_Click(object sender, RoutedEventArgs e)

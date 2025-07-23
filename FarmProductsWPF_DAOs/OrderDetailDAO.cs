@@ -57,10 +57,10 @@ namespace FarmProductsWPF_DAOs
 
                 // Update the product stock
                 var stock = _context.Stocks.Find(orderDetail.ProductId);
+                int productId = stock?.ProductId ?? 0;
                 if (stock != null)
                 {
-                    stock.Quantity -= orderDetail.Quantity;
-                    _context.Stocks.Update(stock);
+                    StockDAO.Instance.UpdateStockWhenOrderCreated(productId, orderDetail.Quantity);
                 }
                 else
                 {

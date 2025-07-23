@@ -58,5 +58,16 @@ namespace FarmProductsWPF_DAOs
                             s.Product.Description.ToLower().Contains(searchText.ToLower()))
                 .ToList();
         }
+
+        public Stock UpdateStockWhenOrderCreated(int productId, int quantity)
+        {
+            var stock = GetStockByProductId(productId);
+            if (stock != null)
+            {
+                stock.Quantity -= quantity;
+                _context.SaveChanges();
+            }
+            return stock;
+        }
     }
 }
