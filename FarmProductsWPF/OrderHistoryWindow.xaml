@@ -1,4 +1,4 @@
-﻿<Window x:Class="FarmProductsWPF.CreateOrderWindow"
+﻿<Window x:Class="FarmProductsWPF.OrderHistoryWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -38,8 +38,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                CornerRadius="8"
-                                Padding="{TemplateBinding Padding}">
+                            CornerRadius="8"
+                            Padding="{TemplateBinding Padding}">
                             <StackPanel Orientation="Horizontal">
                                 <ContentPresenter/>
                             </StackPanel>
@@ -69,18 +69,18 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="8"
-                        Height="{TemplateBinding Height}">
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="8"
+                    Height="{TemplateBinding Height}">
                             <Grid>
                                 <TextBlock Text="🔍" 
-                                 Margin="12,0,0,0"
-                                 VerticalAlignment="Center"
-                                 Foreground="#9CA3AF"/>
+                             Margin="12,0,0,0"
+                             VerticalAlignment="Center"
+                             Foreground="#9CA3AF"/>
                                 <ScrollViewer x:Name="PART_ContentHost" 
-                                    Margin="{TemplateBinding Padding}"
-                                    VerticalAlignment="Center"/>
+                                Margin="{TemplateBinding Padding}"
+                                VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -105,11 +105,11 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4">
                             <ContentPresenter HorizontalAlignment="Center" 
-                                             VerticalAlignment="Center"/>
+                                         VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -135,9 +135,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -162,9 +162,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="6">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -190,10 +190,10 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="8"
-                                Padding="{TemplateBinding Padding}">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8"
+                            Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -265,7 +265,7 @@
 
         <!-- DataGrid Column Header Style with centered content -->
         <Style x:Key="CenteredColumnHeaderStyle" TargetType="DataGridColumnHeader" 
-               BasedOn="{StaticResource DataGridColumnHeaderStyle}">
+           BasedOn="{StaticResource DataGridColumnHeaderStyle}">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
 
@@ -317,9 +317,9 @@
                             <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None">
                                 <VisualBrush.Visual>
                                     <TextBlock Text="Search products..." 
-                                            Foreground="#9CA3AF" 
-                                            FontStyle="Italic"
-                                            Margin="40,0,0,0"/>
+                                        Foreground="#9CA3AF" 
+                                        FontStyle="Italic"
+                                        Margin="40,0,0,0"/>
                                 </VisualBrush.Visual>
                             </VisualBrush>
                         </Setter.Value>
@@ -336,9 +336,9 @@
                             <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None">
                                 <VisualBrush.Visual>
                                     <TextBlock Text="Search by phone number..." 
-                                            Foreground="#9CA3AF" 
-                                            FontStyle="Italic"
-                                            Margin="40,0,0,0"/>
+                                        Foreground="#9CA3AF" 
+                                        FontStyle="Italic"
+                                        Margin="40,0,0,0"/>
                                 </VisualBrush.Visual>
                             </VisualBrush>
                         </Setter.Value>
@@ -356,7 +356,6 @@
             <Setter Property="TextAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -376,16 +375,16 @@
             <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                 <Border Background="#7C3AED" CornerRadius="12" Width="48" Height="48">
                     <TextBlock Text="⚙️" 
-                             FontSize="24" 
-                             HorizontalAlignment="Center" 
-                             VerticalAlignment="Center"/>
+                         FontSize="24" 
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center"/>
                 </Border>
                 <StackPanel Margin="16,8,16,8">
                     <TextBlock Text="Farm Products Management System"
-                             FontSize="20"
-                             FontWeight="Bold"
-                             Foreground="#111827"
-                             />
+                         FontSize="20"
+                         FontWeight="Bold"
+                         Foreground="#111827"
+                         />
                 </StackPanel>
             </StackPanel>
 
@@ -393,20 +392,20 @@
             <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
                 <StackPanel Margin="0,0,16,0" Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="👤" 
-                             FontSize="16" 
-                             Margin="0,0,8,0"
-                             VerticalAlignment="Center"/>
+                         FontSize="16" 
+                         Margin="0,0,8,0"
+                         VerticalAlignment="Center"/>
                     <TextBlock Text="{Binding CurrentUser.FullName}" 
-                             FontWeight="Medium"
-                             FontSize="14"
-                             Foreground="#1F2937" 
-                             VerticalAlignment="Center"/>
+                         FontWeight="Medium"
+                         FontSize="14"
+                         Foreground="#1F2937" 
+                         VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Logout button -->
                 <Button x:Name="btnLogout" 
-                        Style="{StaticResource LogoutButtonStyle}" 
-                        Click="btnLogout_Click">
+                    Style="{StaticResource LogoutButtonStyle}" 
+                    Click="btnLogout_Click">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="🛫 Logout" Padding="5"/>
                     </StackPanel>
@@ -416,9 +415,9 @@
 
         <!-- Navigation -->
         <Border Grid.Row="1" 
-                Background="White"
-                Margin="24,0,24,16"
-                Height="64">
+            Background="White"
+            Margin="24,0,24,16"
+            Height="64">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -430,14 +429,15 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="btnViewStockWindow" Grid.Column="0"  Content="📦 View Stock" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnViewStockWindow_Click" />
-                <Button Grid.Column="1"
-                        Content="🛒 Create Order" Style="{StaticResource NavButton}" 
-                        HorizontalAlignment="Center" 
+                <Button x:Name="btnViewStockWindow" Grid.Column="0" Content="📦 View Stock" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnViewStockWindow_Click" />
+                <Button x:Name="btnCreateOrderWindow" Grid.Column="1" Content="🛒 Create Order" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnCreateOrderWindow_Click" />
+                <Button Grid.Column="2"
+                        Content="📅 Order History"
+                        Style="{StaticResource NavButton}"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Background="#F3F4F6"
                         Foreground="#4F46E5"/>
-                <Button x:Name="btnOrderHistoryWindow"  Grid.Column="2" Content="📅 Order History" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnOrderHistoryWindow_Click"/>
                 <Button Grid.Column="3" Content="👥 Accounts" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button Grid.Column="4" Content="🏷️ Categories" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button Grid.Column="5" Content="🌾 Products" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -454,11 +454,11 @@
 
             <!-- Left Panel - Product Selection with DataGrid -->
             <Border Background="White"
-                    CornerRadius="12"
-                    BorderBrush="#E5E7EB"
-                    BorderThickness="1"
-                    Margin="0,0,12,0"
-                    Padding="24">
+                CornerRadius="12"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                Margin="0,0,12,0"
+                Padding="24">
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -470,13 +470,13 @@
                     <!-- Section Header -->
                     <StackPanel Grid.Row="0">
                         <TextBlock Text="Select Products" 
-                                   FontSize="24" 
-                                   FontWeight="Bold" 
-                                   Foreground="{StaticResource TextPrimary}"/>
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="{StaticResource TextPrimary}"/>
                         <TextBlock Text="Choose products for the customer order" 
-                                   FontSize="14" 
-                                   Foreground="{StaticResource TextSecondary}" 
-                                   Margin="0,4,0,16"/>
+                               FontSize="14" 
+                               Foreground="{StaticResource TextSecondary}" 
+                               Margin="0,4,0,16"/>
                     </StackPanel>
 
                     <!-- Search Box - Updated to match FarmProductManagement.xaml -->
@@ -485,10 +485,10 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <TextBox Grid.Column="0" 
-                                 x:Name="txtProductSearch"
-                                 Style="{StaticResource SearchBox}">
+                             x:Name="txtProductSearch"
+                             Style="{StaticResource SearchBox}">
                             <TextBox.Resources>
                                 <Style TargetType="TextBox" BasedOn="{StaticResource SearchBox}">
                                     <Style.Triggers>
@@ -498,10 +498,10 @@
                                                     <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None">
                                                         <VisualBrush.Visual>
                                                             <TextBlock Text="🔍 Search by name, category, or description..."
-                                                                       Foreground="#6C757D"
-                                                                       FontStyle="Italic"
-                                                                       Margin="5,0"
-                                                                       IsEnabled="False"/>
+                                                                   Foreground="#6C757D"
+                                                                   FontStyle="Italic"
+                                                                   Margin="5,0"
+                                                                   IsEnabled="False"/>
                                                         </VisualBrush.Visual>
                                                     </VisualBrush>
                                                 </Setter.Value>
@@ -511,17 +511,17 @@
                                 </Style>
                             </TextBox.Resources>
                         </TextBox>
-                        
+
                         <!-- Search Button -->
                         <Button x:Name="btnProductSearch" 
-                                Grid.Column="1"
-                                Content="🔍 Search"
-                                Style="{StaticResource NavButton}"
-                                Background="#007BFF"
-                                Foreground="White"
-                                Margin="10,0,0,0"
-                                Padding="20,10"
-                                VerticalAlignment="Center" Click="btnProductSearch_Click">
+                            Grid.Column="1"
+                            Content="🔍 Search"
+                            Style="{StaticResource NavButton}"
+                            Background="#007BFF"
+                            Foreground="White"
+                            Margin="10,0,0,0"
+                            Padding="20,10"
+                            VerticalAlignment="Center">
                             <Button.Resources>
                                 <Style TargetType="Button" BasedOn="{StaticResource NavButton}">
                                     <Style.Triggers>
@@ -537,42 +537,42 @@
 
                     <!-- Products DataGrid -->
                     <DataGrid Grid.Row="2" 
-                              x:Name="dtgProducts" 
-                              Style="{StaticResource ModernDataGrid}"
-                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                              IsReadOnly="True" Loaded="dtgProducts_Loaded">
+                          x:Name="dtgProducts" 
+                          Style="{StaticResource ModernDataGrid}"
+                          ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                          IsReadOnly="True">
                         <!-- Replace the current DataGrid columns section in dtgProducts -->
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" Width="*" 
-                                                HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
-                                                ElementStyle="{StaticResource CenteredCellStyle}"/>
+                                            HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
+                                            ElementStyle="{StaticResource CenteredCellStyle}"/>
 
                             <!-- Category column with pill style -->
                             <DataGridTemplateColumn Header="Category" 
-                                                    Width="0.8*"
-                                                    HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
+                                                Width="0.8*"
+                                                HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border Style="{StaticResource CategoryPillStyle}">
                                             <TextBlock Text="{Binding CategoryName}"
-                                                       Foreground="#2E7D32"
-                                                       FontSize="12"
-                                                       FontWeight="SemiBold"
-                                                       TextAlignment="Center"/>
+                                                   Foreground="#2E7D32"
+                                                   FontSize="12"
+                                                   FontWeight="SemiBold"
+                                                   TextAlignment="Center"/>
                                         </Border>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
                             <DataGridTextColumn Header="Price" 
-                                                Binding="{Binding PriceDisplay, StringFormat='{}{0:#,##0}₫'}" 
-                                                Width="0.7*"
-                                                HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
-                                                ElementStyle="{StaticResource PriceStyle}"/>
+                                            Binding="{Binding PriceDisplay, StringFormat='{}{0:#,##0}₫'}" 
+                                            Width="0.7*"
+                                            HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
+                                            ElementStyle="{StaticResource PriceStyle}"/>
 
                             <!-- Stock Status Column with conditional formatting -->
                             <DataGridTemplateColumn Header="Stock Status" Width="0.7*"
-                                                    HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
+                                                HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border>
@@ -598,8 +598,8 @@
                                                 </Style>
                                             </Border.Style>
                                             <TextBlock FontSize="12"
-                                                       FontWeight="SemiBold"
-                                                       TextAlignment="Center">
+                                                   FontWeight="SemiBold"
+                                                   TextAlignment="Center">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="Text" Value="{Binding CombinedStockDisplay}"/>
@@ -624,15 +624,14 @@
 
                             <!-- Add Button Column -->
                             <DataGridTemplateColumn Header="" Width="0.5*"
-                                                    HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
+                                                HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button x:Name="btnAddProductToCart" 
-                                                Content="Add" 
-                                                Style="{StaticResource AddButton}"
-                                                Command="{Binding AddToCartCommand}"
-                                                CommandParameter="{Binding}"
-                                                Click="btnAddProductToCart_Click">
+                                            Content="Add" 
+                                            Style="{StaticResource AddButton}"
+                                            Command="{Binding AddToCartCommand}"
+                                            CommandParameter="{Binding}">
                                             <Button.ContentTemplate>
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal">
@@ -652,12 +651,12 @@
 
             <!-- Right Panel - Order Cart with DataGrid -->
             <Border Grid.Column="1"
-                    Background="White"
-                    CornerRadius="12"
-                    BorderBrush="#E5E7EB"
-                    BorderThickness="1"
-                    Margin="12,0,0,0"
-                    Padding="24">
+                Background="White"
+                CornerRadius="12"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                Margin="12,0,0,0"
+                Padding="24">
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -670,22 +669,22 @@
                     <!-- Cart Header -->
                     <StackPanel Grid.Row="0">
                         <TextBlock Text="Order Cart" 
-                                   FontSize="24" 
-                                   FontWeight="Bold" 
-                                   Foreground="{StaticResource TextPrimary}"/>
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="{StaticResource TextPrimary}"/>
                         <TextBlock Text="Review items before checkout" 
-                                   FontSize="14" 
-                                   Foreground="{StaticResource TextSecondary}" 
-                                   Margin="0,4,0,16"/>
+                               FontSize="14" 
+                               Foreground="{StaticResource TextSecondary}" 
+                               Margin="0,4,0,16"/>
                     </StackPanel>
 
                     <!-- Customer Selection -->
                     <StackPanel Grid.Row="1" Margin="0,0,0,16">
                         <TextBlock Text="Customer Selection" 
-                                   FontSize="16" 
-                                   FontWeight="SemiBold" 
-                                   Foreground="{StaticResource TextPrimary}"
-                                   Margin="0,0,0,8"/>
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
+                               Foreground="{StaticResource TextPrimary}"
+                               Margin="0,0,0,8"/>
 
                         <!-- Customer Search Box with Button -->
                         <Grid Margin="0,0,0,12">
@@ -693,10 +692,10 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            
+
                             <TextBox Grid.Column="0" 
-                                     x:Name="txtCustomerSearch"
-                                     Style="{StaticResource SearchBox}">
+                                 x:Name="txtCustomerSearch"
+                                 Style="{StaticResource SearchBox}">
                                 <TextBox.Resources>
                                     <Style TargetType="TextBox" BasedOn="{StaticResource SearchBox}">
                                         <Style.Triggers>
@@ -706,10 +705,10 @@
                                                         <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None">
                                                             <VisualBrush.Visual>
                                                                 <TextBlock Text="🔍 Search by phone number..."
-                                                                           Foreground="#6C757D"
-                                                                           FontStyle="Italic"
-                                                                           Margin="5,0"
-                                                                           IsEnabled="False"/>
+                                                                       Foreground="#6C757D"
+                                                                       FontStyle="Italic"
+                                                                       Margin="5,0"
+                                                                       IsEnabled="False"/>
                                                             </VisualBrush.Visual>
                                                         </VisualBrush>
                                                     </Setter.Value>
@@ -719,18 +718,17 @@
                                     </Style>
                                 </TextBox.Resources>
                             </TextBox>
-                            
+
                             <!-- Customer Search Button -->
                             <Button x:Name="btnCustomerSearch" 
-                                    Grid.Column="1"
-                                    Content="🔍 Search"
-                                    Style="{StaticResource NavButton}"
-                                    Background="#007BFF"
-                                    Foreground="White"
-                                    Margin="10,0,0,0"
-                                    Padding="20,10"
-                                    VerticalAlignment="Center" 
-                                    Click="btnCustomerSearch_Click">
+                                Grid.Column="1"
+                                Content="🔍 Search"
+                                Style="{StaticResource NavButton}"
+                                Background="#007BFF"
+                                Foreground="White"
+                                Margin="10,0,0,0"
+                                Padding="20,10"
+                                VerticalAlignment="Center">
                                 <Button.Resources>
                                     <Style TargetType="Button" BasedOn="{StaticResource NavButton}">
                                         <Style.Triggers>
@@ -748,12 +746,12 @@
                         <Grid Margin="0,0,0,12">
                             <!-- Customer Information Panel -->
                             <Border x:Name="customerInfoPanel" 
-                                    Background="#E8F5E9"
-                                    BorderBrush="#A5D6A7"
-                                    BorderThickness="1"
-                                    CornerRadius="8"
-                                    Padding="16,12"
-                                    Visibility="Collapsed">
+                                Background="#E8F5E9"
+                                BorderBrush="#A5D6A7"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="16,12"
+                                Visibility="Collapsed">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -762,38 +760,37 @@
 
                                     <StackPanel Grid.Column="0">
                                         <TextBlock x:Name="txtCustomerName" 
-                                                   FontWeight="SemiBold" 
-                                                   FontSize="16"
-                                                   Foreground="#2E7D32"/>
+                                               FontWeight="SemiBold" 
+                                               FontSize="16"
+                                               Foreground="#2E7D32"/>
                                         <TextBlock x:Name="txtCustomerPhone" 
-                                                   FontSize="14"
-                                                   Foreground="#2E7D32"/>
+                                               FontSize="14"
+                                               Foreground="#2E7D32"/>
                                     </StackPanel>
 
                                     <Button Grid.Column="1"
-                                            Content="Clear"
-                                            Foreground="#DC3545"
-                                            Background="White"
-                                            BorderBrush="#DC3545"
-                                            BorderThickness="1"
-                                            Padding="12,6"
-                                            FontSize="13"
-                                            FontWeight="Medium"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            Click="btnClearCustomer_Click">
+                                        Content="Clear"
+                                        Foreground="#DC3545"
+                                        Background="White"
+                                        BorderBrush="#DC3545"
+                                        BorderThickness="1"
+                                        Padding="12,6"
+                                        FontSize="13"
+                                        FontWeight="Medium"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
                                         <Button.Resources>
                                             <Style TargetType="Button">
                                                 <Setter Property="Template">
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="Button">
                                                             <Border Background="{TemplateBinding Background}"
-                                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                                                    CornerRadius="4"
-                                                                    Padding="{TemplateBinding Padding}">
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                                CornerRadius="4"
+                                                                Padding="{TemplateBinding Padding}">
                                                                 <ContentPresenter HorizontalAlignment="Center"
-                                                                                 VerticalAlignment="Center"/>
+                                                                             VerticalAlignment="Center"/>
                                                             </Border>
                                                             <ControlTemplate.Triggers>
                                                                 <Trigger Property="IsMouseOver" Value="True">
@@ -813,40 +810,40 @@
 
                     <!-- Cart Items DataGrid -->
                     <DataGrid Grid.Row="2" 
-                              x:Name="dtgOrderCart" 
-                              Style="{StaticResource ModernDataGrid}"
-                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                              IsReadOnly="True"
-                              Margin="0,0,0,16" Loaded="dtgOrderCart_Loaded">
+                          x:Name="dtgOrderCart" 
+                          Style="{StaticResource ModernDataGrid}"
+                          ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                          IsReadOnly="True"
+                          Margin="0,0,0,16">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Product" Binding="{Binding OrderDetailName}" Width="*"
-                                                HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
-                                                ElementStyle="{StaticResource CenteredCellStyle}"/>
+                                            HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
+                                            ElementStyle="{StaticResource CenteredCellStyle}"/>
 
                             <DataGridTextColumn Header="Price" 
-                                                Binding="{Binding OrderDetailPrice, StringFormat='{}{0:#,##0}₫'}" 
-                                                Width="0.7*"
-                                                HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
-                                                ElementStyle="{StaticResource PriceStyle}"/>
+                                            Binding="{Binding OrderDetailPrice, StringFormat='{}{0:#,##0}₫'}" 
+                                            Width="0.7*"
+                                            HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
+                                            ElementStyle="{StaticResource PriceStyle}"/>
 
                             <!-- Quantity Control Column -->
                             <DataGridTemplateColumn Header="Quantity" Width="1.2*"
-                                                    HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
+                                                HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Button x:Name="btnDecreaseItem" Style="{StaticResource QuantityButton}" 
-                                                    Content="➖" 
-                                                    Command="{Binding DecreaseQuantityCommand}"
-                                                    CommandParameter="{Binding}" Click="btnDecreaseItem_Click"/>
+                                                Content="➖" 
+                                                Command="{Binding DecreaseQuantityCommand}"
+                                                CommandParameter="{Binding}"/>
                                             <TextBlock Text="{Binding OrderDetailQuantity}" 
-                                                       Width="40" 
-                                                       TextAlignment="Center" 
-                                                       VerticalAlignment="Center"/>
+                                                   Width="40" 
+                                                   TextAlignment="Center" 
+                                                   VerticalAlignment="Center"/>
                                             <Button x:Name="btnIncreaseItem" Style="{StaticResource QuantityButton}" 
-                                                    Content="➕" 
-                                                    Command="{Binding IncreaseQuantityCommand}"
-                                                    CommandParameter="{Binding}" Click="btnIncreaseItem_Click"/>
+                                                Content="➕" 
+                                                Command="{Binding IncreaseQuantityCommand}"
+                                                CommandParameter="{Binding}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -854,15 +851,15 @@
 
                             <!-- Remove Button Column -->
                             <DataGridTemplateColumn Header="" Width="0.4*"
-                                                    HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
+                                                HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button x:Name="btnRemoveItem" Width="32" 
-                                               Height="32" 
-                                               Background="Transparent" 
-                                               BorderThickness="0"
-                                               Command="{Binding RemoveCommand}"
-                                               CommandParameter="{Binding}" Click="btnRemoveItem_Click">
+                                           Height="32" 
+                                           Background="Transparent" 
+                                           BorderThickness="0"
+                                           Command="{Binding RemoveCommand}"
+                                           CommandParameter="{Binding}">
                                             <TextBlock Text="🗑" FontSize="14"/>
                                         </Button>
                                     </DataTemplate>
@@ -885,21 +882,21 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" 
-                                      Text="Total:" 
-                                      FontSize="18" 
-                                      FontWeight="Bold" 
-                                      Foreground="{StaticResource TextPrimary}"/>
+                                  Text="Total:" 
+                                  FontSize="18" 
+                                  FontWeight="Bold" 
+                                  Foreground="{StaticResource TextPrimary}"/>
 
                             <TextBlock x:Name="txtOrderTotalPrice" Grid.Column="1" 
-                                      Text="{Binding TotalPrice, StringFormat='{}{0:#,##0}₫'}" 
-                                      FontSize="18" 
-                                      FontWeight="Bold" 
-                                      Foreground="#28A745"/>
+                                  Text="{Binding TotalPrice, StringFormat='{}{0:#,##0}₫'}" 
+                                  FontSize="18" 
+                                  FontWeight="Bold" 
+                                  Foreground="#28A745"/>
                         </Grid>
 
                         <Button x:Name="btnCreateOrder" Grid.Row="1" 
-                                Style="{StaticResource CreateOrderButton}"
-                                HorizontalAlignment="Stretch" Click="btnCreateOrder_Click">
+                            Style="{StaticResource CreateOrderButton}"
+                            HorizontalAlignment="Stretch">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🛒" Margin="0,0,8,0"/>
                                 <TextBlock Text="Create Order"/>

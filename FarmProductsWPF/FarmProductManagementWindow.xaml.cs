@@ -75,10 +75,17 @@ namespace FarmProductsWPF
             }).ToList();
         }
 
-        private void btnCreateOrder_Click(object sender, RoutedEventArgs e)
+        private void btnCreateOrderWindow_Click(object sender, RoutedEventArgs e)
         {
             CreateOrderWindow createOrderWindow = new CreateOrderWindow(_user);
             createOrderWindow.Show();
+            this.Close();
+        }
+
+        private void btnOrderHistoryWindow_Click(object sender, RoutedEventArgs e)
+        {
+            OrderHistoryWindow orderHistoryWindow = new OrderHistoryWindow(_user);
+            orderHistoryWindow.Show();
             this.Close();
         }
     }

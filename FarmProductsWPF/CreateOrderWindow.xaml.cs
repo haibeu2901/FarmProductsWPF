@@ -55,7 +55,7 @@ namespace FarmProductsWPF
             this.Close();
         }
 
-        private void btnViewStock_Click(object sender, RoutedEventArgs e)
+        private void btnViewStockWindow_Click(object sender, RoutedEventArgs e)
         {
             FarmProductManagementWindow farmProductManagementWindow = new FarmProductManagementWindow(_user);
             farmProductManagementWindow.Show();
@@ -307,6 +307,13 @@ namespace FarmProductsWPF
             txtCustomerName.Text = string.Empty;
             txtCustomerPhone.Text = string.Empty;
             customerInfoPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnOrderHistoryWindow_Click(object sender, RoutedEventArgs e)
+        {
+            OrderHistoryWindow orderHistoryWindow = new OrderHistoryWindow(_user);
+            orderHistoryWindow.Show();
+            this.Close();
         }
     }
 
