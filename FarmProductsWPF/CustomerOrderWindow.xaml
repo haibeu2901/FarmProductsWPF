@@ -219,6 +219,12 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
+                            <TextBlock Text="🔍" 
+                                       FontSize="16" 
+                                       Margin="10,0,0,0" 
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Foreground="#9CA3AF"/>
                             <TextBox x:Name="txtSearch" Grid.Column="1" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
                                      Background="Transparent" BorderThickness="0"
                                      Foreground="{StaticResource TextGray}"
