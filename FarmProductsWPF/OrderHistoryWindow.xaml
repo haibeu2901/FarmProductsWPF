@@ -541,14 +541,16 @@
                                Margin="0,0,0,10"
                                VerticalAlignment="Center"/>
 
-                    <TextBlock Grid.Row="0" Grid.Column="1"
-                               x:Name="txtSelectedOrderStatus"
-                               Text="✔ Completed"
-                               Foreground="{StaticResource StatusGreen}"
-                               FontSize="12"
-                               FontWeight="Medium"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"/>
+                    <!-- Replace the TextBlock with a Border that contains a TextBlock -->
+                    <Border Grid.Row="0" Grid.Column="1"
+                            Style="{StaticResource CategoryPillStyle}">
+                        <TextBlock x:Name="txtSelectedOrderStatus"
+                                   Text="✔ Completed"
+                                   Foreground="{StaticResource StatusGreen}"
+                                   FontSize="12"
+                                   HorizontalAlignment="Right"
+                                   FontWeight="Medium"/>
+                    </Border>
 
                     <!-- Order Date -->
                     <TextBlock Grid.Row="1" Grid.Column="0"
@@ -562,7 +564,6 @@
                                x:Name="txtSelectedOrderDate"
                                Text="Jan 15, 2024, 10:30 AM"
                                Foreground="{StaticResource TextGray}"
-                               HorizontalAlignment="Right"
                                VerticalAlignment="Center"/>
 
                     <!-- Customer -->
@@ -574,15 +575,15 @@
                                VerticalAlignment="Top"/>
 
                     <StackPanel Grid.Row="2" Grid.Column="1" 
-                                HorizontalAlignment="Right">
+                                HorizontalAlignment="Left">
                         <TextBlock x:Name="txtSelectedCustomerName"
                                    Text="John Smith"
                                    Foreground="{StaticResource TextGray}"
-                                   HorizontalAlignment="Right"/>
+                                   HorizontalAlignment="Center"/>
                         <TextBlock x:Name="txtSelectedCustomerPhone"
                                    Text="+1-555-0123"
                                    Foreground="{StaticResource TextGray}"
-                                   HorizontalAlignment="Right"/>
+                                   HorizontalAlignment="Center"/>
                     </StackPanel>
 
                     <!-- Processed By -->
@@ -596,7 +597,6 @@
                                x:Name="txtSelectedStaffName"
                                Text="Sarah Johnson"
                                Foreground="{StaticResource TextGray}"
-                               HorizontalAlignment="Right"
                                VerticalAlignment="Center"/>
                 </Grid>
 
