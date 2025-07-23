@@ -625,10 +625,12 @@
                                                     HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="Add" 
+                                        <Button x:Name="btnAddProductToCart" 
+                                                Content="Add" 
                                                 Style="{StaticResource AddButton}"
                                                 Command="{Binding AddToCartCommand}"
-                                                CommandParameter="{Binding}">
+                                                CommandParameter="{Binding}"
+                                                Click="btnAddProductToCart_Click">
                                             <Button.ContentTemplate>
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal">
@@ -813,14 +815,14 @@
                               Style="{StaticResource ModernDataGrid}"
                               ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
                               IsReadOnly="True"
-                              Margin="0,0,0,16">
+                              Margin="0,0,0,16" Loaded="dtgOrderCart_Loaded">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Product" Binding="{Binding ProductName}" Width="*"
+                            <DataGridTextColumn Header="Product" Binding="{Binding OrderDetailName}" Width="*"
                                                 HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
                                                 ElementStyle="{StaticResource CenteredCellStyle}"/>
 
                             <DataGridTextColumn Header="Price" 
-                                                Binding="{Binding PriceDisplay, StringFormat='{}{0:#,##0}₫'}" 
+                                                Binding="{Binding OrderDetailPrice, StringFormat='{}{0:#,##0}₫'}" 
                                                 Width="0.7*"
                                                 HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"
                                                 ElementStyle="{StaticResource PriceStyle}"/>
@@ -835,7 +837,7 @@
                                                     Content="−" 
                                                     Command="{Binding DecreaseQuantityCommand}"
                                                     CommandParameter="{Binding}"/>
-                                            <TextBlock Text="{Binding Quantity}" 
+                                            <TextBlock Text="{Binding OrderDetailQuantity}" 
                                                        Width="40" 
                                                        TextAlignment="Center" 
                                                        VerticalAlignment="Center"/>
@@ -886,7 +888,7 @@
                                       FontWeight="Bold" 
                                       Foreground="{StaticResource TextPrimary}"/>
 
-                            <TextBlock Grid.Column="1" 
+                            <TextBlock x:Name="txtOrderTotalPrice" Grid.Column="1" 
                                       Text="{Binding TotalPrice, StringFormat='{}{0:#,##0}₫'}" 
                                       FontSize="18" 
                                       FontWeight="Bold" 

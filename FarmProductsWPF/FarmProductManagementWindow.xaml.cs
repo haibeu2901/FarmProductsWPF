@@ -53,9 +53,9 @@ namespace FarmProductsWPF
             {
                 s.ProductId,
                 s.Product.ProductName,
-                s.Product.Category.CategoryName,
-                s.Product.Unit,
-                s.Product.SellingPrice,
+                s.Product?.Category?.CategoryName,
+                s.Product?.Unit,
+                s.Product?.SellingPrice,
                 s.Quantity,
                 Status = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
             }).ToList();
@@ -67,9 +67,9 @@ namespace FarmProductsWPF
             {
                 ProductId = s.ProductId,
                 ProductName = s.Product.ProductName,
-                CategoryName = s.Product.Category.CategoryName,
-                Unit = s.Product.Unit,
-                SellingPrice = s.Product.SellingPrice,
+                CategoryName = s.Product?.Category?.CategoryName,
+                Unit = s.Product?.Unit,
+                SellingPrice = s.Product?.SellingPrice,
                 Quantity = s.Quantity,
                 Status = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
             }).ToList();
