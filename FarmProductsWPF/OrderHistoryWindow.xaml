@@ -398,7 +398,25 @@
                          BorderThickness="0"
                          Background="Transparent"
                          ItemContainerStyle="{StaticResource OrderItemStyle}"
-                         ScrollViewer.VerticalScrollBarVisibility="Auto" Loaded="lstOrders_Loaded" SelectionChanged="lstOrders_SelectionChanged">
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                         Loaded="lstOrders_Loaded" 
+                         SelectionChanged="lstOrders_SelectionChanged">
+                    <ListBox.Template>
+                        <ControlTemplate TargetType="ListBox">
+                            <Border BorderThickness="{TemplateBinding BorderThickness}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    Background="{TemplateBinding Background}">
+                                <ScrollViewer x:Name="ScrollViewer" 
+                                              Padding="{TemplateBinding Padding}"
+                                              CanContentScroll="False"
+                                              PanningMode="VerticalOnly"
+                                              PanningRatio="0.001"
+                                              PanningDeceleration="0.000001">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </Border>
+                        </ControlTemplate>
+                    </ListBox.Template>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -604,6 +622,22 @@
                              IsHitTestVisible="True"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ListBox">
+                                <Border BorderThickness="{TemplateBinding BorderThickness}" 
+                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                        Background="{TemplateBinding Background}">
+                                    <ScrollViewer x:Name="ScrollViewer" 
+                                                  Padding="{TemplateBinding Padding}"
+                                                  CanContentScroll="False"
+                                                  PanningMode="VerticalOnly"
+                                                  PanningRatio="0.001"
+                                                  PanningDeceleration="0.000001">
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </ControlTemplate>
+                        </ListBox.Template>
                         <!-- Only set ItemContainerStyle once -->
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem" BasedOn="{StaticResource OrderItemStyle}">

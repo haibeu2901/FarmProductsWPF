@@ -283,7 +283,25 @@
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
                              BorderThickness="0"
                              Background="Transparent"
+                             VirtualizingPanel.IsVirtualizing="True"
+                             VirtualizingPanel.VirtualizationMode="Recycling"
+                             VirtualizingPanel.ScrollUnit="Pixel"
                              Loaded="dtgOrders_Loaded" SelectionChanged="dtgOrders_SelectionChanged">
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ListBox">
+                                <Border BorderThickness="{TemplateBinding BorderThickness}" 
+                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                        Background="{TemplateBinding Background}">
+                                    <ScrollViewer Padding="{TemplateBinding Padding}"
+                                                  CanContentScroll="False"
+                                                  PanningMode="VerticalOnly"
+                                                  PanningRatio="0.001"
+                                                  PanningDeceleration="0.000001">
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </ControlTemplate>
+                        </ListBox.Template>
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="Margin" Value="0,0,0,8"/>
@@ -419,7 +437,25 @@
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                      BorderThickness="0"
                                      Background="Transparent"
+                                     VirtualizingPanel.IsVirtualizing="True"
+                                     VirtualizingPanel.VirtualizationMode="Recycling"
+                                     VirtualizingPanel.ScrollUnit="Pixel"
                                      ItemsSource="{Binding SelectedOrder.OrderDetails}">
+                                <ListBox.Template>
+                                    <ControlTemplate TargetType="ListBox">
+                                        <Border BorderThickness="{TemplateBinding BorderThickness}" 
+                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                Background="{TemplateBinding Background}">
+                                            <ScrollViewer Padding="{TemplateBinding Padding}"
+                                                          CanContentScroll="False"
+                                                          PanningMode="VerticalOnly"
+                                                          PanningRatio="0.001"
+                                                          PanningDeceleration="0.000001">
+                                                <ItemsPresenter/>
+                                            </ScrollViewer>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ListBox.Template>
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
                                         <Setter Property="Margin" Value="0,0,0,8"/>

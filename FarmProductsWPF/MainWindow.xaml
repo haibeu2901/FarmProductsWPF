@@ -130,6 +130,10 @@
             <Setter Property="RowHeight" Value="40"/>
             <Setter Property="CanUserReorderColumns" Value="False"/>
             <Setter Property="CanUserSortColumns" Value="True"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalOnly"/>
+            <Setter Property="ScrollViewer.PanningRatio" Value="0.001"/>
+            <Setter Property="ScrollViewer.PanningDeceleration" Value="0.000001"/>
         </Style>
 
         <!-- DataGrid Header Style (General) -->

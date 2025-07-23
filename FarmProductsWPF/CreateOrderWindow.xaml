@@ -568,7 +568,15 @@
                               x:Name="dtgProducts" 
                               Style="{StaticResource ModernDataGrid}"
                               ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                              IsReadOnly="True" Loaded="dtgProducts_Loaded">
+                              IsReadOnly="True" 
+                              Loaded="dtgProducts_Loaded"
+                              ScrollViewer.CanContentScroll="False"
+                              ScrollViewer.PanningMode="VerticalOnly"
+                              ScrollViewer.PanningRatio="0.001"
+                              ScrollViewer.PanningDeceleration="0.000001"
+                              VirtualizingPanel.IsVirtualizing="True"
+                              VirtualizingPanel.VirtualizationMode="Recycling"
+                              VirtualizingPanel.ScrollUnit="Pixel">
                         <!-- Replace the current DataGrid columns section in dtgProducts -->
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" Width="*" 
@@ -872,7 +880,15 @@
                               Style="{StaticResource ModernDataGrid}"
                               ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
                               IsReadOnly="True"
-                              Margin="0,0,0,16" Loaded="dtgOrderCart_Loaded">
+                              Margin="0,0,0,16" 
+                              Loaded="dtgOrderCart_Loaded"
+                              ScrollViewer.CanContentScroll="False"
+                              ScrollViewer.PanningMode="VerticalOnly"
+                              ScrollViewer.PanningRatio="0.001"
+                              ScrollViewer.PanningDeceleration="0.000001"
+                              VirtualizingPanel.IsVirtualizing="True"
+                              VirtualizingPanel.VirtualizationMode="Recycling"
+                              VirtualizingPanel.ScrollUnit="Pixel">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Product" Binding="{Binding OrderDetailName}" Width="*"
                                                 HeaderStyle="{StaticResource CenteredColumnHeaderStyle}"

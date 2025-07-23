@@ -117,7 +117,7 @@
             </Setter>
         </Style>
 
-        <!-- First, add these styles to your Window.Resources if they're not already there -->
+        <!-- Update the ModernDataGrid style to include smooth scrolling -->
         <Style x:Key="ModernDataGrid" TargetType="DataGrid">
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="#DEE2E6"/>
@@ -135,6 +135,10 @@
             <Setter Property="SelectionMode" Value="Single"/>
             <Setter Property="SelectionUnit" Value="FullRow"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalOnly"/>
+            <Setter Property="ScrollViewer.PanningRatio" Value="0.001"/>
+            <Setter Property="ScrollViewer.PanningDeceleration" Value="0.000001"/>
             <Style.Resources>
                 <!-- Define cell style that preserves text color -->
                 <Style TargetType="{x:Type DataGridCell}">
@@ -161,6 +165,15 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
+
+                <!-- Add smooth scrolling for the ScrollViewer -->
+                <Style TargetType="{x:Type ScrollViewer}">
+                    <Setter Property="CanContentScroll" Value="False"/>
+                    <Setter Property="PanningMode" Value="VerticalOnly"/>
+                    <Setter Property="PanningRatio" Value="1"/>
+                    <Setter Property="PanningDeceleration" Value="0.003"/>
+                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+                </Style>
             </Style.Resources>
         </Style>
 
@@ -184,6 +197,7 @@
             <Setter Property="Padding" Value="12,10"/>
             <Setter Property="BorderThickness" Value="0,0,1,0"/>
             <Setter Property="BorderBrush" Value="#5a6268"/>
+            
         </Style>
     </Window.Resources>
 
