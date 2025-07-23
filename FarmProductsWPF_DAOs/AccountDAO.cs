@@ -35,5 +35,11 @@ namespace FarmProductsWPF_DAOs
                 .FirstOrDefault(a => (a.Username == username || a.Email == username) && 
                                         a.Password == password);
         }
+
+        public Account? GetCustomerByPhoneNumber(string phoneNumber)
+        {
+            return _context.Accounts
+                .FirstOrDefault(a => a.PhoneNumber == phoneNumber && a.Role == 3);
+        }
     }
 }

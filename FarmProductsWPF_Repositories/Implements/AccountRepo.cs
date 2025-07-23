@@ -16,5 +16,10 @@ namespace FarmProductsWPF_Repositories.Implements
         {
             return AccountDAO.Instance.GetAccountByLogin(username, password);
         }
+
+        public Account? GetCustomerByPhoneNumber(string phoneNumber)
+        {
+            return AccountDAO.Instance.GetCustomerByPhoneNumber(phoneNumber);
+        }
     }
 }

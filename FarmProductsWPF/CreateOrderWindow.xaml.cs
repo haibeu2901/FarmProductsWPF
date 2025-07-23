@@ -24,6 +24,8 @@ namespace FarmProductsWPF
     {
         private Account _user;
         private readonly IStockRepo _stockRepo;
+        private readonly IAccountRepo _accountRepo;
+        private Account? _selectedCustomer;
 
         public Account CurrentUser
         {
@@ -37,6 +39,7 @@ namespace FarmProductsWPF
             _user = account;
             this.DataContext = this;
             _stockRepo = new StockRepo();
+            _accountRepo = new AccountRepo();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -58,8 +61,8 @@ namespace FarmProductsWPF
             dtgProducts.ItemsSource = _stockRepo.GetAllStocks().Select(s => new
             {
                 ProductName = s.Product.ProductName,
-                CategoryName = s.Product.Category.CategoryName,
-                PriceDisplay = s.Product.SellingPrice,
+                CategoryName = s.Product?.Category?.CategoryName,
+                PriceDisplay = s.Product?.SellingPrice,
                 StockDisplay = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
             });
         }
@@ -70,10 +73,42 @@ namespace FarmProductsWPF
             dtgProducts.ItemsSource = _stockRepo.SearchStock(searchText).Select(s => new
             {
                 ProductName = s.Product.ProductName,
-                CategoryName = s.Product.Category.CategoryName,
-                PriceDisplay = s.Product.SellingPrice,
+                CategoryName = s.Product?.Category?.CategoryName,
+                PriceDisplay = s.Product?.SellingPrice,
                 StockDisplay = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
             }).ToList();
+        }
+
+        private void btnCustomerSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string customerSearchText = txtCustomerSearch.Text.Trim();
+            
+            _selectedCustomer = _accountRepo.GetCustomerByPhoneNumber(customerSearchText);
+            
+            if (_selectedCustomer != null)
+            {
+                // Show customer info in the panel
+                txtCustomerName.Text = _selectedCustomer.FullName;
+                txtCustomerPhone.Text = _selectedCustomer.PhoneNumber;
+                customerInfoPanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MessageBox.Show("Customer not found. Please check the phone number and try again.");
+                customerInfoPanel.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void btnClearCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            // Clear the selected customer
+            _selectedCustomer = null;
+            
+            // Hide the customer info panel
+            customerInfoPanel.Visibility = Visibility.Collapsed;
+            
+            // Clear the search box
+            txtCustomerSearch.Clear();
         }
     }
 }

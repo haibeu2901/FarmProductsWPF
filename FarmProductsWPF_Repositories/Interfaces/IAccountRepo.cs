@@ -10,5 +10,6 @@ namespace FarmProductsWPF_Repositories.Interfaces
     public interface IAccountRepo
     {
         Account? GetAccountByLogin(string username, string password);
+        Account? GetCustomerByPhoneNumber(string phoneNumber);
     }
 }
