@@ -671,34 +671,42 @@
                                                FontWeight="Bold"
                                                Foreground="#1F2937"/>
 
-                                    <!-- Category, Quantity and Unit Price -->
-                                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                                                Orientation="Horizontal"
-                                                Margin="0,8,0,0">
+                                    <!-- Category, Quantity and Unit Price on same line -->
+                                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
                                         <!-- Category Badge -->
-                                        <Border Style="{StaticResource CategoryPillStyle}"
+                                        <Border Grid.Column="0"
+                                                Style="{StaticResource CategoryPillStyle}"
                                                 Background="#E8F5E9"
                                                 BorderBrush="#81C784"
                                                 BorderThickness="1"
                                                 CornerRadius="12"
                                                 Padding="8,4"
-                                                Margin="0,0,5,0">
+                                                Margin="0,0,8,0">
                                             <TextBlock Text="{Binding CategoryName}"
                                                        Foreground="#2E7D32"
                                                        FontSize="12"
                                                        FontWeight="SemiBold"/>
                                         </Border>
 
-                                        <!-- Quantity and Unit Price -->
-                                        <TextBlock Text="{Binding DetailQuantity}"
-                                                   Foreground="{StaticResource TextGray}"/>
-                                        <TextBlock Text="{Binding DetailProductUnit}"
-                                                   Foreground="{StaticResource TextGray}"/>
-                                        <TextBlock Text=" × "
-                                                   Foreground="{StaticResource TextGray}"/>
-                                        <TextBlock Text="{Binding DetailSellingPrice, StringFormat='{}{0:N0} đ'}"
-                                                   Foreground="{StaticResource TextGray}"/>
-                                    </StackPanel>
+                                        <!-- Quantity and Unit Price - now aligned with category -->
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding DetailQuantity}"
+                                                       Foreground="{StaticResource TextGray}"/>
+                                            <TextBlock Text="{Binding DetailProductUnit}"
+                                                       Foreground="{StaticResource TextGray}"
+                                                       Margin="3,0,0,0"/>
+                                            <TextBlock Text=" × "
+                                                       Foreground="{StaticResource TextGray}"
+                                                       Margin="3,0,3,0"/>
+                                            <TextBlock Text="{Binding DetailSellingPrice, StringFormat='{}{0:N0} đ'}"
+                                                       Foreground="{StaticResource TextGray}"/>
+                                        </StackPanel>
+                                    </Grid>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
