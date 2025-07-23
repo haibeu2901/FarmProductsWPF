@@ -74,5 +74,12 @@ namespace FarmProductsWPF
                 Status = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
             }).ToList();
         }
+
+        private void btnCreateOrder_Click(object sender, RoutedEventArgs e)
+        {
+            CreateOrderWindow createOrderWindow = new CreateOrderWindow(_user);
+            createOrderWindow.Show();
+            this.Close();
+        }
     }
 }

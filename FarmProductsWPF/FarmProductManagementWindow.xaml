@@ -266,7 +266,7 @@
                         VerticalAlignment="Center"
                         Background="#F3F4F6"
                         Foreground="#4F46E5"/>
-                <Button Grid.Column="1" Content="🛒 Create Order" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="btnCreateOrder" Grid.Column="1" Content="🛒 Create Order" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnCreateOrder_Click"/>
                 <Button Grid.Column="2" Content="👥 Accounts" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button Grid.Column="3" Content="🏷️ Categories" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button Grid.Column="4" Content="🌾 Products" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
