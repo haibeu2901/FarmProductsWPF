@@ -833,16 +833,16 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Button Style="{StaticResource QuantityButton}" 
-                                                    Content="−" 
+                                            <Button x:Name="btnDecreaseItem" Style="{StaticResource QuantityButton}" 
+                                                    Content="➖" 
                                                     Command="{Binding DecreaseQuantityCommand}"
-                                                    CommandParameter="{Binding}"/>
+                                                    CommandParameter="{Binding}" Click="btnDecreaseItem_Click"/>
                                             <TextBlock Text="{Binding OrderDetailQuantity}" 
                                                        Width="40" 
                                                        TextAlignment="Center" 
                                                        VerticalAlignment="Center"/>
-                                            <Button Style="{StaticResource QuantityButton}" 
-                                                    Content="+" 
+                                            <Button x:Name="btnIncreaseItem" Style="{StaticResource QuantityButton}" 
+                                                    Content="➕" 
                                                     Command="{Binding IncreaseQuantityCommand}"
                                                     CommandParameter="{Binding}"/>
                                         </StackPanel>
@@ -855,13 +855,13 @@
                                                     HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Width="32" 
+                                        <Button x:Name="btnRemoveItem" Width="32" 
                                                Height="32" 
                                                Background="Transparent" 
                                                BorderThickness="0"
                                                Command="{Binding RemoveCommand}"
                                                CommandParameter="{Binding}">
-                                            <TextBlock Text="🗑️" FontSize="14"/>
+                                            <TextBlock Text="🗑" FontSize="14"/>
                                         </Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -895,7 +895,7 @@
                                       Foreground="#28A745"/>
                         </Grid>
 
-                        <Button Grid.Row="1" 
+                        <Button x:Name="btnCreateOrder" Grid.Row="1" 
                                 Style="{StaticResource CreateOrderButton}"
                                 HorizontalAlignment="Stretch">
                             <StackPanel Orientation="Horizontal">
