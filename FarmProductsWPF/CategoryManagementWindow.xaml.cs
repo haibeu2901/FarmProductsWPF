@@ -108,7 +108,27 @@ namespace FarmProductsWPF
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dtgCategories.SelectedItem != null)
+            {
+                dynamic selectedCategory = dtgCategories.SelectedItem;
+                if (selectedCategory != null)
+                {
+                    ProductCategory category = _categoryRepo.GetCategoryById(selectedCategory.CategoryId);
+                    if (category != null)
+                    {
+                        EditCategoryPopup editCategoryPopup = new EditCategoryPopup(category);
+                        editCategoryPopup.CategoryEdited += (s, args) =>
+                        {
+                            LoadDataGrid(category.CategoryName);
+                        };
+                        editCategoryPopup.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected category not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)

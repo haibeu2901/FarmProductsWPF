@@ -1,4 +1,5 @@
 ﻿using FarmProductsWPF_BOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,15 @@ namespace FarmProductsWPF_DAOs
 
         public List<ProductCategory> GetAllCategories()
         {
-            return _context.ProductCategories.ToList();
+            return _context.ProductCategories
+                .Include(c => c.Products)
+                .ToList();
         }
 
         public List<ProductCategory> SearchCategory(string searchText)
         {
             return _context.ProductCategories
+                .Include(c => c.Products)
                 .AsEnumerable()
                 .Where(c => c.CategoryName.ToLower().Contains(searchText.ToLower()) ||
                             c.Description.ToLower().Contains(searchText.ToLower()) ||
@@ -47,6 +51,7 @@ namespace FarmProductsWPF_DAOs
         public ProductCategory? GetCategoryById(int categoryId)
         {
             return _context.ProductCategories
+                .Include(c => c.Products)
                 .FirstOrDefault(c => c.CategoryId == categoryId);
         }
 
