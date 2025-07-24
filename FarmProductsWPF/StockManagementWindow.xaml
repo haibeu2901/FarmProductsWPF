@@ -272,7 +272,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="📦 View Stock" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="btnViewStockWindow" Grid.Column="0" Content="📦 View Stock" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnViewStockWindow_Click"/>
                 <Button x:Name="btnCreateOrderWindow" Grid.Column="1" Content="🛒 Create Order" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnCreateOrderWindow_Click"/>
                 <Button x:Name="btnOrderHistoryWindow" Grid.Column="2" Content="📅 Order History" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnOrderHistoryWindow_Click"/>
                 <Button Grid.Column="3" Content="👥 Accounts" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
