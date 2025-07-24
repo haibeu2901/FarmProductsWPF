@@ -11,6 +11,16 @@ namespace FarmProductsWPF_Repositories.Implements
 {
     public class ProductRepo : IProductRepo
     {
+        public Product AddProduct(Product product)
+        {
+            return ProductDAO.Instance.AddProduct(product);
+        }
+
+        public bool DeleteProduct(int productId)
+        {
+            return ProductDAO.Instance.DeleteProduct(productId);
+        }
+
         public List<Product> GetAllProducts()
         {
             return ProductDAO.Instance.GetAllProducts();
@@ -24,6 +34,11 @@ namespace FarmProductsWPF_Repositories.Implements
         public List<Product> SearchProduct(string searchText)
         {
             return ProductDAO.Instance.SearchProduct(searchText);
+        }
+
+        public Product UpdateProduct(Product product)
+        {
+            return ProductDAO.Instance.UpdateProduct(product);
         }
     }
 }

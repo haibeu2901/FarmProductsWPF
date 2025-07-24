@@ -58,5 +58,39 @@ namespace FarmProductsWPF_DAOs
                 .Include(p => p.Category)
                 .FirstOrDefault(p => p.ProductId == productId);
         }
+
+        public Product AddProduct(Product product)
+        {
+            _context.Products.Add(product);
+            _context.SaveChanges();
+            return product;
+        }
+
+        public Product UpdateProduct(Product product)
+        {
+            var existingProduct = GetProductById(product.ProductId);
+            if (existingProduct != null)
+            {
+                existingProduct.ProductName = product.ProductName;
+                existingProduct.CategoryId = product.CategoryId;
+                existingProduct.Unit = product.Unit;
+                existingProduct.SellingPrice = product.SellingPrice;
+                existingProduct.Description = product.Description;
+                _context.SaveChanges();
+            }
+            return existingProduct;
+        }
+
+        public bool DeleteProduct(int productId)
+        {
+            var product = GetProductById(productId);
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 }
