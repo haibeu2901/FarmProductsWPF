@@ -1,4 +1,6 @@
 ﻿using FarmProductsWPF_BOs;
+using FarmProductsWPF_Repositories.Implements;
+using FarmProductsWPF_Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,7 @@ namespace FarmProductsWPF
     public partial class AccountManagementWindow : Window
     {
         private Account _user;
+        private readonly IAccountRepo _accountRepo;
 
         public Account CurrentUser
         {
@@ -33,6 +36,7 @@ namespace FarmProductsWPF
             InitializeComponent();
             _user = account;
             this.DataContext = this;
+            _accountRepo = new AccountRepo();
         }
 
         private void btnViewStockWindow_Click(object sender, RoutedEventArgs e)
@@ -84,14 +88,29 @@ namespace FarmProductsWPF
             login.Show();
         }
 
+        private void LoadDataGrid(string searchText)
+        {
+            dtgAccounts.ItemsSource = _accountRepo.SearchAccounts(searchText).Select(a => new
+            {
+                a.AccountId,
+                a.FullName,
+                a.Username,
+                Role = a.Role == 1 ? "Owner" : (a.Role == 2 ? "Staff" : "Customer"),
+                a.Email,
+                a.PhoneNumber,
+                Status = a.Status.Value ? "Active" : "Inactive"
+            }).ToList();
+        }
+
         private void dtgAccounts_Loaded(object sender, RoutedEventArgs e)
         {
-
+            LoadDataGrid(string.Empty);
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            string searchText = txtSearch.Text;
+            LoadDataGrid(searchText);
         }
 
         private void btnAddAccount_Click(object sender, RoutedEventArgs e)

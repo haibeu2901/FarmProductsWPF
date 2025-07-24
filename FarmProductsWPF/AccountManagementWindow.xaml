@@ -350,6 +350,38 @@
             <Setter Property="BorderBrush" Value="#81C784"/>
             <Setter Property="BorderThickness" Value="1"/>
         </Style>
+
+        <!-- Toggle Status Button Style - Updated to match ActionIconButton height -->
+        <Style x:Key="ToggleStatusButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#111827"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Padding" Value="8,0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F3F4F6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -619,42 +651,42 @@
 
                         <!-- Role Column -->
                         <DataGridTemplateColumn Header="Role" 
-                                                Width="150"
-                                                IsReadOnly="True">
+                        Width="150"
+                        IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border CornerRadius="12" Padding="8,4" MinWidth="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Border.Style>
                                             <Style TargetType="Border">
                                                 <Setter Property="Background" Value="#EEF2FF"/>
-                                                <Setter Property="BorderBrush" Value="#A5B4FC"/>
+                                                <Setter Property="BorderBrush" Value="#FF5911C7"/>
                                                 <Setter Property="BorderThickness" Value="1"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Role}" Value="Owner">
-                                                        <Setter Property="Background" Value="#EEE7FE"/>
-                                                        <Setter Property="BorderBrush" Value="#D8B4FE"/>
+                                                        <Setter Property="Background" Value="#F9E6FF"/>
+                                                        <Setter Property="BorderBrush" Value="#FFA888F1"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Role}" Value="Staff">
-                                                        <Setter Property="Background" Value="#EEF2FF"/>
-                                                        <Setter Property="BorderBrush" Value="#A5B4FC"/>
+                                                        <Setter Property="Background" Value="#E6F3FF"/>
+                                                        <Setter Property="BorderBrush" Value="#2563EB"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Role}" Value="Customer">
                                                         <Setter Property="Background" Value="#E8F5E9"/>
-                                                        <Setter Property="BorderBrush" Value="#81C784"/>
+                                                        <Setter Property="BorderBrush" Value="#2E7D32"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </Border.Style>
-                                        <TextBlock Text="{Binding Role}" FontSize="12" FontWeight="SemiBold" TextAlignment="Center">
+                                        <TextBlock Text="{Binding Role}" FontSize="12" FontWeight="Bold" TextAlignment="Center">
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Foreground" Value="#4F46E5"/>
+                                                    <Setter Property="Foreground" Value="#FF5911C7"/>
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding Role}" Value="Owner">
-                                                            <Setter Property="Foreground" Value="#7E22CE"/>
+                                                            <Setter Property="Foreground" Value="#FF5911C7"/>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding Role}" Value="Staff">
-                                                            <Setter Property="Foreground" Value="#4F46E5"/>
+                                                            <Setter Property="Foreground" Value="#2563EB"/>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding Role}" Value="Customer">
                                                             <Setter Property="Foreground" Value="#2E7D32"/>
@@ -684,7 +716,7 @@
 
                         <!-- Phone Column -->
                         <DataGridTextColumn Header="Phone"
-                                            Binding="{Binding Phone}"
+                                            Binding="{Binding PhoneNumber}"
                                             Width="150"
                                             IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
@@ -740,46 +772,94 @@
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <!-- Activate/Deactivate Button -->
                                         <Button x:Name="btnToggleAccountStatus" 
-                                                Margin="0,0,8,0" 
-                                                Padding="8,6" 
-                                                BorderThickness="1" 
-                                                BorderBrush="#E5E7EB" 
-                                                Background="White" 
-                                                Cursor="Hand"
-                                                Click="btnToggleAccountStatus_Click">
+        Margin="0,0,8,0"
+        Click="btnToggleAccountStatus_Click">
                                             <Button.Style>
                                                 <Style TargetType="Button">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}"
-                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                                                        CornerRadius="6"
-                                                                        Padding="{TemplateBinding Padding}">
-                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
+                                                    <!-- Base properties (no BasedOn to avoid conflicts) -->
+                                                    <Setter Property="MinWidth" Value="80"/>
+                                                    <Setter Property="Height" Value="32"/>
+                                                    <Setter Property="FontSize" Value="11"/>
+                                                    <Setter Property="Padding" Value="8,0"/>
+                                                    <Setter Property="BorderThickness" Value="1"/>
+                                                    <Setter Property="Cursor" Value="Hand"/>
+
+                                                    <!-- Style triggers based on account status -->
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding Status}" Value="Active">
-                                                            <Setter Property="Content">
-                                                                <Setter.Value>
-                                                                    <TextBlock Text="Deactivate" Foreground="#EF4444" FontSize="12"/>
-                                                                </Setter.Value>
-                                                            </Setter>
+                                                            <Setter Property="Background" Value="#FFEBEB"/>
+                                                            <Setter Property="BorderBrush" Value="#EF4444"/>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding Status}" Value="Inactive">
-                                                            <Setter Property="Content">
-                                                                <Setter.Value>
-                                                                    <TextBlock Text="Activate" Foreground="#22C55E" FontSize="12"/>
-                                                                </Setter.Value>
-                                                            </Setter>
+                                                            <Setter Property="Background" Value="#E8F5E9"/>
+                                                            <Setter Property="BorderBrush" Value="#81C784"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
+
+                                            <!-- Simplified template with dramatic hover effects -->
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border x:Name="buttonBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4"
+                            Padding="{TemplateBinding Padding}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <!-- Simple hover triggers with dramatic color changes -->
+                                                        <MultiDataTrigger>
+                                                            <MultiDataTrigger.Conditions>
+                                                                <Condition Binding="{Binding Status}" Value="Active"/>
+                                                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                                            </MultiDataTrigger.Conditions>
+                                                            <Setter TargetName="buttonBorder" Property="Background" Value="#FF8080"/>
+                                                            <!-- Much brighter red -->
+                                                            <Setter TargetName="buttonBorder" Property="BorderBrush" Value="#B71C1C"/>
+                                                            <!-- Darker red border -->
+                                                            <Setter TargetName="buttonBorder" Property="Effect">
+                                                                <Setter.Value>
+                                                                    <DropShadowEffect ShadowDepth="1" Color="#DC2626" BlurRadius="3" Opacity="0.5"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </MultiDataTrigger>
+
+                                                        <MultiDataTrigger>
+                                                            <MultiDataTrigger.Conditions>
+                                                                <Condition Binding="{Binding Status}" Value="Inactive"/>
+                                                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                                            </MultiDataTrigger.Conditions>
+                                                            <Setter TargetName="buttonBorder" Property="Background" Value="#A5D6A7"/>
+                                                            <!-- Much brighter green -->
+                                                            <Setter TargetName="buttonBorder" Property="BorderBrush" Value="#2E7D32"/>
+                                                            <!-- Darker green border -->
+                                                            <Setter TargetName="buttonBorder" Property="Effect">
+                                                                <Setter.Value>
+                                                                    <DropShadowEffect ShadowDepth="1" Color="#4CAF50" BlurRadius="3" Opacity="0.5"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </MultiDataTrigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
+
+                                            <TextBlock FontSize="11">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Text" Value="❌ Deactivate"/>
+                                                        <Setter Property="Foreground" Value="#DC2626"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Inactive">
+                                                                <Setter Property="Text" Value="✔ Activate"/>
+                                                                <Setter Property="Foreground" Value="#2E7D32"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
                                         </Button>
 
                                         <!-- Edit Button -->

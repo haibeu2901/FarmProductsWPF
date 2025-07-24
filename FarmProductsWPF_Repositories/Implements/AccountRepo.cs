@@ -42,6 +42,11 @@ namespace FarmProductsWPF_Repositories.Implements
             return AccountDAO.Instance.GetCustomerByPhoneNumber(phoneNumber);
         }
 
+        public List<Account> SearchAccounts(string searchText)
+        {
+            return AccountDAO.Instance.SearchAccounts(searchText);
+        }
+
         public Account UpdateAccount(Account account)
         {
             return AccountDAO.Instance.UpdateAccount(account);

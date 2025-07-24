@@ -16,5 +16,6 @@ namespace FarmProductsWPF_Repositories.Interfaces
         Account AddAccount(Account account);
         Account? GetAccountById(int accountId);
         List<Account> GetAllAccounts();
+        List<Account> SearchAccounts(string searchText);
     }
 }

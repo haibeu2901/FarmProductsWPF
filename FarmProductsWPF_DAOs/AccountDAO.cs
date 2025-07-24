@@ -83,5 +83,16 @@ namespace FarmProductsWPF_DAOs
             }
             return false;
         }
+
+        public List<Account> SearchAccounts(string searchText)
+        {
+            return _context.Accounts
+                .Where(a => a.FullName.ToLower().Contains(searchText.ToLower()) ||
+                            a.Email.ToLower().Contains(searchText.ToLower()) ||
+                            a.PhoneNumber.Contains(searchText) ||
+                            a.Username.ToLower().Contains(searchText.ToLower()) ||
+                            a.AccountId.ToString() == searchText)
+                .ToList();
+        }
     }
 }
