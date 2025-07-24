@@ -83,19 +83,35 @@ namespace FarmProductsWPF_DAOs
 
         public bool DeleteProduct(int productId)
         {
-            var product = GetProductById(productId);
-            if (product != null)
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                if (product.Stock != null && product.Stock.Quantity > 0)
+                try
                 {
+                    // First, check for and delete any associated stock
+                    var stock = _context.Stocks.Find(productId);
+                    if (stock != null)
+                    {
+                        _context.Stocks.Remove(stock);
+                    }
+                    
+                    // Then delete the product
+                    var product = _context.Products.Find(productId);
+                    if (product != null)
+                    {
+                        _context.Products.Remove(product);
+                        _context.SaveChanges();
+                        transaction.Commit();
+                        return true;
+                    }
+                    
                     return false;
                 }
-
-                _context.Products.Remove(product);
-                _context.SaveChanges();
-                return true;
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
             }
-            return false;
         }
     }
 }

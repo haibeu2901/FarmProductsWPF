@@ -96,6 +96,11 @@ namespace FarmProductsWPF_DAOs
             var stock = GetStockByProductId(productId);
             if (stock != null)
             {
+                if (stock.Quantity > 0)
+                {
+                    return false;
+                }
+
                 _context.Stocks.Remove(stock);
                 _context.SaveChanges();
                 return true;
