@@ -327,12 +327,28 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
 
-        <!-- Stock Pill Style -->
-        <Style x:Key="StockPill" TargetType="Border">
+        <!-- Category Pill Style -->
+        <Style x:Key="CategoryPillStyle" TargetType="Border">
+            <Setter Property="Background" Value="#E8F5E9"/>
+            <Setter Property="BorderBrush" Value="#81C784"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="12"/>
             <Setter Property="Padding" Value="8,4"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Stock Pill Style -->
+        <Style x:Key="StockPill" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="MinWidth" Value="70"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <!-- Default is green (In Stock) -->
+            <Setter Property="Background" Value="#E8F5E9"/>
+            <Setter Property="BorderBrush" Value="#81C784"/>
+            <Setter Property="BorderThickness" Value="1"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -584,20 +600,22 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <!-- Category Column - Increased width for more space -->
-                        <DataGridTextColumn Header="Category"
-                                            Binding="{Binding CategoryName}"
-                                            Width="300"
-                                            IsReadOnly="True">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="Foreground" Value="#1E40AF"/>
-                                    <Setter Property="FontWeight" Value="SemiBold"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
+                        <!-- Replace the Category Column with this pill version -->
+<DataGridTemplateColumn Header="Category" 
+                        Width="300"
+                        IsReadOnly="True">
+    <DataGridTemplateColumn.CellTemplate>
+        <DataTemplate>
+            <Border Style="{StaticResource CategoryPillStyle}">
+                <TextBlock Text="{Binding CategoryName}"
+                           Foreground="#2E7D32"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           TextAlignment="Center"/>
+            </Border>
+        </DataTemplate>
+    </DataGridTemplateColumn.CellTemplate>
+</DataGridTemplateColumn>
 
                         <!-- Unit Column - Smaller width -->
                         <DataGridTextColumn Header="Unit"
@@ -621,20 +639,57 @@
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Foreground" Value="#28A745"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <!-- Stock Column - Increased width -->
+                        <!-- Stock Column using Status property -->
                         <DataGridTemplateColumn Header="Stock" Width="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border Style="{StaticResource StockPill}" Background="#E8F5E9">
+                                    <Border>
+                                        <Border.Style>
+                                            <Style TargetType="Border" BasedOn="{StaticResource StockPill}">
+                                                <Style.Triggers>
+                                                    <!-- Out of Stock -->
+                                                    <DataTrigger Binding="{Binding Status}" Value="Out of Stock">
+                                                        <Setter Property="Background" Value="#FEE2E2"/>
+                                                        <Setter Property="BorderBrush" Value="#FCA5A5"/>
+                                                    </DataTrigger>
+                                                    <!-- Low Stock -->
+                                                    <DataTrigger Binding="{Binding Status}" Value="Low Stock">
+                                                        <Setter Property="Background" Value="#FEF3C7"/>
+                                                        <Setter Property="BorderBrush" Value="#FCD34D"/>
+                                                    </DataTrigger>
+                                                    <!-- In Stock (default state) -->
+                                                    <DataTrigger Binding="{Binding Status}" Value="In Stock">
+                                                        <Setter Property="Background" Value="#E8F5E9"/>
+                                                        <Setter Property="BorderBrush" Value="#81C784"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
                                         <TextBlock Text="{Binding QuantityInStock}" 
-                                                   Foreground="#22C55E" 
                                                    FontWeight="SemiBold"
-                                                   HorizontalAlignment="Center" 
-                                                   VerticalAlignment="Center"/>
+                                                   TextAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Foreground" Value="#2E7D32"/>
+                                                    <Style.Triggers>
+                                                        <!-- Out of Stock -->
+                                                        <DataTrigger Binding="{Binding Status}" Value="Out of Stock">
+                                                            <Setter Property="Foreground" Value="#DC2626"/>
+                                                        </DataTrigger>
+                                                        <!-- Low Stock -->
+                                                        <DataTrigger Binding="{Binding Status}" Value="Low Stock">
+                                                            <Setter Property="Foreground" Value="#B45309"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
                                     </Border>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

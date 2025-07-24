@@ -91,6 +91,7 @@ namespace FarmProductsWPF
                 p.Unit,
                 p.SellingPrice,
                 QuantityInStock = p.Stock?.Quantity ?? 0,
+                Status = p.Stock?.Quantity > 25 ? "In Stock" : (p.Stock?.Quantity > 0 ? "Low Stock" : "Out of Stock"),
             }).ToList();
         }
 
