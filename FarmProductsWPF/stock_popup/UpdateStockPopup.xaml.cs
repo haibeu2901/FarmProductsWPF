@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FarmProductsWPF
+namespace FarmProductsWPF.stock_popup
 {
     /// <summary>
     /// Interaction logic for UpdateStockPopup.xaml

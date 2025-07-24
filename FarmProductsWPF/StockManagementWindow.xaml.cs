@@ -1,4 +1,5 @@
-﻿using FarmProductsWPF_BOs;
+﻿using FarmProductsWPF.stock_popup;
+using FarmProductsWPF_BOs;
 using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
 using System;

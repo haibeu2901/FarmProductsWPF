@@ -70,5 +70,10 @@ namespace FarmProductsWPF
             stockManagementWindow.Show();
             this.Close();
         }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
