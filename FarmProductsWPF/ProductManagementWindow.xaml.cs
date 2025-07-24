@@ -114,7 +114,7 @@ namespace FarmProductsWPF
             {
                 LoadDataGrid(string.Empty);
             };
-            createProductPopup.Show();
+            createProductPopup.ShowDialog();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -132,7 +132,7 @@ namespace FarmProductsWPF
                         {
                             LoadDataGrid(product.ProductName);
                         };
-                        editProductPopup.Show();
+                        editProductPopup.ShowDialog();
                     }
                 }
             }
@@ -153,7 +153,7 @@ namespace FarmProductsWPF
                         {
                             LoadDataGrid(string.Empty);
                         };
-                        deleteProductPopup.Show();
+                        deleteProductPopup.ShowDialog();
                     }
                 }
             }

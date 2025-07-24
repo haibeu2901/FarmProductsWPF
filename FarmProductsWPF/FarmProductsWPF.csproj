@@ -18,8 +18,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="account_popup\" />
-  </ItemGroup>
-
 </Project>

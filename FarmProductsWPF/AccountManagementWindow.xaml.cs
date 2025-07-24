@@ -1,4 +1,5 @@
-﻿using FarmProductsWPF_BOs;
+﻿using FarmProductsWPF.account_popup;
+using FarmProductsWPF_BOs;
 using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
 using System;
@@ -115,7 +116,12 @@ namespace FarmProductsWPF
 
         private void btnAddAccount_Click(object sender, RoutedEventArgs e)
         {
-
+            CreateAccountPopup createAccountPopup = new CreateAccountPopup();
+            createAccountPopup.AccountCreated += (s, args) =>
+            {
+                LoadDataGrid(string.Empty);
+            };
+            createAccountPopup.ShowDialog();
         }
 
         private void btnToggleAccountStatus_Click(object sender, RoutedEventArgs e)

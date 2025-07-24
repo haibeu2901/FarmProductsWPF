@@ -109,7 +109,7 @@ namespace FarmProductsWPF
                         {
                             LoadDataGrid(stockProduct.Product.ProductName);
                         };
-                        updateStockPopup.Show();
+                        updateStockPopup.ShowDialog();
                     }
                     else
                     {
