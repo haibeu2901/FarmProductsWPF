@@ -69,5 +69,19 @@ namespace FarmProductsWPF_DAOs
             }
             return stock;
         }
+
+        public Stock UpdateStockLevel(Stock stock)
+        {
+            var existingStock = GetStockByProductId(stock.ProductId);
+            if (existingStock != null)
+            {
+                existingStock.Quantity = stock.Quantity;
+                existingStock.LastUpdated = DateTime.Now;
+                existingStock.UpdatedBy = stock.UpdatedBy;
+                existingStock.Notes = stock.Notes;
+                _context.SaveChanges();
+            }
+            return existingStock;
+        }
     }
 }

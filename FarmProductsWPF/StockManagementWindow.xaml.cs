@@ -60,7 +60,7 @@ namespace FarmProductsWPF
             this.Close();
         }
 
-        private void LoadDataGrid(string searchText)
+        public void LoadDataGrid(string searchText)
         {
             dtgStock.ItemsSource = _stockRepo.SearchStock(searchText).Select(s => new
             {
@@ -95,7 +95,27 @@ namespace FarmProductsWPF
 
         private void UpdateStock_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dtgStock.SelectedItem != null)
+            {
+                dynamic selectedStock = dtgStock.SelectedItem;
+                if (selectedStock != null)
+                {
+                    Stock stockProduct = _stockRepo.GetStockByProductId(selectedStock.ProductId);
+                    if (stockProduct != null)
+                    {
+                        UpdateStockPopup updateStockPopup = new UpdateStockPopup(_user, stockProduct);
+                        updateStockPopup.StockUpdated += (s, args) =>
+                        {
+                            LoadDataGrid(stockProduct.Product.ProductName);
+                        };
+                        updateStockPopup.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected stock product not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
         }
     }
 }

@@ -12,5 +12,6 @@ namespace FarmProductsWPF_Repositories.Interfaces
         List<Stock> GetAllStocks();
         Stock? GetStockByProductId(int productId);
         List<Stock> SearchStock(string searchText);
+        Stock UpdateStockLevel(Stock stock);
     }
 }

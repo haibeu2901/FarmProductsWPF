@@ -25,5 +25,10 @@ namespace FarmProductsWPF_Repositories.Implements
         {
             return StockDAO.Instance.SearchStock(searchText);
         }
+
+        public Stock UpdateStockLevel(Stock stock)
+        {
+            return StockDAO.Instance.UpdateStockLevel(stock);
+        }
     }
 }
