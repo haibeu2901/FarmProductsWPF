@@ -46,6 +46,20 @@ namespace FarmProductsWPF
             _accountRepo = new AccountRepo();
             _orderRepo = new OrderRepo();
             _orderDetailRepo = new OrderDetailRepo();
+
+            int role = _user.Role;
+            switch (role)
+            {
+                case 2:
+                    btnAccountsWindow.IsEnabled = false;
+                    btnCategoriesWindow.IsEnabled = false;
+                    btnProductsWindow.IsEnabled = false;
+                    btnStockManagementWindow.IsEnabled = false;
+                    break;
+                case 1:
+                default:
+                    break;
+            }
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
