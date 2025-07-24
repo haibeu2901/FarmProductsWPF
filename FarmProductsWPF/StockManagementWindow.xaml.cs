@@ -59,5 +59,37 @@ namespace FarmProductsWPF
             orderHistoryWindow.Show();
             this.Close();
         }
+
+        private void LoadDataGrid(string searchText)
+        {
+            dtgStock.ItemsSource = _stockRepo.SearchStock(searchText).Select(s => new
+            {
+                s.ProductId,
+                s.Product.ProductName,
+                s.Product?.Category?.CategoryName,
+                s.Product?.Unit,
+                s.Product?.SellingPrice,
+                s.Quantity,
+                Status = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
+            }).ToList();
+        }
+
+        private void dtgStock_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadDataGrid("");
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = txtSearch.Text.Trim();
+            LoadDataGrid(searchText);
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow login = new LoginWindow();
+            this.Close();
+            login.Show();
+        }
     }
 }
