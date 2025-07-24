@@ -1,4 +1,5 @@
-﻿using FarmProductsWPF_BOs;
+﻿using FarmProductsWPF.category_popup;
+using FarmProductsWPF_BOs;
 using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
 using System;
@@ -97,7 +98,12 @@ namespace FarmProductsWPF
 
         private void btnAddCategory_Click(object sender, RoutedEventArgs e)
         {
-
+            CreateCategoryPopup createCategoryPopup = new CreateCategoryPopup();
+            createCategoryPopup.CategoryCreated += (s, args) =>
+            {
+                LoadDataGrid(string.Empty);
+            };
+            createCategoryPopup.Show();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
