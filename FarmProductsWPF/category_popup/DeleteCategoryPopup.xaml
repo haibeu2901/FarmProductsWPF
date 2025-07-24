@@ -11,7 +11,9 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#F8F9FA">
+        Background="Transparent"
+        AllowsTransparency="True"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <!-- Button styles -->
         <Style x:Key="CancelButtonStyle" TargetType="Button">
@@ -233,6 +235,7 @@
                                          VerticalAlignment="Center"
                                          Margin="0,0,8,0"/>
                                 <TextBlock Text="Warning: Products in this category"
+                                         x:Name="lblWarning"
                                          FontSize="14"
                                          FontWeight="SemiBold"
                                          Foreground="#854D0E"

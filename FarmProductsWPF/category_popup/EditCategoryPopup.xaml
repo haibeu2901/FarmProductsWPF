@@ -11,7 +11,9 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#F8F9FA" Loaded="Window_Loaded">
+        Background="Transparent"
+        AllowsTransparency="True"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <!-- Input field style -->
         <Style x:Key="InputFieldStyle" TargetType="TextBox">

@@ -40,7 +40,9 @@ namespace FarmProductsWPF.category_popup
             txtConfirmation.Text = $"Are you sure you want to delete the category \"{_selectedCategory.CategoryName}\"?";
             lblCategoryName.Text = _selectedCategory.CategoryName;
             lblDescription.Text = _selectedCategory.Description;
-            lblProductsCount.Text = $"Number of products in this category: {_selectedCategory.Products.Count}";
+            lblProductsCount.Text = $"{_selectedCategory.Products.Count} products";
+            lblWarning.Text = $"Warning: {_selectedCategory.Products.Count} Products in this category";
+
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)

@@ -10,7 +10,8 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
-        AllowsTransparency="True" Loaded="Window_Loaded">
+        AllowsTransparency="True"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <!-- Button styles -->
         <Style x:Key="CancelButtonStyle" TargetType="Button">

@@ -11,7 +11,9 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#F8F9FA" Loaded="Window_Loaded">
+        Background="Transparent"
+        AllowsTransparency="True"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <!-- Button styles -->
         <Style x:Key="CancelButtonStyle" TargetType="Button">
