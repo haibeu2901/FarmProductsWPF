@@ -279,6 +279,7 @@
                     </Border>
 
                     <ListBox x:Name="dtgOrders" Grid.Row="4"
+                             d:ItemsSource="{d:SampleData ItemCount=5}"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
                              BorderThickness="0"
@@ -433,7 +434,8 @@
                                        FontWeight="Bold" Foreground="#1F2937" Margin="0,0,0,15"/>
 
                             <!-- ListBox goes here -->
-                            <ListBox x:Name="dtgOrderDetail" Height="280" 
+                            <ListBox x:Name="dtgOrderDetail" Height="280"
+                                     d:ItemsSource="{d:SampleData ItemCount=5}"
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                      BorderThickness="0"
                                      Background="Transparent"

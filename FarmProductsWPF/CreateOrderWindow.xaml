@@ -566,6 +566,7 @@
                     <!-- Products DataGrid -->
                     <DataGrid Grid.Row="2" 
                               x:Name="dtgProducts" 
+                              d:ItemsSource="{d:SampleData ItemCount=5}"
                               Style="{StaticResource ModernDataGrid}"
                               ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
                               IsReadOnly="True" 
@@ -877,6 +878,7 @@
                     <!-- Cart Items DataGrid -->
                     <DataGrid Grid.Row="2" 
                               x:Name="dtgOrderCart" 
+                              d:ItemsSource="{d:SampleData ItemCount=5}"
                               Style="{StaticResource ModernDataGrid}"
                               ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
                               IsReadOnly="True"

@@ -394,6 +394,7 @@
                 </Grid>
 
                 <ListBox Grid.Row="1" 
+                         d:ItemsSource="{d:SampleData ItemCount=5}"
                          x:Name="lstOrders"
                          BorderThickness="0"
                          Background="Transparent"
@@ -615,6 +616,7 @@
                                Margin="0,0,0,10"/>
 
                     <ListBox Grid.Row="1"
+                             d:ItemsSource="{d:SampleData ItemCount=5}"
                              x:Name="lstOrderItems"
                              BorderThickness="0"
                              Background="Transparent"

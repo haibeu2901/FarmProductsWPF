@@ -349,6 +349,7 @@
             </Border.Effect>
 
             <DataGrid x:Name="dtgProduct"
+                      d:ItemsSource="{d:SampleData ItemCount=5}"
                       Style="{StaticResource ModernDataGrid}"
                       AutoGenerateColumns="False"
                       Loaded="dtgProduct_Loaded"

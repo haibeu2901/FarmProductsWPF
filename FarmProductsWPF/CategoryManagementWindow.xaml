@@ -476,6 +476,7 @@
                     BorderBrush="#E5E7EB"
                     BorderThickness="1">
                 <DataGrid x:Name="dtgCategories"
+                          d:ItemsSource="{d:SampleData ItemCount=5}"
                           Style="{StaticResource CategoryDataGrid}"
                           AutoGenerateColumns="False"
                           Margin="0"

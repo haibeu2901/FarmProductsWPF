@@ -228,48 +228,26 @@
             </Setter>
         </Style>
 
-        <!-- Update the UpdateStockButton style with larger dimensions and increased text padding -->
+        <!-- Replace the existing UpdateStockButton style with this one -->
         <Style x:Key="UpdateStockButton" TargetType="Button">
-            <Setter Property="Foreground" Value="#0066CC"/>
-            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="16,8"/>
-            <Setter Property="MinWidth" Value="120"/>
-            <Setter Property="Height" Value="38"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <!-- Background Border -->
-                            <Border x:Name="BackgroundBorder"
-                                    Background="#E5F5FF"
-                                    BorderBrush="#4DA9FF"
-                                    BorderThickness="1"
-                                    CornerRadius="18"
-                                    Opacity="0.8"
-                                    Padding="{TemplateBinding Padding}"/>
-                            
-                            <!-- Content Presenter on Top -->
-                            <ContentPresenter x:Name="ButtonContent" 
-                                             HorizontalAlignment="Center" 
-                                             VerticalAlignment="Center"
-                                             Panel.ZIndex="1"
-                                             Margin="10"/>
-                        </Grid>
+                        <Border Background="{TemplateBinding Background}"
+                    CornerRadius="6"
+                    Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#4DA9FF"/>
-                                <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="#0056B3"/>
-                                <Setter TargetName="BackgroundBorder" Property="Opacity" Value="0.4"/>
-                                <Setter TargetName="ButtonContent" Property="TextElement.FontWeight" Value="Bold"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#0066CC"/>
-                                <Setter TargetName="BackgroundBorder" Property="Opacity" Value="0.3"/>
+                                <Setter Property="Background" Value="#333333"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -521,6 +499,7 @@
                 </Border.Effect>
 
                 <DataGrid x:Name="dtgStock"
+                          d:ItemsSource="{d:SampleData ItemCount=5}"
                           Style="{StaticResource ModernDataGrid}"
                           AutoGenerateColumns="False"
                           Loaded="dtgStock_Loaded"
@@ -662,10 +641,14 @@
                                 <DataTemplate>
                                     <Button Style="{StaticResource UpdateStockButton}"
                                             Click="UpdateStock_Click"
-                                            Margin="8,4">
+                                            Margin="12,4">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="🔄" Margin="5,0,8,0" VerticalAlignment="Center"/>
-                                            <TextBlock Text="Update" Padding="5" VerticalAlignment="Center"/>
+                                            <TextBlock Text="🔄" 
+                                                       FontSize="12" 
+                                                       Margin="0,0,8,0" 
+                                                       VerticalAlignment="Center"/>
+                                            <TextBlock Text="Update" 
+                                                       VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                 </DataTemplate>
