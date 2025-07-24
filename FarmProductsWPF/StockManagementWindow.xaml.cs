@@ -68,8 +68,9 @@ namespace FarmProductsWPF
                 s.Product.ProductName,
                 s.Product?.Category?.CategoryName,
                 s.Product?.Unit,
-                s.Product?.SellingPrice,
                 s.Quantity,
+                s.LastUpdated,
+                s.Notes,
                 Status = s.Quantity > 25 ? "In Stock" : (s.Quantity > 0 ? "Low Stock" : "Out of Stock"),
             }).ToList();
         }
@@ -90,6 +91,11 @@ namespace FarmProductsWPF
             LoginWindow login = new LoginWindow();
             this.Close();
             login.Show();
+        }
+
+        private void UpdateStock_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -198,6 +198,108 @@
             <Setter Property="BorderBrush" Value="#5a6268"/>
 
         </Style>
+
+        <!-- Add this style to Window.Resources section for action buttons -->
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Background" Value="#E5F5FF"/>
+            <Setter Property="BorderBrush" Value="#007BFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#007BFF"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#CCE5FF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Update the UpdateStockButton style with larger dimensions and increased text padding -->
+        <Style x:Key="UpdateStockButton" TargetType="Button">
+            <Setter Property="Foreground" Value="#0066CC"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <!-- Background Border -->
+                            <Border x:Name="BackgroundBorder"
+                                    Background="#E5F5FF"
+                                    BorderBrush="#4DA9FF"
+                                    BorderThickness="1"
+                                    CornerRadius="18"
+                                    Opacity="0.8"
+                                    Padding="{TemplateBinding Padding}"/>
+                            
+                            <!-- Content Presenter on Top -->
+                            <ContentPresenter x:Name="ButtonContent" 
+                                             HorizontalAlignment="Center" 
+                                             VerticalAlignment="Center"
+                                             Panel.ZIndex="1"
+                                             Margin="10"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#4DA9FF"/>
+                                <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="#0056B3"/>
+                                <Setter TargetName="BackgroundBorder" Property="Opacity" Value="0.4"/>
+                                <Setter TargetName="ButtonContent" Property="TextElement.FontWeight" Value="Bold"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#0066CC"/>
+                                <Setter TargetName="BackgroundBorder" Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Update DataGrid column header style for a cleaner look -->
+        <Style x:Key="CleanDataGridColumnHeader" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#495057"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="#DEE2E6"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+
+        <!-- Update the DataGridColumnHeader style in Window.Resources -->
+        <Style x:Key="EvenlySpacedColumnHeader" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#27AE60"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="BorderThickness" Value="0,0,1,0"/>
+            <Setter Property="BorderBrush" Value="#5a6268"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -422,124 +524,63 @@
                           Style="{StaticResource ModernDataGrid}"
                           AutoGenerateColumns="False"
                           Loaded="dtgStock_Loaded"
-                          Margin="1"
-                          Grid.IsSharedSizeScope="True">
+                          Margin="0"
+                          BorderThickness="0"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="#DEE2E6">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource EvenlySpacedColumnHeader}"/>
+                    </DataGrid.ColumnHeaderStyle>
                     <DataGrid.Columns>
+                        <!-- Product ID Column - Made Smaller -->
                         <DataGridTextColumn Header="Product ID"
-                              Binding="{Binding ProductId}"
-                              Width="Auto" 
-                              IsReadOnly="True">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
+                          Binding="{Binding ProductId}"
+                          Width="0.7*" 
+                          IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
                                     <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="FontWeight" Value="Medium"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
+
+                        <!-- Product Name Column - Make it slightly smaller -->
                         <DataGridTextColumn Header="Product Name"
-                              Binding="{Binding ProductName}"
-                              Width="2*" 
-                              IsReadOnly="True">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
+                          Binding="{Binding ProductName}"
+                          Width="1.5*" 
+                          IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
                                     <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Category" 
-                                  Width="1.5*" 
-                                  IsReadOnly="True">
-                            <DataGridTemplateColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTemplateColumn.HeaderStyle>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Border Style="{StaticResource CategoryPillStyle}">
-                                        <TextBlock Text="{Binding CategoryName}"
-                                     Foreground="#2E7D32"
-                                     FontSize="12"
-                                     FontWeight="SemiBold"
-                                     TextAlignment="Center"/>
-                                    </Border>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Unit"
-                              Binding="{Binding Unit}"
-                              Width="0.8*" 
-                              IsReadOnly="True">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
+
+                        <!-- Current Stock Column -->
+                        <DataGridTextColumn Header="Current Stock"
+                          Binding="{Binding Quantity}"
+                          Width="1*"
+                          IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
                                     <Setter Property="VerticalAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Price"
-                              Binding="{Binding SellingPrice, StringFormat='{}{0:#,##0}₫'}" 
-                              Width="1*"
-                              IsReadOnly="True">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="FontWeight" Value="SemiBold"/>
-                                    <Setter Property="Foreground" Value="#28A745"/>
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Stock Level"
-                              Binding="{Binding Quantity}"
-                              Width="120"
-                              IsReadOnly="True">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
                                     <Setter Property="FontWeight" Value="Bold"/>
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="FontSize" Value="16"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Status" Width="120">
-                            <DataGridTemplateColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTemplateColumn.HeaderStyle>
+
+                        <!-- Status Column -->
+                        <DataGridTemplateColumn Header="Status" Width="1*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border>
                                         <Border.Style>
-                                            <Style TargetType="Border" BasedOn="{StaticResource CategoryPillStyle}">
+                                            <Style TargetType="Border" BasedOn="{StaticResource StatusPill}">
                                                 <Style.Triggers>
                                                     <!-- Out of Stock -->
                                                     <DataTrigger Binding="{Binding Status}" Value="Out of Stock">
@@ -560,8 +601,8 @@
                                             </Style>
                                         </Border.Style>
                                         <TextBlock FontSize="12"
-                          FontWeight="SemiBold"
-                          TextAlignment="Center">
+                                                  FontWeight="SemiBold"
+                                                  TextAlignment="Center">
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
                                                     <Setter Property="Text" Value="In Stock"/>
@@ -572,7 +613,7 @@
                                                             <Setter Property="Text" Value="Out of Stock"/>
                                                             <Setter Property="Foreground" Value="#DC2626"/>
                                                         </DataTrigger>
-                                                        <!-- Low Stock (0 < Quantity ≤ 25) -->
+                                                        <!-- Low Stock -->
                                                         <DataTrigger Binding="{Binding Status}" Value="Low Stock">
                                                             <Setter Property="Text" Value="Low Stock"/>
                                                             <Setter Property="Foreground" Value="#B45309"/>
@@ -582,6 +623,51 @@
                                             </TextBlock.Style>
                                         </TextBlock>
                                     </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Last Updated Column -->
+                        <DataGridTextColumn Header="Last Updated"
+                          Binding="{Binding LastUpdated, StringFormat='{}{0:yyyy-MM-dd}'}"
+                          Width="1*" 
+                          IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <!-- Notes Column - Make it larger with the extra space -->
+                        <DataGridTextColumn Header="Notes"
+                          Binding="{Binding Notes}"
+                          Width="2*" 
+                          IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Margin" Value="12,0"/>
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <!-- Actions Column - Make it slightly smaller -->
+                        <DataGridTemplateColumn Header="Actions" Width="0.8*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource UpdateStockButton}"
+                                            Click="UpdateStock_Click"
+                                            Margin="8,4">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="🔄" Margin="5,0,8,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Update" Padding="5" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
