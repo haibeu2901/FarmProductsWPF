@@ -362,6 +362,13 @@ namespace FarmProductsWPF
             categoryManagementWindow.Show();
             this.Close();
         }
+
+        private void btnProductsWindow_Click(object sender, RoutedEventArgs e)
+        {
+            ProductManagementWindow productManagementWindow = new ProductManagementWindow(_user);
+            productManagementWindow.Show();
+            this.Close();
+        }
     }
 
     public class ProductViewModel
