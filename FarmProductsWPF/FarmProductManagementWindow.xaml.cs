@@ -84,5 +84,12 @@ namespace FarmProductsWPF
             orderHistoryWindow.Show();
             this.Close();
         }
+
+        private void btnStockManagementWindow_Click(object sender, RoutedEventArgs e)
+        {
+            StockManagementWindow stockManagementWindow = new StockManagementWindow(_user);
+            stockManagementWindow.Show();
+            this.Close();
+        }
     }
 }

@@ -130,5 +130,12 @@ namespace FarmProductsWPF
                 }
             }
         }
+
+        private void btnStockManagementWindow_Click(object sender, RoutedEventArgs e)
+        {
+            StockManagementWindow stockManagementWindow = new StockManagementWindow(_user);
+            stockManagementWindow.Show();
+            this.Close();
+        }
     }
 }

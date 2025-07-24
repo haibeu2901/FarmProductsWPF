@@ -288,8 +288,8 @@
                         Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button Grid.Column="5" Content="🌾 Products" 
                         Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button Grid.Column="6" Content="📋 Stock Management"
-                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="btnStockManagementWindow" Grid.Column="6" Content="📋 Stock Management"
+                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStockManagementWindow_Click"/>
             </Grid>
         </Border>
 
