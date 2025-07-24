@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FarmProductsWPF.category_popup"
         mc:Ignorable="d"
         Title="Create Category" 
-        Height="400" 
+        Height="500" 
         Width="550"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FarmProductsWPF.category_popup"
         mc:Ignorable="d"
         Title="Edit Category" 
-        Height="400" 
+        Height="525" 
         Width="550"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"

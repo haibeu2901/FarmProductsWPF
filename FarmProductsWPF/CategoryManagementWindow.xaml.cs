@@ -133,7 +133,27 @@ namespace FarmProductsWPF
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dtgCategories.SelectedItem != null)
+            {
+                dynamic selectedCategory = dtgCategories.SelectedItem;
+                if (selectedCategory != null)
+                {
+                    ProductCategory category = _categoryRepo.GetCategoryById(selectedCategory.CategoryId);
+                    if (category != null)
+                    {
+                        DeleteCategoryPopup deleteCategoryPopup = new DeleteCategoryPopup(category);
+                        deleteCategoryPopup.CategoryDeleted += (s, args) =>
+                        {
+                            LoadDataGrid(string.Empty);
+                        };
+                        deleteCategoryPopup.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected category not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
         }
     }
 }

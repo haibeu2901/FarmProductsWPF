@@ -80,6 +80,10 @@ namespace FarmProductsWPF_DAOs
             var category = GetCategoryById(categoryId);
             if (category != null)
             {
+                if (category.Products.Any())
+                {
+                    return false;
+                }
                 _context.ProductCategories.Remove(category);
                 _context.SaveChanges();
                 return true;
