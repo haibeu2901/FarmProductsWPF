@@ -24,7 +24,7 @@ namespace FarmProductsWPF
     public partial class ProductManagementWindow : Window
     {
         private Account _user;
-        private readonly IProductRepo productRepo;
+        private readonly IProductRepo _productRepo;
 
         public Account CurrentUser
         {
@@ -37,7 +37,7 @@ namespace FarmProductsWPF
             InitializeComponent();
             _user = account;
             this.DataContext = this;
-            productRepo = new ProductRepo();
+            _productRepo = new ProductRepo();
         }
 
         private void btnViewStockWindow_Click(object sender, RoutedEventArgs e)
@@ -84,7 +84,7 @@ namespace FarmProductsWPF
 
         private void LoadDataGrid(string searchText)
         {
-            dtgProducts.ItemsSource = productRepo.SearchProduct(searchText).Select(p => new
+            dtgProducts.ItemsSource = _productRepo.SearchProduct(searchText).Select(p => new
             {
                 p.ProductId,
                 p.ProductName,
@@ -119,7 +119,23 @@ namespace FarmProductsWPF
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dtgProducts.SelectedItem != null)
+            {
+                dynamic selectedProduct = dtgProducts.SelectedItem;
+                if (selectedProduct != null)
+                {
+                    Product product = _productRepo.GetProductById(selectedProduct.ProductId);
+                    if (product != null)
+                    {
+                        EditProductPopup editProductPopup = new EditProductPopup(product);
+                        editProductPopup.ProductEdited += (s, args) =>
+                        {
+                            LoadDataGrid(product.ProductName);
+                        };
+                        editProductPopup.Show();
+                    }
+                }
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)

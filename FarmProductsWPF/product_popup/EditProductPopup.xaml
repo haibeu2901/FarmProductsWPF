@@ -1,0 +1,443 @@
+﻿<Window x:Class="FarmProductsWPF.product_popup.EditProductPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FarmProductsWPF.product_popup"
+        mc:Ignorable="d"
+        Title="Edit Product" 
+        Height="620" 
+        Width="550"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="#F8F9FA" Loaded="Window_Loaded">
+    <Window.Resources>
+        <!-- Input field style -->
+        <Style x:Key="InputFieldStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                      Margin="{TemplateBinding Padding}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Multiline Text field style -->
+        <Style x:Key="MultilineTextFieldStyle" TargetType="TextBox">
+            <Setter Property="MinHeight" Value="100"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="IsUndoEnabled" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                      Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Button styles -->
+        <Style x:Key="CancelButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F3F4F6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="UpdateButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#333333"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Stock Pill Style -->
+        <Style x:Key="StockPill" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="MinWidth" Value="70"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <!-- Default is green (In Stock) -->
+            <Setter Property="Background" Value="#E8F5E9"/>
+            <Setter Property="BorderBrush" Value="#81C784"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="White" 
+            BorderBrush="#E5E7EB" 
+            BorderThickness="1" 
+            CornerRadius="8" 
+            Margin="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Content Area with ScrollViewer -->
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <Grid Margin="24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header with close button -->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Title -->
+                        <TextBlock Grid.Column="0"
+                                   Text="Edit Product"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Foreground="#111827"/>
+
+                        <!-- Close button -->
+                        <Button Grid.Column="1"
+                                x:Name="btnClose"
+                                Content="✕"
+                                FontSize="14"
+                                Width="24"
+                                Height="24"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Cursor="Hand"
+                                Click="btnClose_Click"/>
+                    </Grid>
+
+                    <!-- Subtitle -->
+                    <TextBlock Grid.Row="1"
+                               x:Name="txtUpdateDetails"
+                               Text="Update details for &quot;Organic Tomatoes&quot;"
+                               FontSize="14"
+                               Foreground="#6B7280"
+                               Margin="0,4,0,24"/>
+
+                    <!-- Product ID field -->
+                    <Grid Grid.Row="2" Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="Product ID:"
+                                   FontSize="14"
+                                   FontWeight="Medium"
+                                   Foreground="#111827"
+                                   VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="1"
+                                   x:Name="lblProductId"
+                                   Text="#1"
+                                   FontSize="14"
+                                   Foreground="#6B7280"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <!-- Product Name field -->
+                    <Grid Grid.Row="3" Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="Product Name:"
+                                   FontSize="14"
+                                   FontWeight="Medium"
+                                   Foreground="#111827"
+                                   VerticalAlignment="Top"
+                                   Margin="0,8,0,0"/>
+
+                        <TextBox Grid.Column="1"
+                                 x:Name="txtProductName"
+                                 Style="{StaticResource InputFieldStyle}"
+                                 Text="Organic Tomatoes"/>
+                    </Grid>
+
+                    <!-- Category field -->
+                    <Grid Grid.Row="4" Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="Category:"
+                                   FontSize="14"
+                                   FontWeight="Medium"
+                                   Foreground="#111827"
+                                   VerticalAlignment="Top"
+                                   Margin="0,8,0,0"/>
+
+                        <ComboBox Grid.Column="1"
+                                  x:Name="cmbCategory"
+                                  Height="40"
+                                  VerticalContentAlignment="Center"
+                                  Padding="6,0"
+                                  Background="White"
+                                  BorderBrush="#E5E7EB"
+                                  BorderThickness="1">
+                        </ComboBox>
+                    </Grid>
+
+                    <!-- Unit field -->
+                    <Grid Grid.Row="5" Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="Unit:"
+                                   FontSize="14"
+                                   FontWeight="Medium"
+                                   Foreground="#111827"
+                                   VerticalAlignment="Top"
+                                   Margin="0,8,0,0"/>
+
+                        <TextBox Grid.Column="1"
+                                 x:Name="txtUnit"
+                                 Style="{StaticResource InputFieldStyle}"
+                                 Text="kg"/>
+                    </Grid>
+
+                    <!-- Selling Price field -->
+                    <Grid Grid.Row="6" Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="Selling Price:"
+                                   FontSize="14"
+                                   FontWeight="Medium"
+                                   Foreground="#111827"
+                                   VerticalAlignment="Top"
+                                   Margin="0,8,0,0"/>
+
+                        <TextBox Grid.Column="1"
+                                 x:Name="txtSellingPrice"
+                                 Style="{StaticResource InputFieldStyle}"
+                                 Text="4.99"/>
+                    </Grid>
+
+                    <!-- Description field -->
+                    <Grid Grid.Row="7" Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="Description:"
+                                   FontSize="14"
+                                   FontWeight="Medium"
+                                   Foreground="#111827"
+                                   VerticalAlignment="Top"
+                                   Margin="0,8,0,0"/>
+
+                        <TextBox Grid.Column="1"
+                                 x:Name="txtDescription"
+                                 Style="{StaticResource MultilineTextFieldStyle}"
+                                 Text="Fresh organic tomatoes"/>
+                    </Grid>
+
+                    <!-- Current Stock field with separate quantity and unit -->
+                    <Grid Grid.Row="8" Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="Current Stock:"
+                                   FontSize="14"
+                                   FontWeight="Medium"
+                                   Foreground="#111827"
+                                   VerticalAlignment="Center"/>
+
+                        <!-- Quantity TextBlock -->
+                        <TextBlock Grid.Column="1"
+                                   x:Name="lblStockQuantity"
+                                   Text="25"
+                                   FontSize="14"
+                                   Foreground="#6B7280"
+                                   VerticalAlignment="Center"/>
+
+                        <!-- Unit TextBlock -->
+                        <TextBlock Grid.Column="2"
+                                   x:Name="lblStockUnit"
+                                   Text="kg"
+                                   FontSize="14"
+                                   Foreground="#6B7280"
+                                   Margin="4,0,0,0"
+                                   VerticalAlignment="Center"/>
+
+                        <Border Grid.Column="3" 
+                                x:Name="stockStatusPill"
+                                Margin="12,0,0,0">
+                            <Border.Style>
+                                <Style TargetType="Border" BasedOn="{StaticResource StockPill}">
+                                    <Style.Triggers>
+                                        <!-- Out of Stock - now binding to txtStockStatus directly -->
+                                        <DataTrigger Binding="{Binding Text, ElementName=txtStockStatus}" Value="Out of Stock">
+                                            <Setter Property="Background" Value="#FEE2E2"/>
+                                            <Setter Property="BorderBrush" Value="#FCA5A5"/>
+                                        </DataTrigger>
+                                        <!-- Low Stock - now binding to txtStockStatus directly -->
+                                        <DataTrigger Binding="{Binding Text, ElementName=txtStockStatus}" Value="Low Stock">
+                                            <Setter Property="Background" Value="#FEF3C7"/>
+                                            <Setter Property="BorderBrush" Value="#FCD34D"/>
+                                        </DataTrigger>
+                                        <!-- In Stock (default state is already set in the style) -->
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <TextBlock x:Name="txtStockStatus" 
+                                       Text="In Stock" 
+                                       FontSize="12" 
+                                       FontWeight="SemiBold">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <!-- Default color for In Stock -->
+                                        <Setter Property="Foreground" Value="#2E7D32"/>
+                                        <Style.Triggers>
+                                            <!-- Out of Stock - now using text property of itself -->
+                                            <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="Out of Stock">
+                                                <Setter Property="Foreground" Value="#DC2626"/>
+                                            </DataTrigger>
+                                            <!-- Low Stock - now using text property of itself -->
+                                            <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="Low Stock">
+                                                <Setter Property="Foreground" Value="#B45309"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+
+            <!-- Button Row - Separated from ScrollViewer -->
+            <Grid Grid.Row="1" Margin="24,0,24,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Spacer -->
+                <Rectangle Grid.Column="0" Fill="Transparent"/>
+
+                <!-- Cancel Button -->
+                <Button Grid.Column="1"
+                        x:Name="btnCancel"
+                        Content="Cancel"
+                        Style="{StaticResource CancelButtonStyle}"
+                        Margin="0,0,12,0"
+                        Width="100"
+                        Click="btnCancel_Click"/>
+
+                <!-- Update Product Button -->
+                <Button Grid.Column="2"
+                        x:Name="btnUpdateProduct"
+                        Content="Update Product"
+                        Style="{StaticResource UpdateButtonStyle}"
+                        Width="150"
+                        Click="btnUpdateProduct_Click"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

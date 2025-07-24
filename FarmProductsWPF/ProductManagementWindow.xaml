@@ -602,21 +602,21 @@
                         </DataGridTextColumn>
 
                         <!-- Replace the Category Column with this pill version -->
-<DataGridTemplateColumn Header="Category" 
+                        <DataGridTemplateColumn Header="Category" 
                         Width="300"
                         IsReadOnly="True">
-    <DataGridTemplateColumn.CellTemplate>
-        <DataTemplate>
-            <Border Style="{StaticResource CategoryPillStyle}">
-                <TextBlock Text="{Binding CategoryName}"
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CategoryPillStyle}">
+                                        <TextBlock Text="{Binding CategoryName}"
                            Foreground="#2E7D32"
                            FontSize="12"
                            FontWeight="SemiBold"
                            TextAlignment="Center"/>
-            </Border>
-        </DataTemplate>
-    </DataGridTemplateColumn.CellTemplate>
-</DataGridTemplateColumn>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                         <!-- Unit Column - Smaller width -->
                         <DataGridTextColumn Header="Unit"

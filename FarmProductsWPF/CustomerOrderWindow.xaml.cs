@@ -93,7 +93,7 @@ namespace FarmProductsWPF
                     txtOrderId.Text = _order.OrderId.ToString();
                     txtOrderDate.Text = _order.OrderDate.ToString();
                     txtStaffName.Text = _order.Staff.FullName;
-                    txtTotalAmount.Text = _order.TotalAmount.ToString("N0") + " VND";
+                    txtTotalAmount.Text = _order.TotalAmount.ToString("N0") + " ₫";
 
                     // Set dtgOrderDetail.ItemsSource
                     dtgOrderDetail.ItemsSource = _orderDetailRepo.GetOrderDetailsByOrderId(orderId)
