@@ -338,7 +338,7 @@
                 <Button x:Name="btnViewStockWindow" Grid.Column="0" Content="📦 View Stock" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnViewStockWindow_Click"/>
                 <Button x:Name="btnCreateOrderWindow" Grid.Column="1" Content="🛒 Create Order" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnCreateOrderWindow_Click"/>
                 <Button x:Name="btnOrderHistoryWindow" Grid.Column="2" Content="📅 Order History" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnOrderHistoryWindow_Click"/>
-                <Button x:Name="btnAccountsWindow" Grid.Column="3" Content="👥 Accounts" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="btnAccountsWindow" Grid.Column="3" Content="👥 Accounts" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAccountsWindow_Click"/>
                 <Button Grid.Column="4" Content="🏷️ Categories" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#F3F4F6" Foreground="#4F46E5"/>
                 <Button x:Name="btnProductsWindow" Grid.Column="5" Content="🌾 Products" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnProductsWindow_Click"/>
                 <Button x:Name="btnStockManagementWindow" Grid.Column="6" Content="🏬 Stock Management" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStockManagementWindow_Click"/>

@@ -132,5 +132,12 @@ namespace FarmProductsWPF
             productManagementWindow.Show();
             this.Close();
         }
+
+        private void btnAccountsWindow_Click(object sender, RoutedEventArgs e)
+        {
+            AccountManagementWindow accountManagementWindow = new AccountManagementWindow(_user);
+            accountManagementWindow.Show();
+            this.Close();
+        }
     }
 }
