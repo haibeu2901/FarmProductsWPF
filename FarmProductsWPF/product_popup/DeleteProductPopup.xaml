@@ -1,0 +1,505 @@
+﻿<Window x:Class="FarmProductsWPF.product_popup.DeleteProductPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FarmProductsWPF.product_popup"
+        mc:Ignorable="d"
+        Title="Delete Product"
+        Height="800"
+        Width="600"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="#F8F9FA" Loaded="Window_Loaded">
+    <Window.Resources>
+        <!-- Button styles -->
+        <Style x:Key="CancelButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F3F4F6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DeleteButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#DC2626"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#B91C1C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Add Stock Pill Style -->
+        <Style x:Key="StockPill" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="MinWidth" Value="70"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <!-- Default is green (In Stock) -->
+            <Setter Property="Background" Value="#E8F5E9"/>
+            <Setter Property="BorderBrush" Value="#81C784"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="White" 
+            BorderBrush="#E5E7EB" 
+            BorderThickness="1" 
+            CornerRadius="8" 
+            Margin="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Content Area with ScrollViewer -->
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <Grid Margin="24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header with close button -->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Title -->
+                        <TextBlock Grid.Column="0"
+                                   Text="Delete Product"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Foreground="#111827"/>
+
+                        <!-- Close button -->
+                        <Button Grid.Column="1"
+                                x:Name="btnClose"
+                                Content="✕"
+                                FontSize="14"
+                                Width="24"
+                                Height="24"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Cursor="Hand"
+                                Click="btnClose_Click"/>
+                    </Grid>
+
+                    <!-- Confirmation Message -->
+                    <TextBlock Grid.Row="1"
+                               x:Name="txtConfirmation"
+                               Text="Are you sure you want to delete &quot;Organic Tomatoes&quot;?"
+                               FontSize="14"
+                               Foreground="#6B7280"
+                               Margin="0,4,0,24"/>
+
+                    <!-- Product Information Panel -->
+                    <Border Grid.Row="2"
+                            BorderBrush="#E5E7EB"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Background="#F9FAFB"
+                            Padding="16"
+                            Margin="0,0,0,20">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Product Label -->
+                            <TextBlock Grid.Row="0"
+                                     Grid.Column="0"
+                                     Text="Product:"
+                                     FontSize="14"
+                                     FontWeight="Medium"
+                                     Foreground="#111827"
+                                     Margin="0,0,10,8"/>
+
+                            <!-- Product Value -->
+                            <TextBlock Grid.Row="0"
+                                     Grid.Column="1"
+                                     x:Name="lblProductName"
+                                     Text="Organic Tomatoes"
+                                     FontSize="14"
+                                     Foreground="#111827"
+                                     Margin="0,0,0,8"/>
+
+                            <!-- Category Label -->
+                            <TextBlock Grid.Row="1"
+                                     Grid.Column="0"
+                                     Text="Category:"
+                                     FontSize="14"
+                                     FontWeight="Medium"
+                                     Foreground="#111827"
+                                     Margin="0,0,10,8"/>
+
+                            <!-- Category Value -->
+                            <TextBlock Grid.Row="1"
+                                     Grid.Column="1"
+                                     x:Name="lblCategory"
+                                     Text="Vegetables"
+                                     FontSize="14"
+                                     Foreground="#111827"
+                                     Margin="0,0,0,8"/>
+
+                            <!-- Unit Label -->
+                            <TextBlock Grid.Row="2"
+                                     Grid.Column="0"
+                                     Text="Unit:"
+                                     FontSize="14"
+                                     FontWeight="Medium"
+                                     Foreground="#111827"
+                                     Margin="0,0,10,8"/>
+
+                            <!-- Unit Value -->
+                            <TextBlock Grid.Row="2"
+                                     Grid.Column="1"
+                                     x:Name="lblUnit"
+                                     Text="kg"
+                                     FontSize="14"
+                                     Foreground="#111827"
+                                     Margin="0,0,0,8"/>
+
+                            <!-- Price Label -->
+                            <TextBlock Grid.Row="3"
+                                     Grid.Column="0"
+                                     Text="Price:"
+                                     FontSize="14"
+                                     FontWeight="Medium"
+                                     Foreground="#111827"
+                                     Margin="0,0,10,8"/>
+
+                            <!-- Price Value -->
+                            <TextBlock Grid.Row="3"
+                                     Grid.Column="1"
+                                     x:Name="lblPrice"
+                                     Text="$4.99"
+                                     FontSize="14"
+                                     Foreground="#111827"
+                                     Margin="0,0,0,8"/>
+
+                            <!-- Current Stock Label -->
+                            <TextBlock Grid.Row="4"
+                                     Grid.Column="0"
+                                     Text="Current Stock:"
+                                     FontSize="14"
+                                     FontWeight="Medium"
+                                     Foreground="#111827"
+                                     Margin="0,0,10,8"/>
+
+                            <!-- Current Stock Value -->
+                            <Grid Grid.Row="4" Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Quantity TextBlock -->
+                                <TextBlock Grid.Column="0"
+                                           x:Name="lblStockQuantity"
+                                           Text="25"
+                                           FontSize="14"
+                                           Foreground="#111827"
+                                           VerticalAlignment="Center"/>
+
+                                <!-- Unit TextBlock -->
+                                <TextBlock Grid.Column="1"
+                                           x:Name="lblStockUnit"
+                                           Text="kg"
+                                           FontSize="14"
+                                           Foreground="#111827"
+                                           Margin="4,0,0,0"
+                                           VerticalAlignment="Center"/>
+
+                                <!-- Stock Status Pill -->
+                                <Border Grid.Column="2" 
+                                        x:Name="stockStatusPill"
+                                        Margin="12,0,0,0">
+                                    <Border.Style>
+                                        <Style TargetType="Border" BasedOn="{StaticResource StockPill}">
+                                            <Style.Triggers>
+                                                <!-- Out of Stock -->
+                                                <DataTrigger Binding="{Binding Text, ElementName=txtStockStatus}" Value="Out of Stock">
+                                                    <Setter Property="Background" Value="#FEE2E2"/>
+                                                    <Setter Property="BorderBrush" Value="#FCA5A5"/>
+                                                </DataTrigger>
+                                                <!-- Low Stock -->
+                                                <DataTrigger Binding="{Binding Text, ElementName=txtStockStatus}" Value="Low Stock">
+                                                    <Setter Property="Background" Value="#FEF3C7"/>
+                                                    <Setter Property="BorderBrush" Value="#FCD34D"/>
+                                                </DataTrigger>
+                                                <!-- In Stock (default state is already set in the style) -->
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock x:Name="txtStockStatus" 
+                                               Text="In Stock" 
+                                               FontSize="12" 
+                                               FontWeight="SemiBold"
+                                               HorizontalAlignment="Center">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <!-- Default color for In Stock -->
+                                                <Setter Property="Foreground" Value="#2E7D32"/>
+                                                <Style.Triggers>
+                                                    <!-- Out of Stock -->
+                                                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="Out of Stock">
+                                                        <Setter Property="Foreground" Value="#DC2626"/>
+                                                    </DataTrigger>
+                                                    <!-- Low Stock -->
+                                                    <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="Low Stock">
+                                                        <Setter Property="Foreground" Value="#B45309"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Border>
+                            </Grid>
+
+                            <!-- Description Label -->
+                            <TextBlock Grid.Row="5"
+                                     Grid.Column="0"
+                                     Text="Description:"
+                                     FontSize="14"
+                                     FontWeight="Medium"
+                                     Foreground="#111827"
+                                     Margin="0,0,10,0"/>
+
+                            <!-- Description Value -->
+                            <TextBlock Grid.Row="5"
+                                     Grid.Column="1"
+                                     x:Name="lblDescription"
+                                     Text="Fresh organic tomatoes"
+                                     FontSize="14"
+                                     Foreground="#111827"
+                                     Margin="0,0,0,0"
+                                     TextWrapping="Wrap"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Order History Warning Panel -->
+                    <Border Grid.Row="3"
+                            BorderBrush="#FEF08A"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Background="#FEFCE8"
+                            Padding="16"
+                            Margin="0,0,0,20">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Warning Header with Icon -->
+                            <StackPanel Grid.Row="0" 
+                                      Orientation="Horizontal" 
+                                      Margin="0,0,0,8">
+                                <TextBlock Text="⚠️" 
+                                         FontSize="16"
+                                         VerticalAlignment="Center"
+                                         Margin="0,0,8,0"/>
+                                <TextBlock Text="Warning: Product has order history"
+                                         FontSize="14"
+                                         FontWeight="SemiBold"
+                                         Foreground="#854D0E"
+                                         VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!-- Order History Details -->
+                            <TextBlock Grid.Row="1" 
+                                     Text="Product has order history."
+                                     FontSize="14"
+                                     Foreground="#854D0E"
+                                     TextWrapping="Wrap"
+                                     Margin="0,0,0,8"/>
+
+                            <!-- Warning Message -->
+                            <TextBlock Grid.Row="6" 
+                                     Text="Deleting this product will affect order history and reporting. Consider discontinuing the product instead."
+                                     FontSize="14"
+                                     Foreground="#854D0E"
+                                     TextWrapping="Wrap"
+                                     Margin="0,0,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Stock Value Warning -->
+                    <Border Grid.Row="4"
+                            BorderBrush="#FECACA"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Background="#FEF2F2"
+                            Padding="16"
+                            Margin="0,0,0,20">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Warning Header with Icon -->
+                            <StackPanel Grid.Row="0" 
+                                      Orientation="Horizontal" 
+                                      Margin="0,0,0,8">
+                                <TextBlock Text="🛑" 
+                                         FontSize="16"
+                                         VerticalAlignment="Center"
+                                         Margin="0,0,8,0"/>
+                                <TextBlock Text="Stock Value Warning"
+                                         FontSize="14"
+                                         FontWeight="SemiBold"
+                                         Foreground="#B91C1C"
+                                         VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!-- Stock Value Details -->
+                            <TextBlock Grid.Row="1" 
+                                     x:Name="lblStockValueWarning"
+                                     Text="This product has 25 units in stock."
+                                     FontSize="14"
+                                     Foreground="#B91C1C"
+                                     TextWrapping="Wrap"
+                                     Margin="0,0,0,8"/>
+
+                            <!-- Warning Message -->
+                            <TextBlock Grid.Row="2" 
+                                     Text="You cannot delete this product when it still remaining in stock."
+                                     FontSize="14"
+                                     Foreground="#B91C1C"
+                                     TextWrapping="Wrap"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Additional Warning -->
+                    <Border Grid.Row="5"
+                            BorderBrush="#E5E7EB"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Background="#F9FAFB"
+                            Padding="16"
+                            Margin="0,0,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Warning Title -->
+                            <TextBlock Grid.Row="0"
+                                     Text="This action cannot be undone."
+                                     FontSize="14"
+                                     FontWeight="Medium"
+                                     Foreground="#111827"
+                                     Margin="0,0,0,8"/>
+
+                            <!-- Warning Details -->
+                            <TextBlock Grid.Row="1"
+                                     Text="The product will be permanently removed from the system, including all associated data."
+                                     FontSize="14"
+                                     Foreground="#6B7280"
+                                     TextWrapping="Wrap"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+
+            <!-- Button Row - Separated from ScrollViewer -->
+            <Grid Grid.Row="1" Margin="24,0,24,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Spacer -->
+                <Rectangle Grid.Column="0" Fill="Transparent"/>
+
+                <!-- Cancel Button -->
+                <Button Grid.Column="1"
+                        x:Name="btnCancel"
+                        Content="Cancel"
+                        Style="{StaticResource CancelButtonStyle}"
+                        Margin="0,0,12,0"
+                        Width="100"
+                        Click="btnCancel_Click"/>
+
+                <!-- Delete Product Button -->
+                <Button Grid.Column="2"
+                        x:Name="btnDeleteProduct"
+                        Content="Delete Product"
+                        Style="{StaticResource DeleteButtonStyle}"
+                        Width="150"
+                        Click="btnDeleteProduct_Click"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

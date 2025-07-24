@@ -140,7 +140,23 @@ namespace FarmProductsWPF
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dtgProducts.SelectedItem != null)
+            {
+                dynamic selectedProduct = dtgProducts.SelectedItem;
+                if (selectedProduct != null)
+                {
+                    Product product = _productRepo.GetProductById(selectedProduct.ProductId);
+                    if (product != null)
+                    {
+                        DeleteProductPopup deleteProductPopup = new DeleteProductPopup(product);
+                        deleteProductPopup.ProductDeleted += (s, args) =>
+                        {
+                            LoadDataGrid(string.Empty);
+                        };
+                        deleteProductPopup.Show();
+                    }
+                }
+            }
         }
     }
 }

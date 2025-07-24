@@ -27,12 +27,14 @@ namespace FarmProductsWPF.product_popup
 
         private readonly IProductRepo _productRepo;
         private readonly ICategoryRepo _categoryRepo;
+        private readonly IStockRepo _stockRepo;
 
         public CreateProductPopup()
         {
             InitializeComponent();
             _productRepo = new ProductRepo();
             _categoryRepo = new CategoryRepo();
+            _stockRepo = new StockRepo();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -89,7 +91,7 @@ namespace FarmProductsWPF.product_popup
                 Unit = unit,
                 SellingPrice = sellingPrice,
                 Description = description,
-                CategoryId = categoryId
+                CategoryId = categoryId,
             };
             Product createdProduct = _productRepo.AddProduct(newProduct);
             if (createdProduct == null)
@@ -97,8 +99,24 @@ namespace FarmProductsWPF.product_popup
                 MessageBox.Show("Failed to create product. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            MessageBox.Show($"Product \"{createdProduct.ProductName}\" created successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            ProductCreated?.Invoke(this, EventArgs.Empty);
+
+            // Create new product also create initial stock
+            Stock newStock = new Stock
+            {
+                ProductId = createdProduct.ProductId,
+                Quantity = 0, 
+                LastUpdated = DateTime.Now,
+                Notes = "Initial stock created with product.",
+            };
+            _stockRepo.AddStock(newStock);
+            if (newStock != null)
+            {
+                MessageBox.Show($"Product \"{createdProduct.ProductName}\" created successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                ProductCreated?.Invoke(this, EventArgs.Empty);
+                this.Close();
+                return;
+            }
+            MessageBox.Show("Failed to create initial stock for the product. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             this.Close();
         }
 

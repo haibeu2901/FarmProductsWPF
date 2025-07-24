@@ -83,5 +83,24 @@ namespace FarmProductsWPF_DAOs
             }
             return existingStock;
         }
+
+        public Stock AddStock(Stock stock)
+        {
+            _context.Stocks.Add(stock);
+            _context.SaveChanges();
+            return stock;
+        }
+
+        public bool DeleteStock(int productId)
+        {
+            var stock = GetStockByProductId(productId);
+            if (stock != null)
+            {
+                _context.Stocks.Remove(stock);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 }

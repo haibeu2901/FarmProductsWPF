@@ -11,6 +11,16 @@ namespace FarmProductsWPF_Repositories.Implements
 {
     public class StockRepo : IStockRepo
     {
+        public Stock AddStock(Stock stock)
+        {
+            return StockDAO.Instance.AddStock(stock);
+        }
+
+        public bool DeleteStock(int productId)
+        {
+            return StockDAO.Instance.DeleteStock(productId);
+        }
+
         public List<Stock> GetAllStocks()
         {
             return StockDAO.Instance.GetAllStocks();
