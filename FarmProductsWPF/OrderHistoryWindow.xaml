@@ -285,7 +285,7 @@
                 <Button x:Name="btnAccountsWindow" Grid.Column="3" Content="👥 Accounts" 
                         Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button x:Name="btnCategoriesWindow" Grid.Column="4" Content="🏷️ Categories" 
-                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnCategoriesWindow_Click"/>
                 <Button x:Name="btnProductsWindow" Grid.Column="5" Content="🌾 Products" 
                         Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button x:Name="btnStockManagementWindow" Grid.Column="6" Content="📋 Stock Management"

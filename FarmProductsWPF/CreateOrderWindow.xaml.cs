@@ -355,6 +355,13 @@ namespace FarmProductsWPF
             stockManagementWindow.Show();
             this.Close();
         }
+
+        private void btnCategoriesWindow_Click(object sender, RoutedEventArgs e)
+        {
+            CategoryManagementWindow categoryManagementWindow = new CategoryManagementWindow(_user);
+            categoryManagementWindow.Show();
+            this.Close();
+        }
     }
 
     public class ProductViewModel
