@@ -41,5 +41,47 @@ namespace FarmProductsWPF_DAOs
             return _context.Accounts
                 .FirstOrDefault(a => a.PhoneNumber == phoneNumber && a.Role == 3);
         }
+
+        public List<Account> GetAllAccounts()
+        {
+            return _context.Accounts.ToList();
+        }
+        
+        public Account? GetAccountById(int accountId)
+        {
+            return _context.Accounts.Find(accountId);
+        }
+
+        public Account AddAccount(Account account)
+        {
+            _context.Accounts.Add(account);
+            _context.SaveChanges();
+            return account;
+        }
+
+        public Account UpdateAccount(Account account)
+        {
+            var existingAccount = GetAccountById(account.AccountId);
+            if (existingAccount != null)
+            {
+                existingAccount.FullName = account.FullName;
+                existingAccount.Email = account.Email;
+                existingAccount.PhoneNumber = account.PhoneNumber;
+                _context.SaveChanges();
+            }
+            return existingAccount;
+        }
+
+        public bool DeleteAccount(int accountId)
+        {
+            var account = GetAccountById(accountId);
+            if (account != null)
+            {
+                _context.Accounts.Remove(account);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 }
