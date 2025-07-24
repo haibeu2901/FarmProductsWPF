@@ -76,5 +76,42 @@ namespace FarmProductsWPF
             stockManagementWindow.Show();
             this.Close();
         }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow login = new LoginWindow();
+            this.Close();
+            login.Show();
+        }
+
+        private void dtgAccounts_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddAccount_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnToggleAccountStatus_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

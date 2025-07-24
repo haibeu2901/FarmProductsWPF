@@ -451,28 +451,28 @@
 
                 <!-- Title -->
                 <StackPanel Grid.Column="0">
-                    <TextBlock Text="Product Management"
+                    <TextBlock Text="Account Management"
                        FontSize="24"
                        FontWeight="Bold"
                        Foreground="#111827"/>
-                    <TextBlock Text="Manage all farm products"
+                    <TextBlock Text="Manage all user accounts"
                        FontSize="14"
                        Foreground="#6B7280"
                        Margin="0,4,0,0"/>
                 </StackPanel>
 
-                <!-- Add Product Button -->
-                <Button x:Name="btnAddProduct" 
+                <!-- Add Account Button -->
+                <Button x:Name="btnAddAccount" 
                 Grid.Column="1"
                 Style="{StaticResource AddCategoryButton}"
-                Click="btnAddProduct_Click">
+                Click="btnAddAccount_Click">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="➕" 
                   FontSize="16" 
                   FontWeight="Bold" 
                   Margin="0,0,8,0"
                   VerticalAlignment="Center"/>
-                        <TextBlock Text="Add Product" 
+                        <TextBlock Text="Add Account" 
                   VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
@@ -518,7 +518,7 @@
                                                  Foreground="{TemplateBinding Foreground}"
                                                  VerticalContentAlignment="Center"
                                                  BorderThickness="0"/>
-                                                    <TextBlock Text="Search products..." 
+                                                    <TextBlock Text="Search accounts..." 
                                                    Foreground="#9CA3AF" 
                                                    IsHitTestVisible="False"
                                                    VerticalAlignment="Center"
@@ -558,134 +558,106 @@
                 </Button>
             </Grid>
 
-            <!-- Product DataGrid -->
+            <!-- Account DataGrid -->
             <Border Grid.Row="2"
                 Background="White"
                 CornerRadius="8"
                 BorderBrush="#E5E7EB"
                 BorderThickness="1">
-                <DataGrid x:Name="dtgProducts"
-                      d:ItemsSource="{d:SampleData ItemCount=5}"
-                      Style="{StaticResource ProductDataGrid}"
-                      AutoGenerateColumns="False"
-                      Margin="0"
-                      BorderThickness="0"
-                      ColumnHeaderStyle="{StaticResource ProductColumnHeader}"
-                      HorizontalScrollBarVisibility="Disabled"
-                      Loaded="dtgProducts_Loaded">
+                <DataGrid x:Name="dtgAccounts"
+                          d:ItemsSource="{d:SampleData ItemCount=5}"
+                          Style="{StaticResource ProductDataGrid}"
+                          AutoGenerateColumns="False"
+                          Margin="0"
+                          BorderThickness="0"
+                          ColumnHeaderStyle="{StaticResource ProductColumnHeader}"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Loaded="dtgAccounts_Loaded">
                     <DataGrid.Columns>
-                        <!-- ID Column - Smaller width -->
+                        <!-- ID Column -->
                         <DataGridTextColumn Header="ID"
-                                        Binding="{Binding ProductId}"
-                                        Width="100"
-                                        IsReadOnly="True">
+                                            Binding="{Binding AccountId}"
+                                            Width="80"
+                                            IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="#1F2937"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <!-- Product Name Column - Increased width for more space -->
-                        <DataGridTextColumn Header="Product Name"
-                                        Binding="{Binding ProductName}"
-                                        Width="350"
-                                        IsReadOnly="True">
+                        <!-- Full Name Column -->
+                        <DataGridTextColumn Header="Full Name"
+                                            Binding="{Binding FullName}"
+                                            Width="220"
+                                            IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="#1F2937"/>
                                     <Setter Property="FontWeight" Value="SemiBold"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <!-- Replace the Category Column with this pill version -->
-                        <DataGridTemplateColumn Header="Category" 
-                    Width="300"
-                    IsReadOnly="True">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Border Style="{StaticResource CategoryPillStyle}">
-                                        <TextBlock Text="{Binding CategoryName}"
-                       Foreground="#2E7D32"
-                       FontSize="12"
-                       FontWeight="SemiBold"
-                       TextAlignment="Center"/>
-                                    </Border>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-
-                        <!-- Unit Column - Smaller width -->
-                        <DataGridTextColumn Header="Unit"
-                                        Binding="{Binding Unit}"
-                                        Width="120"
-                                        IsReadOnly="True">
+                        <!-- Username Column -->
+                        <DataGridTextColumn Header="Username"
+                                            Binding="{Binding Username}"
+                                            Width="150"
+                                            IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="#1F2937"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <!-- Price Column - Smaller width -->
-                        <DataGridTextColumn Header="Price"
-                                        Binding="{Binding SellingPrice, StringFormat='{}{0:#,##0}₫'}"
-                                        Width="150"
-                                        IsReadOnly="True">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="FontWeight" Value="SemiBold"/>
-                                    <Setter Property="Foreground" Value="#28A745"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <!-- Stock Column using Status property -->
-                        <DataGridTemplateColumn Header="Stock" Width="150">
+                        <!-- Role Column -->
+                        <DataGridTemplateColumn Header="Role" 
+                                                Width="150"
+                                                IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border>
+                                    <Border CornerRadius="12" Padding="8,4" MinWidth="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Border.Style>
-                                            <Style TargetType="Border" BasedOn="{StaticResource StockPill}">
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="#EEF2FF"/>
+                                                <Setter Property="BorderBrush" Value="#A5B4FC"/>
+                                                <Setter Property="BorderThickness" Value="1"/>
                                                 <Style.Triggers>
-                                                    <!-- Out of Stock -->
-                                                    <DataTrigger Binding="{Binding Status}" Value="Out of Stock">
-                                                        <Setter Property="Background" Value="#FEE2E2"/>
-                                                        <Setter Property="BorderBrush" Value="#FCA5A5"/>
+                                                    <DataTrigger Binding="{Binding Role}" Value="Owner">
+                                                        <Setter Property="Background" Value="#EEE7FE"/>
+                                                        <Setter Property="BorderBrush" Value="#D8B4FE"/>
                                                     </DataTrigger>
-                                                    <!-- Low Stock -->
-                                                    <DataTrigger Binding="{Binding Status}" Value="Low Stock">
-                                                        <Setter Property="Background" Value="#FEF3C7"/>
-                                                        <Setter Property="BorderBrush" Value="#FCD34D"/>
+                                                    <DataTrigger Binding="{Binding Role}" Value="Staff">
+                                                        <Setter Property="Background" Value="#EEF2FF"/>
+                                                        <Setter Property="BorderBrush" Value="#A5B4FC"/>
                                                     </DataTrigger>
-                                                    <!-- In Stock (default state) -->
-                                                    <DataTrigger Binding="{Binding Status}" Value="In Stock">
+                                                    <DataTrigger Binding="{Binding Role}" Value="Customer">
                                                         <Setter Property="Background" Value="#E8F5E9"/>
                                                         <Setter Property="BorderBrush" Value="#81C784"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </Border.Style>
-                                        <TextBlock Text="{Binding QuantityInStock}" 
-                                               FontWeight="SemiBold"
-                                               TextAlignment="Center">
+                                        <TextBlock Text="{Binding Role}" FontSize="12" FontWeight="SemiBold" TextAlignment="Center">
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Foreground" Value="#2E7D32"/>
+                                                    <Setter Property="Foreground" Value="#4F46E5"/>
                                                     <Style.Triggers>
-                                                        <!-- Out of Stock -->
-                                                        <DataTrigger Binding="{Binding Status}" Value="Out of Stock">
-                                                            <Setter Property="Foreground" Value="#DC2626"/>
+                                                        <DataTrigger Binding="{Binding Role}" Value="Owner">
+                                                            <Setter Property="Foreground" Value="#7E22CE"/>
                                                         </DataTrigger>
-                                                        <!-- Low Stock -->
-                                                        <DataTrigger Binding="{Binding Status}" Value="Low Stock">
-                                                            <Setter Property="Foreground" Value="#B45309"/>
+                                                        <DataTrigger Binding="{Binding Role}" Value="Staff">
+                                                            <Setter Property="Foreground" Value="#4F46E5"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Role}" Value="Customer">
+                                                            <Setter Property="Foreground" Value="#2E7D32"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -696,23 +668,132 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!-- Actions Column - Keeping consistent size -->
-                        <DataGridTemplateColumn Header="Actions" Width="1*">
+                        <!-- Email Column -->
+                        <DataGridTextColumn Header="Email"
+                                            Binding="{Binding Email}"
+                                            Width="220"
+                                            IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="#1F2937"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <!-- Phone Column -->
+                        <DataGridTextColumn Header="Phone"
+                                            Binding="{Binding Phone}"
+                                            Width="150"
+                                            IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="#1F2937"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <!-- Status Column -->
+                        <DataGridTemplateColumn Header="Status" 
+                                                Width="150"
+                                                IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="12" Padding="8,4" MinWidth="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="#E8F5E9"/>
+                                                <Setter Property="BorderBrush" Value="#81C784"/>
+                                                <Setter Property="BorderThickness" Value="1"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Status}" Value="Inactive">
+                                                        <Setter Property="Background" Value="#FEE2E2"/>
+                                                        <Setter Property="BorderBrush" Value="#FCA5A5"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <TextBlock Text="{Binding Status}" FontSize="12" FontWeight="SemiBold" TextAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Foreground" Value="#2E7D32"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Inactive">
+                                                            <Setter Property="Foreground" Value="#DC2626"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Actions Column -->
+                        <DataGridTemplateColumn Header="Actions" Width="220*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <!-- Activate/Deactivate Button -->
+                                        <Button x:Name="btnToggleAccountStatus" 
+                                                Margin="0,0,8,0" 
+                                                Padding="8,6" 
+                                                BorderThickness="1" 
+                                                BorderBrush="#E5E7EB" 
+                                                Background="White" 
+                                                Cursor="Hand"
+                                                Click="btnToggleAccountStatus_Click">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Background="{TemplateBinding Background}"
+                                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                                        CornerRadius="6"
+                                                                        Padding="{TemplateBinding Padding}">
+                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Active">
+                                                            <Setter Property="Content">
+                                                                <Setter.Value>
+                                                                    <TextBlock Text="Deactivate" Foreground="#EF4444" FontSize="12"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Inactive">
+                                                            <Setter Property="Content">
+                                                                <Setter.Value>
+                                                                    <TextBlock Text="Activate" Foreground="#22C55E" FontSize="12"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+
                                         <!-- Edit Button -->
                                         <Button x:Name="btnEdit" 
-                                                    Style="{StaticResource ActionIconButton}"
-                                                    Margin="0,0,8,0"
-                                                    Click="btnEdit_Click">
+                                                Style="{StaticResource ActionIconButton}"
+                                                Margin="0,0,8,0"
+                                                Click="btnEdit_Click">
                                             <TextBlock Text="🖋" FontSize="14"/>
                                         </Button>
 
                                         <!-- Delete Button -->
                                         <Button x:Name="btnDelete" 
-                                            Style="{StaticResource ActionIconButton}"
-                                            Click="btnDelete_Click">
+                                                Style="{StaticResource ActionIconButton}"
+                                                Click="btnDelete_Click">
                                             <TextBlock Text="🗑️" FontSize="14"/>
                                         </Button>
                                     </StackPanel>
