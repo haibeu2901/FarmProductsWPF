@@ -359,7 +359,7 @@
                 <Button x:Name="btnCategoriesWindow" Grid.Column="4" Content="🏷️ Categories" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnCategoriesWindow_Click"/>
                 <Button x:Name="btnProductsWindow" Grid.Column="5" Content="🌾 Products" Style="{StaticResource NavButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnProductsWindow_Click"/>
                 <Button Grid.Column="6"
-                        Content="📋 Stock Management"
+                        Content="🏬 Stock Management"
                         Style="{StaticResource NavButton}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
