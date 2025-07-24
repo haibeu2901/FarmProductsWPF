@@ -1,4 +1,5 @@
 ﻿using FarmProductsWPF_BOs;
+using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace FarmProductsWPF
     public partial class ProductManagementWindow : Window
     {
         private Account _user;
+        private readonly IProductRepo productRepo;
 
         public Account CurrentUser
         {
@@ -34,6 +36,7 @@ namespace FarmProductsWPF
             InitializeComponent();
             _user = account;
             this.DataContext = this;
+            productRepo = new ProductRepo();
         }
 
         private void btnViewStockWindow_Click(object sender, RoutedEventArgs e)
@@ -72,6 +75,47 @@ namespace FarmProductsWPF
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow login = new LoginWindow();
+            this.Close();
+            login.Show();
+        }
+
+        private void LoadDataGrid(string searchText)
+        {
+            dtgProducts.ItemsSource = productRepo.SearchProduct(searchText).Select(p => new
+            {
+                p.ProductId,
+                p.ProductName,
+                p.Category?.CategoryName,
+                p.Unit,
+                p.SellingPrice,
+                QuantityInStock = p.Stock?.Quantity ?? 0,
+            }).ToList();
+        }
+
+        private void dtgProducts_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadDataGrid(string.Empty);
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = txtSearch.Text;
+            LoadDataGrid(searchText);
+        }
+
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
 
         }

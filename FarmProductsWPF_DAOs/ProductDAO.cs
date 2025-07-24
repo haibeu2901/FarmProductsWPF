@@ -32,12 +32,16 @@ namespace FarmProductsWPF_DAOs
 
         public List<Product> GetAllProducts()
         {
-            return _context.Products.Include(p => p.Category).ToList();
+            return _context.Products
+                .Include(p => p.Stock)
+                .Include(p => p.Category)
+                .ToList();
         }
 
         public List<Product> SearchProduct(string searchText)
         {
             return _context.Products
+                .Include(p => p.Stock)
                 .Include(p => p.Category)
                 .AsEnumerable() // Switch to client-side evaluation
                 .Where(p => p.ProductName.ToLower().Contains(searchText.ToLower()) ||
@@ -50,6 +54,7 @@ namespace FarmProductsWPF_DAOs
         public Product? GetProductById(int productId)
         {
             return _context.Products
+                .Include(p => p.Stock)
                 .Include(p => p.Category)
                 .FirstOrDefault(p => p.ProductId == productId);
         }
