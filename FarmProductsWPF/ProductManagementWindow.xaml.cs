@@ -1,4 +1,5 @@
-﻿using FarmProductsWPF_BOs;
+﻿using FarmProductsWPF.product_popup;
+using FarmProductsWPF_BOs;
 using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
 using System;
@@ -108,7 +109,12 @@ namespace FarmProductsWPF
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-
+            CreateProductPopup createProductPopup = new CreateProductPopup();
+            createProductPopup.ProductCreated += (s, args) => 
+            {
+                LoadDataGrid(string.Empty);
+            };
+            createProductPopup.Show();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)

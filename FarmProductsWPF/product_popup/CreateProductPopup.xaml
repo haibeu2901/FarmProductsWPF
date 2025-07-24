@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#F8F9FA">
+        Background="#F8F9FA" Loaded="Window_Loaded">
     <Window.Resources>
         <!-- Input field style -->
         <Style x:Key="InputFieldStyle" TargetType="TextBox">
@@ -32,77 +32,6 @@
                                       Margin="{TemplateBinding Padding}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- ComboBox style -->
-        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Padding" Value="10,0"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#E5E7EB"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <ToggleButton x:Name="ToggleButton" 
-                                      Background="{TemplateBinding Background}"
-                                      BorderBrush="{TemplateBinding BorderBrush}"
-                                      BorderThickness="{TemplateBinding BorderThickness}"
-                                      Focusable="false"
-                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <Border x:Name="Border" 
-                                              Background="{TemplateBinding Background}"
-                                              BorderBrush="{TemplateBinding BorderBrush}"
-                                              BorderThickness="{TemplateBinding BorderThickness}"
-                                              CornerRadius="4">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <ContentPresenter Margin="10,0,0,0"
-                                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                              Content="{TemplateBinding Content}"
-                                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                                <Path x:Name="Arrow" 
-                                                  Grid.Column="1"
-                                                  Data="M0,0 L5,5 L10,0"
-                                                  Fill="#374151"
-                                                  HorizontalAlignment="Center"
-                                                  Margin="0,0,10,0"
-                                                  VerticalAlignment="Center" />
-                                            </Grid>
-                                        </Border>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
-                            <Popup x:Name="Popup"
-                                AllowsTransparency="True"
-                                Focusable="False"
-                                IsOpen="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
-                                PopupAnimation="Slide"
-                                StaysOpen="False">
-                                <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding ElementName=ToggleButton, Path=ActualWidth}">
-                                    <Border x:Name="DropDownBorder"
-                                          Background="White"
-                                          BorderBrush="#E5E7EB"
-                                          BorderThickness="1"
-                                          CornerRadius="0,0,4,4">
-                                        <ScrollViewer Margin="0" SnapsToDevicePixels="True">
-                                            <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
-                                        </ScrollViewer>
-                                    </Border>
-                                </Grid>
-                            </Popup>
-                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -280,10 +209,9 @@
 
                     <!-- Category Dropdown -->
                     <ComboBox Grid.Row="5"
+                              Height="30"
                               x:Name="cboCategory"
-                              Style="{StaticResource ComboBoxStyle}"
                               Margin="0,0,0,16">
-                        <ComboBoxItem Content="Select category" IsEnabled="False" IsSelected="True"/>
                     </ComboBox>
 
                     <!-- Unit Label -->
@@ -294,13 +222,27 @@
                                Foreground="#111827"
                                Margin="0,0,0,8"/>
 
-                    <!-- Unit Input -->
-                    <TextBox Grid.Row="7"
-                             x:Name="txtUnit"
-                             Style="{StaticResource InputFieldStyle}"
-                             Text="kg, dozen, jar, etc."
-                             Foreground="#6B7280"
-                             Margin="0,0,0,16"/>
+                    <!-- Unit Input - Fixed with proper placeholder implementation -->
+                    <Grid Grid.Row="7" Margin="0,0,0,16">
+                        <TextBox x:Name="txtUnit"
+                                 Style="{StaticResource InputFieldStyle}"/>
+                        <TextBlock Text="kg, dozen, jar, etc."
+                                   Foreground="#6B7280"
+                                   IsHitTestVisible="False"
+                                   VerticalAlignment="Center"
+                                   Margin="10,0,0,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=txtUnit}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
 
                     <!-- Price Label -->
                     <TextBlock Grid.Row="8"
