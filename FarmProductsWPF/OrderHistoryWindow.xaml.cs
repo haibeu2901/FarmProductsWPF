@@ -94,7 +94,7 @@ namespace FarmProductsWPF
 
         private void lstOrders_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadOrderHistoryDataGrid("");
+            LoadOrderHistoryDataGrid(string.Empty);
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)

@@ -72,7 +72,7 @@ namespace FarmProductsWPF
 
         private void dtgOrders_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadOrderDataGrid("");
+            LoadOrderDataGrid(string.Empty);
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)

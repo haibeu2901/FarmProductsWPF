@@ -28,7 +28,7 @@ namespace FarmProductsWPF
 
         private void dtgProduct_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadDataGrid("");
+            LoadDataGrid(string.Empty);
         }
 
         private void LoadDataGrid(string text)

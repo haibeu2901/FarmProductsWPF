@@ -82,7 +82,7 @@ namespace FarmProductsWPF
 
         private void dtgStock_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadDataGrid("");
+            LoadDataGrid(string.Empty);
         }
 
         private void btnCreateOrderWindow_Click(object sender, RoutedEventArgs e)

@@ -116,19 +116,19 @@
             </Setter>
         </Style>
 
-        <!-- Update the ModernDataGrid style to include smooth scrolling -->
-        <Style x:Key="ModernDataGrid" TargetType="DataGrid">
+        <!-- Clean Category DataGrid style matching the image -->
+        <Style x:Key="CategoryDataGrid" TargetType="DataGrid">
             <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#DEE2E6"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="GridLinesVisibility" Value="Horizontal"/>
-            <Setter Property="HorizontalGridLinesBrush" Value="#F1F3F4"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#E5E7EB"/>
             <Setter Property="RowBackground" Value="White"/>
-            <Setter Property="AlternatingRowBackground" Value="#F8F9FA"/>
+            <Setter Property="AlternatingRowBackground" Value="White"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
             <Setter Property="CanUserResizeRows" Value="False"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="RowHeight" Value="40"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="RowHeight" Value="60"/>
             <Setter Property="CanUserReorderColumns" Value="False"/>
             <Setter Property="CanUserSortColumns" Value="True"/>
             <Setter Property="SelectionMode" Value="Single"/>
@@ -136,36 +136,30 @@
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
             <Setter Property="ScrollViewer.PanningMode" Value="VerticalOnly"/>
-            <Setter Property="ScrollViewer.PanningRatio" Value="0.001"/>
-            <Setter Property="ScrollViewer.PanningDeceleration" Value="0.000001"/>
             <Style.Resources>
-                <!-- Define cell style that preserves text color -->
                 <Style TargetType="{x:Type DataGridCell}">
                     <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="Padding" Value="16,0"/>
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="BorderThickness" Value="0"/>
-                            <!-- Keep the foreground color of the cell content -->
                             <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
 
-                <!-- Remove focus visual styles -->
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="Transparent"/>
-                            <!-- Keep the foreground color -->
                             <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
 
-                <!-- Add smooth scrolling for the ScrollViewer -->
                 <Style TargetType="{x:Type ScrollViewer}">
                     <Setter Property="CanContentScroll" Value="False"/>
                     <Setter Property="PanningMode" Value="VerticalOnly"/>
@@ -176,51 +170,38 @@
             </Style.Resources>
         </Style>
 
-        <!-- Category Pill Style -->
-        <Style x:Key="CategoryPillStyle" TargetType="Border">
-            <Setter Property="Background" Value="#E8F5E9"/>
-            <Setter Property="BorderBrush" Value="#81C784"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="Padding" Value="8,4"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-
-        <!-- Add to Window.Resources -->
-        <Style TargetType="DataGridColumnHeader">
+        <!-- Green Category column header style - updated with center alignment -->
+        <Style x:Key="CategoryColumnHeader" TargetType="DataGridColumnHeader">
             <Setter Property="Background" Value="#27AE60"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Padding" Value="16,12"/>
             <Setter Property="BorderThickness" Value="0,0,1,0"/>
             <Setter Property="BorderBrush" Value="#5a6268"/>
-
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
 
-        <!-- Add this style to Window.Resources section for action buttons -->
-        <Style x:Key="ActionButton" TargetType="Button">
-            <Setter Property="Background" Value="#E5F5FF"/>
-            <Setter Property="BorderBrush" Value="#007BFF"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Foreground" Value="#007BFF"/>
-            <Setter Property="FontWeight" Value="Medium"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Padding" Value="12,6"/>
+        <!-- Add Category Button Style -->
+        <Style x:Key="AddCategoryButton" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="4">
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#CCE5FF"/>
+                                <Setter Property="Background" Value="#333333"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -228,48 +209,26 @@
             </Setter>
         </Style>
 
-        <!-- Update the UpdateStockButton style with larger dimensions and increased text padding -->
-        <Style x:Key="UpdateStockButton" TargetType="Button">
-            <Setter Property="Foreground" Value="#0066CC"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
+        <!-- Action button style -->
+        <Style x:Key="ActionIconButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="16,8"/>
-            <Setter Property="MinWidth" Value="120"/>
-            <Setter Property="Height" Value="38"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <!-- Background Border -->
-                            <Border x:Name="BackgroundBorder"
-                                Background="#E5F5FF"
-                                BorderBrush="#4DA9FF"
-                                BorderThickness="1"
-                                CornerRadius="18"
-                                Opacity="0.8"
-                                Padding="{TemplateBinding Padding}"/>
-
-                            <!-- Content Presenter on Top -->
-                            <ContentPresenter x:Name="ButtonContent" 
-                                         HorizontalAlignment="Center" 
-                                         VerticalAlignment="Center"
-                                         Panel.ZIndex="1"
-                                         Margin="10"/>
-                        </Grid>
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#4DA9FF"/>
-                                <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="#0056B3"/>
-                                <Setter TargetName="BackgroundBorder" Property="Opacity" Value="0.4"/>
-                                <Setter TargetName="ButtonContent" Property="TextElement.FontWeight" Value="Bold"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#0066CC"/>
-                                <Setter TargetName="BackgroundBorder" Property="Opacity" Value="0.3"/>
+                                <Setter Property="Background" Value="#F3F4F6"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -277,30 +236,32 @@
             </Setter>
         </Style>
 
-        <!-- Update DataGrid column header style for a cleaner look -->
-        <Style x:Key="CleanDataGridColumnHeader" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="#495057"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="16,12"/>
-            <Setter Property="BorderThickness" Value="0,0,0,1"/>
-            <Setter Property="BorderBrush" Value="#DEE2E6"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        </Style>
-
-        <!-- Update the DataGridColumnHeader style in Window.Resources -->
-        <Style x:Key="EvenlySpacedColumnHeader" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#27AE60"/>
+        <!-- Search Button Style -->
+        <Style x:Key="SearchButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#007BFF"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="12,10"/>
-            <Setter Property="BorderThickness" Value="0,0,1,0"/>
-            <Setter Property="BorderBrush" Value="#5a6268"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#0056B3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -384,7 +345,7 @@
             </Grid>
         </Border>
 
-        <!-- Main Content -->
+        <!-- Main Content - Category Management Section -->
         <Grid Grid.Row="2" Margin="24,0,24,24">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -392,10 +353,9 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Content Header -->
-            <Grid Grid.Row="0" Margin="0,0,0,24">
+            <!-- Header with Title and Add Category Button -->
+            <Grid Grid.Row="0" Margin="0,0,0,20">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
@@ -412,139 +372,123 @@
                                Margin="0,4,0,0"/>
                 </StackPanel>
 
-                <!-- Search Box -->
-                <!-- Search Box -->
-                <Grid Grid.Column="1" Margin="20,0,0,0">
-                    <Border Background="White" 
-                        BorderBrush="#E5E7EB" 
-                        BorderThickness="1" 
-                        CornerRadius="8" 
-                        Width="951" 
-                        Height="40">
-                        <Grid>
-                            <!-- Search Icon -->
-                            <TextBlock Text="🔍" 
-                                   FontSize="16" 
-                                   Foreground="#9CA3AF" 
-                                   Margin="16,0,0,0" 
-                                   VerticalAlignment="Center" 
-                                   HorizontalAlignment="Left"/>
-
-                            <TextBox x:Name="txtSearch" 
-                                 Margin="40,0,0,0"
-                                 Background="Transparent" 
-                                 BorderThickness="0"
-                                 Foreground="#374151"
-                                 VerticalAlignment="Center"
-                                 Height="28" 
-                                 Width="900">
-                                <TextBox.Style>
-                                    <Style TargetType="TextBox">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="TextBox">
-                                                    <Grid>
-                                                        <TextBox Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
-                                                             Background="{TemplateBinding Background}"
-                                                             Foreground="{TemplateBinding Foreground}"
-                                                             VerticalContentAlignment="Center"
-                                                             BorderThickness="0"/>
-                                                        <TextBlock Text="Search by name, id, category, or description..." 
-                                                               Foreground="#9CA3AF" 
-                                                               IsHitTestVisible="False"
-                                                               VerticalAlignment="Center"
-                                                               Margin="8,0,0,0">
-                                                            <TextBlock.Style>
-                                                                <Style TargetType="TextBlock">
-                                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding Path=Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
-                                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </TextBlock.Style>
-                                                        </TextBlock>
-                                                    </Grid>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                        </Grid>
-                    </Border>
-                </Grid>
-
-                <!-- Search Button -->
-                <Button x:Name="btnSearch" 
-                    Grid.Column="2"
-                    Content="🔍 Search"
-                    Style="{StaticResource NavButton}"
-                    Background="#007BFF"
-                    Foreground="White"
-                    Margin="10,0,0,0"
-                    Padding="20,10"
-                    VerticalAlignment="Center"
-                    Click="btnSearch_Click">
-                    <Button.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource NavButton}">
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#0056B3"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Resources>
+                <!-- Add Category Button -->
+                <Button x:Name="btnAddCategory" 
+                        Grid.Column="1"
+                        Style="{StaticResource AddCategoryButton}"
+                        Click="btnAddCategory_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="➕" 
+                                  FontSize="16" 
+                                  FontWeight="Bold" 
+                                  Margin="0,0,8,0"
+                                  VerticalAlignment="Center"/>
+                        <TextBlock Text="Add Category" 
+                                  VerticalAlignment="Center"/>
+                    </StackPanel>
                 </Button>
             </Grid>
 
-            <!-- Then replace your existing DataGrid with this one -->
+            <!-- Search Bar Section (Restored) -->
+            <Grid Grid.Row="1" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search Box -->
+                <Border Background="White" 
+                        BorderBrush="#E5E7EB" 
+                        BorderThickness="1" 
+                        CornerRadius="8" 
+                        Height="40">
+                    <Grid>
+                        <!-- Search Icon -->
+                        <TextBlock Text="🔍" 
+                                 FontSize="16" 
+                                 Foreground="#9CA3AF" 
+                                 Margin="16,0,0,0" 
+                                 VerticalAlignment="Center" 
+                                 HorizontalAlignment="Left"/>
+
+                        <TextBox x:Name="txtSearch" 
+                               Margin="40,0,0,0"
+                               Background="Transparent" 
+                               BorderThickness="0"
+                               Foreground="#374151"
+                               VerticalAlignment="Center"
+                               Height="28">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Grid>
+                                                    <TextBox Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
+                                                         Background="{TemplateBinding Background}"
+                                                         Foreground="{TemplateBinding Foreground}"
+                                                         VerticalContentAlignment="Center"
+                                                         BorderThickness="0"/>
+                                                    <TextBlock Text="Search by category name or description..." 
+                                                           Foreground="#9CA3AF" 
+                                                           IsHitTestVisible="False"
+                                                           VerticalAlignment="Center"
+                                                           Margin="8,0,0,0">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Path=Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
+                                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </Grid>
+                </Border>
+
+                <!-- Search Button -->
+                <Button x:Name="btnSearch" 
+                      Grid.Column="1"
+                      Style="{StaticResource SearchButtonStyle}"
+                      Margin="10,0,0,0"
+                      Click="btnSearch_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🔍 Search" 
+                                 Foreground="White"
+                                 FontWeight="Medium"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <!-- Category DataGrid with fixed column widths to eliminate extra column -->
             <Border Grid.Row="2"
-                Background="White"
-                Margin="20"
-                CornerRadius="8"
-                BorderBrush="#DEE2E6"
-                BorderThickness="1">
-                <Border.Effect>
-                    <DropShadowEffect Color="#000000"
-                      Opacity="0.1"
-                      ShadowDepth="2"
-                      BlurRadius="8"/>
-                </Border.Effect>
-
-                <DataGrid x:Name="dtgStock"
-                      Style="{StaticResource ModernDataGrid}"
-                      AutoGenerateColumns="False"
-                      Loaded="dtgStock_Loaded"
-                      Margin="0"
-                      BorderThickness="0"
-                      GridLinesVisibility="Horizontal"
-                      HorizontalGridLinesBrush="#DEE2E6">
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource EvenlySpacedColumnHeader}"/>
-                    </DataGrid.ColumnHeaderStyle>
+                    Background="White"
+                    CornerRadius="8"
+                    BorderBrush="#E5E7EB"
+                    BorderThickness="1">
+                <DataGrid x:Name="dtgCategories"
+                          Style="{StaticResource CategoryDataGrid}"
+                          AutoGenerateColumns="False"
+                          Margin="0"
+                          BorderThickness="0"
+                          ColumnHeaderStyle="{StaticResource CategoryColumnHeader}"
+                          HorizontalScrollBarVisibility="Disabled"
+                          ColumnWidth="*" Loaded="dtgCategories_Loaded">
                     <DataGrid.Columns>
-                        <!-- Product ID Column - Made Smaller -->
-                        <DataGridTextColumn Header="Product ID"
-                      Binding="{Binding ProductId}"
-                      Width="0.7*" 
-                      IsReadOnly="True">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="FontWeight" Value="Medium"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <!-- Product Name Column - Make it slightly smaller -->
-                        <DataGridTextColumn Header="Product Name"
-                      Binding="{Binding ProductName}"
-                      Width="1.5*" 
-                      IsReadOnly="True">
+                        <!-- ID Column -->
+                        <DataGridTextColumn Header="ID"
+                                          Binding="{Binding CategoryId}"
+                                          Width="80"
+                                          IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -553,115 +497,54 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <!-- Current Stock Column -->
-                        <DataGridTextColumn Header="Current Stock"
-                      Binding="{Binding Quantity}"
-                      Width="1*"
-                      IsReadOnly="True">
+                        <!-- Category Name Column -->
+                        <DataGridTextColumn Header="Category Name"
+                                          Binding="{Binding CategoryName}"
+                                          Width="300"
+                                          IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="FontWeight" Value="Bold"/>
-                                    <Setter Property="FontSize" Value="16"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <!-- Status Column -->
-                        <DataGridTemplateColumn Header="Status" Width="1*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Border>
-                                        <Border.Style>
-                                            <Style TargetType="Border" BasedOn="{StaticResource StatusPill}">
-                                                <Style.Triggers>
-                                                    <!-- Out of Stock -->
-                                                    <DataTrigger Binding="{Binding Status}" Value="Out of Stock">
-                                                        <Setter Property="Background" Value="#FEE2E2"/>
-                                                        <Setter Property="BorderBrush" Value="#FCA5A5"/>
-                                                    </DataTrigger>
-                                                    <!-- Low Stock -->
-                                                    <DataTrigger Binding="{Binding Status}" Value="Low Stock">
-                                                        <Setter Property="Background" Value="#FEF3C7"/>
-                                                        <Setter Property="BorderBrush" Value="#FCD34D"/>
-                                                    </DataTrigger>
-                                                    <!-- In Stock (default state) -->
-                                                    <DataTrigger Binding="{Binding Status}" Value="In Stock">
-                                                        <Setter Property="Background" Value="#E8F5E9"/>
-                                                        <Setter Property="BorderBrush" Value="#81C784"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Border.Style>
-                                        <TextBlock FontSize="12"
-                                              FontWeight="SemiBold"
-                                              TextAlignment="Center">
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="Text" Value="In Stock"/>
-                                                    <Setter Property="Foreground" Value="#2E7D32"/>
-                                                    <Style.Triggers>
-                                                        <!-- Out of Stock -->
-                                                        <DataTrigger Binding="{Binding Status}" Value="Out of Stock">
-                                                            <Setter Property="Text" Value="Out of Stock"/>
-                                                            <Setter Property="Foreground" Value="#DC2626"/>
-                                                        </DataTrigger>
-                                                        <!-- Low Stock -->
-                                                        <DataTrigger Binding="{Binding Status}" Value="Low Stock">
-                                                            <Setter Property="Text" Value="Low Stock"/>
-                                                            <Setter Property="Foreground" Value="#B45309"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-                                    </Border>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-
-                        <!-- Last Updated Column -->
-                        <DataGridTextColumn Header="Last Updated"
-                      Binding="{Binding LastUpdated, StringFormat='{}{0:yyyy-MM-dd}'}"
-                      Width="1*" 
-                      IsReadOnly="True">
+                        <!-- Description Column -->
+                        <DataGridTextColumn Header="Description"
+                                          Binding="{Binding Description}"
+                                          Width="*"
+                                          IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <!-- Notes Column - Make it larger with the extra space -->
-                        <DataGridTextColumn Header="Notes"
-                      Binding="{Binding Notes}"
-                      Width="2*" 
-                      IsReadOnly="True">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="HorizontalAlignment" Value="Left"/>
-                                    <Setter Property="Margin" Value="12,0"/>
                                     <Setter Property="TextWrapping" Value="Wrap"/>
-                                    <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <!-- Actions Column - Make it slightly smaller -->
-                        <DataGridTemplateColumn Header="Actions" Width="0.8*">
+                        <!-- Actions Column -->
+                        <DataGridTemplateColumn Header="Actions" Width="180">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Style="{StaticResource UpdateStockButton}"
-                                        Click="UpdateStock_Click"
-                                        Margin="8,4">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="🔄" Margin="5,0,8,0" VerticalAlignment="Center"/>
-                                            <TextBlock Text="Update" Padding="5" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <!-- Edit Button -->
+                                        <Button x:Name="btnEdit" 
+                                                Style="{StaticResource ActionIconButton}"
+                                                Margin="0,0,16,0"
+                                                Click="btnEdit_Click">
+                                            <TextBlock Text="🖋" FontSize="14"/>
+                                        </Button>
+
+                                        <!-- Delete Button -->
+                                        <Button x:Name="btnDelete" 
+                                                Style="{StaticResource ActionIconButton}"
+                                                Click="btnDelete_Click">
+                                            <TextBlock Text="🗑️" FontSize="14"/>
+                                        </Button>
+                                    </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

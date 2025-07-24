@@ -1,4 +1,5 @@
 ﻿using FarmProductsWPF_BOs;
+using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace FarmProductsWPF
     public partial class CategoryManagementWindow : Window
     {
         private Account _user;
+        private readonly ICategoryRepo _categoryRepo;
 
         public Account CurrentUser
         {
@@ -34,6 +36,7 @@ namespace FarmProductsWPF
             InitializeComponent();
             _user = account;
             this.DataContext = this;
+            _categoryRepo = new CategoryRepo();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -41,11 +44,6 @@ namespace FarmProductsWPF
             LoginWindow login = new LoginWindow();
             this.Close();
             login.Show();
-        }
-
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void btnViewStockWindow_Click(object sender, RoutedEventArgs e)
@@ -74,6 +72,42 @@ namespace FarmProductsWPF
             StockManagementWindow stockManagementWindow = new StockManagementWindow(_user);
             stockManagementWindow.Show();
             this.Close();
+        }
+
+        private void LoadDataGrid(string searchText)
+        {
+            dtgCategories.ItemsSource = _categoryRepo.SearchCategory(searchText).Select(c => new
+            {
+                c.CategoryId,
+                c.CategoryName,
+                c.Description,
+            }).ToList();
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = txtSearch.Text.Trim();
+            LoadDataGrid(searchText);   
+        }
+
+        private void dtgCategories_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadDataGrid(string.Empty);
+        }
+
+        private void btnAddCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

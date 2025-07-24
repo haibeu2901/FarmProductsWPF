@@ -77,7 +77,7 @@ namespace FarmProductsWPF
 
         private void dtgStock_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadDataGrid("");
+            LoadDataGrid(string.Empty);
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
