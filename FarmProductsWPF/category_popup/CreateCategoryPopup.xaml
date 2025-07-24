@@ -9,6 +9,7 @@
         Height="500" 
         Width="550"
         WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
         ResizeMode="NoResize"
         Background="#F8F9FA">
     <Window.Resources>
