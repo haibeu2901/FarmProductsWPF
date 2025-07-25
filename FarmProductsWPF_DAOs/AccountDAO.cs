@@ -39,7 +39,7 @@ namespace FarmProductsWPF_DAOs
         public Account? GetCustomerByPhoneNumber(string phoneNumber)
         {
             return _context.Accounts
-                .FirstOrDefault(a => a.PhoneNumber == phoneNumber && a.Role == 3);
+                .FirstOrDefault(a => a.PhoneNumber == phoneNumber);
         }
 
         public List<Account> GetAllAccounts()
