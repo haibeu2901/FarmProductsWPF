@@ -19,7 +19,7 @@ A comprehensive farm products management system built with WPF and .NET 8. This 
 - ✅ Price management
 - ✅ Product search and filtering capabilities
 - ✅ Product categorization
-<img width="1711" height="933" alt="Image" src="https://github.com/user-attachments/assets/843cc2ad-1037-452d-9c1b-2b56eac41bad" />
+<img width="960" height="720" alt="Image" src="https://github.com/user-attachments/assets/843cc2ad-1037-452d-9c1b-2b56eac41bad" />
 <img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/e03351c1-3e95-4793-8e29-d918355edfaf" />
 <img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/13c2f0e1-aea7-4784-b794-53c23f986c90" />
 <img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/3d2fb880-9e00-47e8-80e1-0f7f44d7fa33" />
