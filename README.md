@@ -3,14 +3,15 @@
 A comprehensive farm products management system built with WPF and .NET 8. This desktop application provides complete management of farm operations with role-based access control and inventory tracking.
 
 System Preview
-<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/92290e2e-5919-4af0-ac83-3dcf50547c50" />
-<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/e6b12e65-044c-4509-a587-fd850ea3efc5" />
-<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/364c1d05-e945-404a-b2f1-b26ca7456edb" />
-<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/c86794c4-1783-4309-9943-84e22980d9f3" />
-<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/a0452372-276c-434e-9a5f-3fb55be456a8" />
-<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/3da5930b-4113-4eb2-9369-c76e6e0b57c8" />
-<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/5906aa74-43ea-4f14-a577-b0cffcfab2fc" />
-<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/202f6877-1359-46ce-8e09-9625c515b3a7" />
+
+<img width="120" height="120" alt="Image" src="https://github.com/user-attachments/assets/92290e2e-5919-4af0-ac83-3dcf50547c50" />
+<img width="120" height="120" alt="Image" src="https://github.com/user-attachments/assets/e6b12e65-044c-4509-a587-fd850ea3efc5" />
+<img width="120" height="120" alt="Image" src="https://github.com/user-attachments/assets/364c1d05-e945-404a-b2f1-b26ca7456edb" />
+<img width="120" height="120" alt="Image" src="https://github.com/user-attachments/assets/c86794c4-1783-4309-9943-84e22980d9f3" />
+<img width="120" height="120" alt="Image" src="https://github.com/user-attachments/assets/a0452372-276c-434e-9a5f-3fb55be456a8" />
+<img width="120" height="120" alt="Image" src="https://github.com/user-attachments/assets/3da5930b-4113-4eb2-9369-c76e6e0b57c8" />
+<img width="120" height="120" alt="Image" src="https://github.com/user-attachments/assets/5906aa74-43ea-4f14-a577-b0cffcfab2fc" />
+<img width="120" height="120" alt="Image" src="https://github.com/user-attachments/assets/202f6877-1359-46ce-8e09-9625c515b3a7" />
 
 ## 🚀 Features
 
