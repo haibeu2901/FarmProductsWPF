@@ -42,6 +42,7 @@ namespace FarmProductsWPF.account_popup
             txtFullName.Text = _selectedAccount.FullName;
             txtUsername.Text = _selectedAccount.Username;
             txtEmail.Text = _selectedAccount.Email;
+            txtAddress.Text = _selectedAccount.Address;
             txtPhone.Text = _selectedAccount.PhoneNumber;
             cboRole.SelectedIndex = _selectedAccount.Role switch
             {
@@ -74,6 +75,9 @@ namespace FarmProductsWPF.account_popup
 
             string email = txtEmail.Text.Trim();
             _selectedAccount.Email = email;
+
+            string address = txtAddress.Text.Trim();
+            _selectedAccount.Address = address;
 
             string phoneNumber = txtPhone.Text.Trim();
             if (string.IsNullOrWhiteSpace(phoneNumber))

@@ -44,6 +44,7 @@ namespace FarmProductsWPF.account_popup
             lblUsername.Text = _selectedAccount.Username;
             lblRole.Text = _selectedAccount.Role == 1 ? "Owner" : (_selectedAccount.Role == 2 ? "Staff" : "Customer");
             lblEmail.Text = _selectedAccount.Email;
+            lblAddress.Text = _selectedAccount.Address;
             lblStatus.Text = _selectedAccount.Status.Value ? "Active" : "Inactive";
             lblOrderWarning.Text = $"This account has {_orderRepo.GetOrdersByAccountId(_selectedAccount.AccountId).Count} orders associated with it.";
         }

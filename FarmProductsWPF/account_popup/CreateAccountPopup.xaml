@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FarmProductsWPF.account_popup"
         mc:Ignorable="d"
         Title="Create Account" 
-        Height="700" 
+        Height="780" 
         Width="550"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -225,6 +225,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <!-- Header with close button -->
@@ -263,7 +265,7 @@
 
                     <!-- Full Name field -->
                     <TextBlock Grid.Row="2"
-                           Text="Full Name"
+                           Text="Full Name *"
                            FontSize="14"
                            FontWeight="Medium"
                            Foreground="#111827"
@@ -276,7 +278,7 @@
 
                     <!-- Username field -->
                     <TextBlock Grid.Row="4"
-                           Text="Username"
+                           Text="Username *"
                            FontSize="14"
                            FontWeight="Medium"
                            Foreground="#111827"
@@ -289,7 +291,7 @@
 
                     <!-- Password field -->
                     <TextBlock Grid.Row="6"
-                           Text="Password"
+                           Text="Password *"
                            FontSize="14"
                            FontWeight="Medium"
                            Foreground="#111827"
@@ -302,7 +304,7 @@
 
                     <!-- Role field -->
                     <TextBlock Grid.Row="8"
-                           Text="Role"
+                           Text="Role *"
                            FontSize="14"
                            FontWeight="Medium"
                            Foreground="#111827"
@@ -337,7 +339,7 @@
 
                     <!-- Phone field -->
                     <TextBlock Grid.Row="12"
-                           Text="Phone"
+                           Text="Phone *"
                            FontSize="14"
                            FontWeight="Medium"
                            Foreground="#111827"
@@ -347,7 +349,19 @@
                          x:Name="txtPhone"
                          Style="{StaticResource InputFieldStyle}"
                          Margin="0,0,0,16"/>
-                    
+
+                    <!-- Address field -->
+                    <TextBlock Grid.Row="14"
+                           Text="Address"
+                           FontSize="14"
+                           FontWeight="Medium"
+                           Foreground="#111827"
+                           Margin="0,0,0,8"/>
+
+                    <TextBox Grid.Row="15"
+                         x:Name="txtAddress"
+                         Style="{StaticResource InputFieldStyle}"
+                         Margin="0,0,0,16"/>
                 </Grid>
             </ScrollViewer>
 

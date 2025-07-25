@@ -79,6 +79,8 @@ namespace FarmProductsWPF.account_popup
                 return;
             }
 
+            string address = txtAddress.Text.Trim();
+
             Account account = new Account
             {
                 FullName = fullName,
@@ -86,7 +88,9 @@ namespace FarmProductsWPF.account_popup
                 Password = password,
                 Role = role,
                 Email = email,
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Address = address,
+                Status = true // Default to active status
             };
 
             Account createdAccount = _accountRepo.AddAccount(account);

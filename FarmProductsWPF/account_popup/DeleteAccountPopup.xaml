@@ -106,6 +106,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <!-- Header with close button -->
@@ -158,6 +159,8 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <!-- Added this missing row definition for Status -->
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="120"/>
@@ -280,8 +283,26 @@
                                      Foreground="#111827"
                                      Margin="0,0,0,8"/>
 
-                            <!-- Status Label -->
+                            <!-- Address Label -->
                             <TextBlock Grid.Row="4"
+                                     Grid.Column="0"
+                                     Text="Address:"
+                                     FontSize="14"
+                                     FontWeight="Medium"
+                                     Foreground="#111827"
+                                     Margin="0,0,10,8"/>
+
+                            <!-- Address Value -->
+                            <TextBlock Grid.Row="4"
+                                     Grid.Column="1"
+                                     x:Name="lblAddress"
+                                     Text="Ho Chi Minh City"
+                                     FontSize="14"
+                                     Foreground="#111827"
+                                     Margin="0,0,0,8"/>
+
+                            <!-- Status Label -->
+                            <TextBlock Grid.Row="5"
                                      Grid.Column="0"
                                      Text="Status:"
                                      FontSize="14"
@@ -290,7 +311,7 @@
                                      Margin="0,0,10,8"/>
 
                             <!-- Status Value -->
-                            <Border Grid.Row="4"
+                            <Border Grid.Row="5"
                                     Grid.Column="1"
                                     CornerRadius="12"
                                     Padding="8,4"

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FarmProductsWPF.account_popup"
         mc:Ignorable="d"
         Title="Edit Account" 
-        Height="550" 
+        Height="600" 
         Width="550"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -208,6 +208,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <!-- Header with close button -->
@@ -351,8 +352,28 @@
                                  Margin="0,6,0,10"/>
                     </Grid>
 
-                    <!-- Role field -->
+                    <!-- Address field -->
                     <Grid Grid.Row="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="Address:"
+                                   FontSize="14"
+                                   FontWeight="Medium"
+                                   Foreground="#111827"
+                                   VerticalAlignment="Center"/>
+
+                        <TextBox Grid.Column="1"
+                                 x:Name="txtAddress"
+                                 Style="{StaticResource InputFieldStyle}"
+                                 Margin="0,6,0,10"/>
+                    </Grid>
+
+                    <!-- Role field -->
+                    <Grid Grid.Row="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="*"/>
@@ -376,7 +397,7 @@
                     </Grid>
 
                     <!-- Status field -->
-                    <Grid Grid.Row="8">
+                    <Grid Grid.Row="9">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="*"/>

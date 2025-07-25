@@ -67,6 +67,7 @@ namespace FarmProductsWPF_DAOs
                 existingAccount.FullName = account.FullName;
                 existingAccount.Email = account.Email;
                 existingAccount.PhoneNumber = account.PhoneNumber;
+                existingAccount.Address = account.Address;
                 _context.SaveChanges();
             }
             return existingAccount;
