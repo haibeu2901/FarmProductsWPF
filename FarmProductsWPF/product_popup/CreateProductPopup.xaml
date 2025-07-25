@@ -189,7 +189,7 @@
 
                     <!-- Product Name Label -->
                     <TextBlock Grid.Row="2"
-                               Text="Product Name"
+                               Text="Product Name *"
                                FontSize="14"
                                FontWeight="Medium"
                                Foreground="#111827"
@@ -203,7 +203,7 @@
 
                     <!-- Category Label -->
                     <TextBlock Grid.Row="4"
-                               Text="Category"
+                               Text="Category *"
                                FontSize="14"
                                FontWeight="Medium"
                                Foreground="#111827"
@@ -218,7 +218,7 @@
 
                     <!-- Unit Label -->
                     <TextBlock Grid.Row="6"
-                               Text="Unit"
+                               Text="Unit *"
                                FontSize="14"
                                FontWeight="Medium"
                                Foreground="#111827"
@@ -248,7 +248,7 @@
 
                     <!-- Price Label -->
                     <TextBlock Grid.Row="8"
-                               Text="Price"
+                               Text="Price *"
                                FontSize="14"
                                FontWeight="Medium"
                                Foreground="#111827"

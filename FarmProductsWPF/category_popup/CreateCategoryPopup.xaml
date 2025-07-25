@@ -182,7 +182,7 @@
 
                     <!-- Category Name Label -->
                     <TextBlock Grid.Row="2"
-                               Text="Category Name"
+                               Text="Category Name *"
                                FontSize="14"
                                FontWeight="Medium"
                                Foreground="#111827"
