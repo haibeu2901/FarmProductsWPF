@@ -2,7 +2,7 @@
 
 A comprehensive farm products management system built with WPF and .NET 8. This desktop application provides complete management of farm operations with role-based access control and inventory tracking.
 
-![System Preview](<img width="1470" height="759" alt="Image" src="https://github.com/user-attachments/assets/442f22c5-33bc-41c9-9c3d-1a7498a2c169" />)
+![System Preview]<img width="1470" height="759" alt="Image" src="https://github.com/user-attachments/assets/442f22c5-33bc-41c9-9c3d-1a7498a2c169" />
 
 ## 🚀 Features
 
