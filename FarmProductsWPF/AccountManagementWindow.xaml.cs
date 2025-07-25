@@ -181,7 +181,32 @@ namespace FarmProductsWPF
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dtgAccounts.SelectedItem != null)
+            {
+                dynamic selectedAccount = dtgAccounts.SelectedItem;
+                if (selectedAccount != null)
+                {
+                    int accountId = selectedAccount.AccountId;
+                    Account account = _accountRepo.GetAccountById(accountId);
+                    if (account != null)
+                    {
+                        DeleteAccountPopup deleteAccountPopup = new DeleteAccountPopup(account);
+                        deleteAccountPopup.AccountDeleted += (s, args) =>
+                        {
+                            LoadDataGrid(string.Empty);
+                        };
+                        deleteAccountPopup.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Account not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select an account to delete.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

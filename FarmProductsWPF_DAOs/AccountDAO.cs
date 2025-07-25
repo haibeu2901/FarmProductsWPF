@@ -77,6 +77,36 @@ namespace FarmProductsWPF_DAOs
             var account = GetAccountById(accountId);
             if (account != null)
             {
+                // Get orders related to this account
+                var orderDAO = OrderDAO.Instance;
+                var customerOrders = orderDAO.GetOrdersByAccountId(accountId);
+                var allOrders = orderDAO.GetAllOrders();
+                var staffOrders = allOrders.Where(o => o.StaffId == accountId).ToList();
+
+                // Update customer orders
+                foreach (var order in customerOrders)
+                {
+                    order.CustomerId = null;
+                }
+
+                // Update staff orders
+                foreach (var order in staffOrders)
+                {
+                    order.StaffId = null;
+                }
+
+                // Get and update stocks where this account is the updater
+                var stockDAO = StockDAO.Instance;
+                var allStocks = stockDAO.GetAllStocks();
+                var accountStocks = allStocks.Where(s => s.UpdatedBy == accountId).ToList();
+                
+                foreach (var stock in accountStocks)
+                {
+                    stock.UpdatedBy = null;
+                    stockDAO.UpdateStockLevel(stock);
+                }
+
+                // Remove the account
                 _context.Accounts.Remove(account);
                 _context.SaveChanges();
                 return true;

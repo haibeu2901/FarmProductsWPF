@@ -65,12 +65,12 @@ namespace FarmProductsWPF.category_popup
                 if (_categoryRepo.GetCategoryById(id) == null)
                 {
                     MessageBox.Show($"Category \"{_selectedCategory.CategoryName}\" deleted successfully.", "Success", MessageBoxButton.OK);
+                    CategoryDeleted?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
                     MessageBox.Show($"Failed to delete category \"{_selectedCategory.CategoryName}\".", "Error", MessageBoxButton.OK);
                 }
-                CategoryDeleted?.Invoke(this, EventArgs.Empty);
                 this.Close();
             }
         }
