@@ -2,6 +2,7 @@
 using FarmProductsWPF_BOs;
 using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -126,7 +127,30 @@ namespace FarmProductsWPF
 
         private void btnToggleAccountStatus_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dtgAccounts.SelectedItem != null)
+            {
+                dynamic selectedAccount = dtgAccounts.SelectedItem;
+                if (selectedAccount != null)
+                {
+                    int accountId = selectedAccount.AccountId;
+                    Account account = _accountRepo.GetAccountById(accountId);
+                    if (account != null)
+                    {
+                        account.Status = !account.Status; // Toggle status
+                        _accountRepo.UpdateAccount(account);
+                        LoadDataGrid(string.Empty);
+                        MessageBox.Show($"Account status updated to {(account.Status.Value ? "Active" : "Inactive")}.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Account not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select an account to toggle status.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
