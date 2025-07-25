@@ -2,7 +2,8 @@
 
 A comprehensive farm products management system built with WPF and .NET 8. This desktop application provides complete management of farm operations with role-based access control and inventory tracking.
 
-![System Preview]<img width="1470" height="759" alt="Image" src="https://github.com/user-attachments/assets/442f22c5-33bc-41c9-9c3d-1a7498a2c169" />
+System Preview
+<img width="960" height="720" alt="Image" src="https://github.com/user-attachments/assets/442f22c5-33bc-41c9-9c3d-1a7498a2c169" />
 
 ## 🚀 Features
 
@@ -30,6 +31,9 @@ A comprehensive farm products management system built with WPF and .NET 8. This 
 - ✅ Stock adjustment tracking
 - ✅ Stock history logging
 - ✅ Stock update capabilities
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/e5621b0a-28d3-4111-85e7-c0a4a2e139e6" />
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/e0f018c9-35fb-4e26-bd28-f63f50e48a16" />
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/47288638-ae74-41b7-acea-324fe5f05262" />
 
 ### 🛒 **Order Management**
 - ✅ Complete order lifecycle management
@@ -37,12 +41,19 @@ A comprehensive farm products management system built with WPF and .NET 8. This 
 - ✅ Customer order history
 - ✅ Order details tracking
 - ✅ Staff order handling
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/db1c91b2-6734-46e2-a0ea-c75fcdb6d19f" />
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/9c4e69ec-f5f6-449d-ab40-101062c47094" />
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/9327024d-01cb-483c-905d-a66fc32bf5a0" />
 
 ### 🏷️ **Category Management**
 - ✅ Category creation and management
 - ✅ Category-based product organization
 - ✅ Product-category relationships
 - ✅ Category editing and deletion
+<img width="960" height="720" alt="Image" src="https://github.com/user-attachments/assets/2084fc87-6bee-4453-a959-ada158ff287a" />
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/f0ec044c-e548-4364-9590-30a6ff85226a" />
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/786c91c6-b600-4752-83eb-2e0c372349d9" />
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/ab433d7f-5259-444c-99f0-656e8d951a22" />
 
 ### 👥 **Account Management**
 - ✅ Role-based user accounts (Owner, Staff, Customer)
@@ -50,6 +61,10 @@ A comprehensive farm products management system built with WPF and .NET 8. This 
 - ✅ Account creation and editing
 - ✅ Secure authentication
 - ✅ Account status management
+<img width="960" height="720" alt="Image" src="https://github.com/user-attachments/assets/65536b39-e78b-47b5-a6cc-b8df944e752d" />
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/3846b3e2-f363-4af0-8005-b7aaafc49fb6" />
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/b47f603a-43fb-42b9-947f-734cef07a13f" />
+<img width="320" height="320" alt="Image" src="https://github.com/user-attachments/assets/c3c72a7e-fd4d-4ce3-b7bd-b39070fccfd1" />
 
 ## 🛠️ Technology Stack
 
