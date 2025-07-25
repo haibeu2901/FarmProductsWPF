@@ -155,7 +155,28 @@ namespace FarmProductsWPF
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dtgAccounts.SelectedItem != null)
+            {
+                dynamic selectedAccount = dtgAccounts.SelectedItem;
+                if (selectedAccount != null)
+                {
+                    int accountId = selectedAccount.AccountId;
+                    Account account = _accountRepo.GetAccountById(accountId);
+                    if (account != null)
+                    {
+                        EditAccountPopup editAccountPopup = new EditAccountPopup(account);
+                        editAccountPopup.AccountEdited += (s, args) =>
+                        {
+                            LoadDataGrid(string.Empty);
+                        };
+                        editAccountPopup.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Account not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
