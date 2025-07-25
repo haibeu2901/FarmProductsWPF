@@ -3,26 +3,14 @@
 A comprehensive farm products management system built with WPF and .NET 8. This desktop application provides complete management of farm operations with role-based access control and inventory tracking.
 
 System Preview
-<img width="640" height="480" alt="Image" src="https://github.com/user-attachments/assets/442f22c5-33bc-41c9-9c3d-1a7498a2c169" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/852a07d6-e954-4fa5-9183-849b83ed061e" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/843cc2ad-1037-452d-9c1b-2b56eac41bad" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/e03351c1-3e95-4793-8e29-d918355edfaf" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/13c2f0e1-aea7-4784-b794-53c23f986c90" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/3d2fb880-9e00-47e8-80e1-0f7f44d7fa33" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/e5621b0a-28d3-4111-85e7-c0a4a2e139e6" />
-<img width="320" height="180" alt="Image" src="https://github.com/user-attachments/assets/e0f018c9-35fb-4e26-bd28-f63f50e48a16" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/47288638-ae74-41b7-acea-324fe5f05262" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/db1c91b2-6734-46e2-a0ea-c75fcdb6d19f" />
-<img width="320" height="180" alt="Image" src="https://github.com/user-attachments/assets/9c4e69ec-f5f6-449d-ab40-101062c47094" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/9327024d-01cb-483c-905d-a66fc32bf5a0" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/2084fc87-6bee-4453-a959-ada158ff287a" />
-<img width="320" height="180" alt="Image" src="https://github.com/user-attachments/assets/f0ec044c-e548-4364-9590-30a6ff85226a" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/786c91c6-b600-4752-83eb-2e0c372349d9" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/ab433d7f-5259-444c-99f0-656e8d951a22" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/65536b39-e78b-47b5-a6cc-b8df944e752d" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/3846b3e2-f363-4af0-8005-b7aaafc49fb6" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/b47f603a-43fb-42b9-947f-734cef07a13f" />
-<img width="180" height="180" alt="Image" src="https://github.com/user-attachments/assets/c3c72a7e-fd4d-4ce3-b7bd-b39070fccfd1" />
+<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/92290e2e-5919-4af0-ac83-3dcf50547c50" />
+<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/e6b12e65-044c-4509-a587-fd850ea3efc5" />
+<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/364c1d05-e945-404a-b2f1-b26ca7456edb" />
+<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/c86794c4-1783-4309-9943-84e22980d9f3" />
+<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/a0452372-276c-434e-9a5f-3fb55be456a8" />
+<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/3da5930b-4113-4eb2-9369-c76e6e0b57c8" />
+<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/5906aa74-43ea-4f14-a577-b0cffcfab2fc" />
+<img width="80" height="80" alt="Image" src="https://github.com/user-attachments/assets/202f6877-1359-46ce-8e09-9625c515b3a7" />
 
 ## 🚀 Features
 
