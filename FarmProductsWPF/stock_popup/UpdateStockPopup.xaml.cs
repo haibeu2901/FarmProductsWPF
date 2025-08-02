@@ -50,7 +50,14 @@ namespace FarmProductsWPF.stock_popup
         private void UpdateStockButton_Click(object sender, RoutedEventArgs e)
         {
             // Update stock fields
-            _stockProduct.Quantity += int.Parse(txtAddedStock.Text);
+            int addStock = int.Parse(txtAddedStock.Text);
+            if (addStock <= 0)
+            {
+                MessageBox.Show("Please enter a valid number of items to add to stock.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            _stockProduct.Quantity += addStock;
             _stockProduct.Notes = txtNotes.Text;
             _stockProduct.UpdatedBy = _user.AccountId;
 
