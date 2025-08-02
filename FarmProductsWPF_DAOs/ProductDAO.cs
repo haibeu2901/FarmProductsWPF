@@ -92,8 +92,17 @@ namespace FarmProductsWPF_DAOs
                     if (stock != null)
                     {
                         _context.Stocks.Remove(stock);
+                        _context.SaveChanges();
                     }
-                    
+
+                    // Delete associated order details
+                    var orderDetails = _context.OrderDetails.Where(od => od.ProductId == productId).ToList();
+                    if (orderDetails.Any())
+                    {
+                        _context.OrderDetails.RemoveRange(orderDetails);
+                        _context.SaveChanges();
+                    }
+
                     // Then delete the product
                     var product = _context.Products.Find(productId);
                     if (product != null)
