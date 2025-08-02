@@ -45,7 +45,8 @@ namespace FarmProductsWPF_DAOs
             return _context.Orders
                 .Include(o => o.OrderDetails)
                 .Include(o => o.Staff)
-                .Where(o => o.CustomerId == accountId)
+                .Include(o => o.Customer == null ? null : o.Customer)
+                .Where(o => o.CustomerId == accountId || o.StaffId == accountId)
                 .OrderByDescending(o => o.OrderId)
                 .ThenByDescending(o => o.OrderDate)
                 .ToList();
@@ -113,6 +114,20 @@ namespace FarmProductsWPF_DAOs
                 .OrderByDescending(o => o.OrderId)
                 .ThenByDescending(o => o.OrderDate)
                 .ToList();
+        }
+
+        public Order UpdateOrder(Order order)
+        {
+            var existingOrder = GetOrderById(order.OrderId);
+            if (existingOrder != null)
+            {
+                existingOrder.CustomerId = order.CustomerId;
+                existingOrder.StaffId = order.StaffId;
+                existingOrder.OrderDate = order.OrderDate;
+                existingOrder.TotalAmount = order.TotalAmount;
+                _context.SaveChanges();
+            }
+            return existingOrder;
         }
     }
 }
