@@ -53,39 +53,20 @@ namespace FarmProductsWPF_DAOs
 
         public List<Order> SearchOrdersByAccountId(int accountId, string searchTerm)
         {
-            if (string.IsNullOrWhiteSpace(searchTerm))
-            {
-                return GetOrdersByAccountId(accountId);
-            }
-
-            var query = _context.Orders
+            bool isDate = DateTime.TryParse(searchTerm, out DateTime parsedDate);
+            return _context.Orders
                 .Include(o => o.OrderDetails)
-                    .ThenInclude(od => od.Product)
                 .Include(o => o.Staff)
-                .Where(o => o.CustomerId == accountId);
-
-            // Try parsing search term as OrderId
-            if (int.TryParse(searchTerm, out int orderId))
-            {
-                query = query.Where(o => o.OrderId == orderId);
-            }
-            // Try parsing search term as Date
-            else if (DateTime.TryParse(searchTerm, out DateTime orderDate))
-            {
-                query = query.Where(o => o.OrderDate.HasValue && o.OrderDate.Value.Date == orderDate.Date);
-            }
-            // Search by staff name or product name
-            else
-            {
-                query = query.Where(o =>
-                    (o.Staff != null && o.Staff.FullName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) ||
-                    o.OrderDetails.Any(od => od.Product.ProductName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
-                );
-            }
-
-            return query
+                .Where(o => o.CustomerId == accountId)
+                .Where(o =>
+                    o.OrderId.ToString() == searchTerm ||
+                    (o.Staff != null && o.Staff.FullName.ToLower().Contains(searchTerm.ToLower())) ||
+                    o.OrderDetails.Any(od => od.Product.ProductName.ToLower().Contains(searchTerm.ToLower())) ||
+                    (isDate && o.OrderDate.HasValue && o.OrderDate.Value.Date == parsedDate.Date)
+                )
                 .OrderByDescending(o => o.OrderId)
                 .ThenByDescending(o => o.OrderDate)
+                .AsEnumerable()
                 .ToList();
         }
 
