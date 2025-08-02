@@ -89,7 +89,7 @@ namespace FarmProductsWPF_DAOs
                 {
                     // First, check for and delete any associated stock
                     var stock = _context.Stocks.Find(productId);
-                    if (stock != null)
+                    if (stock != null && stock.Quantity <= 0)
                     {
                         _context.Stocks.Remove(stock);
                         _context.SaveChanges();
