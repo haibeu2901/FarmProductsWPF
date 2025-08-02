@@ -133,6 +133,12 @@ namespace FarmProductsWPF
                 if (selectedAccount != null)
                 {
                     int accountId = selectedAccount.AccountId;
+                    // Prevent toggling status of the currently logged-in user
+                    if (accountId == _user.AccountId)
+                    {
+                        MessageBox.Show("You cannot change the status of your own account while logged in.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
                     Account account = _accountRepo.GetAccountById(accountId);
                     if (account != null)
                     {

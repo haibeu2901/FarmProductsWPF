@@ -287,6 +287,22 @@ namespace FarmProductsWPF
             }
             _order.CustomerId = _selectedCustomer?.AccountId;
 
+            // Validate stock levels before creating the order
+            foreach (var orderDetail in _order.OrderDetails)
+            {
+                var stock = _stockRepo.GetStockByProductId(orderDetail.ProductId ?? 0);
+                if (stock == null || orderDetail.Quantity > stock.Quantity)
+                {
+                    MessageBox.Show(
+                        $"Cannot create order. Product '{orderDetail.Product?.ProductName}' only has {stock?.Quantity ?? 0} in stock, but you requested {orderDetail.Quantity}.",
+                        "Insufficient Stock",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning
+                    );
+                    return;
+                }
+            }
+
             var orderToCreated = new Order
             {
                 CustomerId = _order.CustomerId,
@@ -321,7 +337,7 @@ namespace FarmProductsWPF
             txtCustomerName.Text = string.Empty;
             txtCustomerPhone.Text = string.Empty;
             customerInfoPanel.Visibility = Visibility.Collapsed;
-            
+
             // Refresh the stock data displayed in the products grid
             RefreshProductsGrid();
         }

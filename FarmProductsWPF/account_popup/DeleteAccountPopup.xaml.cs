@@ -61,6 +61,13 @@ namespace FarmProductsWPF.account_popup
 
         private void btnDeleteAccount_Click(object sender, RoutedEventArgs e)
         {
+            if (_selectedAccount.Role == 1)
+            {
+                MessageBox.Show("You cannot delete an Owner account.", "Delete Not Allowed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                this.Close();
+                return;
+            }
+
             MessageBoxResult result = MessageBox.Show($"Do you really want to delete the account: {_selectedAccount.Username}?", "Confirm Delete", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
@@ -73,7 +80,7 @@ namespace FarmProductsWPF.account_popup
                 }
                 else
                 {
-                    MessageBox.Show($"Failed to delete category \"{_selectedAccount.FullName}\".", "Error", MessageBoxButton.OK);
+                    MessageBox.Show($"Failed to delete account \"{_selectedAccount.FullName}\".", "Error", MessageBoxButton.OK);
                 }
                 this.Close();
             }
