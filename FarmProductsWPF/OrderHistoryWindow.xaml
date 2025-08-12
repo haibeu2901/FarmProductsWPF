@@ -563,7 +563,7 @@
 
                     <TextBlock Grid.Row="1" Grid.Column="1"
                                x:Name="txtSelectedOrderDate"
-                               Text="Jan 15, 2024, 10:30 AM"
+                               Text=""
                                Foreground="{StaticResource TextGray}"
                                VerticalAlignment="Center"/>
 
@@ -578,11 +578,11 @@
                     <StackPanel Grid.Row="2" Grid.Column="1" 
                                 HorizontalAlignment="Left">
                         <TextBlock x:Name="txtSelectedCustomerName"
-                                   Text="John Smith"
+                                   Text=""
                                    Foreground="{StaticResource TextGray}"
                                    HorizontalAlignment="Center"/>
                         <TextBlock x:Name="txtSelectedCustomerPhone"
-                                   Text="+1-555-0123"
+                                   Text=""
                                    Foreground="{StaticResource TextGray}"
                                    HorizontalAlignment="Center"/>
                     </StackPanel>
@@ -596,7 +596,7 @@
 
                     <TextBlock Grid.Row="3" Grid.Column="1"
                                x:Name="txtSelectedStaffName"
-                               Text="Sarah Johnson"
+                               Text=""
                                Foreground="{StaticResource TextGray}"
                                VerticalAlignment="Center"/>
                 </Grid>
@@ -737,7 +737,7 @@
 
                         <TextBlock Grid.Column="1"
                                    x:Name="txtSelectedTotalAmount"
-                                   Text="$45.73"
+                                   Text=""
                                    FontSize="20"
                                    FontWeight="Bold"
                                    Foreground="{StaticResource PrimaryGreen}"/>

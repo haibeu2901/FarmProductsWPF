@@ -222,7 +222,7 @@
                         HorizontalAlignment="Left"
                         Margin="927,0,0,0" Width="83" Click="btnLogin_Click"/>
 
-                <!-- Shutdown App Button -->
+                <!-- Register App Button -->
                 <Button x:Name="btnShutDown" Content="❌ Shutdown"
                         Style="{StaticResource ShutdownButton}"
                         HorizontalAlignment="Left"
