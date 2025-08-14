@@ -18,6 +18,8 @@ public partial class FarmProductsDbContext : DbContext
 
     public virtual DbSet<Account> Accounts { get; set; }
 
+    public virtual DbSet<ImportedStock> ImportedStocks { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
@@ -29,7 +31,7 @@ public partial class FarmProductsDbContext : DbContext
     public virtual DbSet<Stock> Stocks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+    => optionsBuilder.UseSqlServer(GetConnectionString());
 
     private string GetConnectionString()
     {
@@ -41,13 +43,12 @@ public partial class FarmProductsDbContext : DbContext
 
         return strConn ?? throw new ArgumentNullException(nameof(strConn));
     }
-
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.AccountId).HasName("PK__Accounts__349DA58622C55BBA");
+            entity.HasKey(e => e.AccountId).HasName("PK__Accounts__349DA5864F334BE5");
 
             entity.HasIndex(e => e.Email, "IX_Accounts_Email").HasFilter("([Email] IS NOT NULL)");
 
@@ -55,7 +56,7 @@ public partial class FarmProductsDbContext : DbContext
 
             entity.HasIndex(e => e.Username, "IX_Accounts_Username");
 
-            entity.HasIndex(e => e.Username, "UQ__Accounts__536C85E412F7CED3").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Accounts__536C85E4AD7B1304").IsUnique();
 
             entity.Property(e => e.AccountId).HasColumnName("AccountID");
             entity.Property(e => e.Address).HasMaxLength(200);
@@ -78,9 +79,39 @@ public partial class FarmProductsDbContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<ImportedStock>(entity =>
+        {
+            entity.HasKey(e => e.ImportId).HasName("PK__Imported__8697678ADA57C5E3");
+
+            entity.ToTable("ImportedStock");
+
+            entity.HasIndex(e => e.ProductId, "IX_ImportedStock_ProductID");
+
+            entity.HasIndex(e => e.UpdatedAt, "IX_ImportedStock_UpdatedAt");
+
+            entity.HasIndex(e => e.UpdatedBy, "IX_ImportedStock_UpdatedBy");
+
+            entity.Property(e => e.ImportId).HasColumnName("ImportID");
+            entity.Property(e => e.Notes).HasMaxLength(255);
+            entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.ImportedStocks)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ImportedS__Produ__70DDC3D8");
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.ImportedStocks)
+                .HasForeignKey(d => d.UpdatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ImportedS__Updat__71D1E811");
+        });
+
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAFA642437F");
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAF823E279A");
 
             entity.HasIndex(e => e.CustomerId, "IX_Orders_CustomerID").HasFilter("([CustomerID] IS NOT NULL)");
 
@@ -107,7 +138,7 @@ public partial class FarmProductsDbContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.DetailId).HasName("PK__OrderDet__135C314D5C069A68");
+            entity.HasKey(e => e.DetailId).HasName("PK__OrderDet__135C314DCD829432");
 
             entity.HasIndex(e => e.OrderId, "IX_OrderDetails_OrderID");
 
@@ -132,7 +163,7 @@ public partial class FarmProductsDbContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6ED7E9F4424");
+            entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6ED4C913A8E");
 
             entity.HasIndex(e => e.CategoryId, "IX_Products_CategoryID");
 
@@ -155,7 +186,7 @@ public partial class FarmProductsDbContext : DbContext
 
         modelBuilder.Entity<ProductCategory>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__ProductC__19093A2B2E4FA3D0");
+            entity.HasKey(e => e.CategoryId).HasName("PK__ProductC__19093A2BFECB7BC5");
 
             entity.HasIndex(e => e.CategoryName, "IX_ProductCategories_CategoryName");
 
@@ -166,7 +197,7 @@ public partial class FarmProductsDbContext : DbContext
 
         modelBuilder.Entity<Stock>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Stock__B40CC6EDC8EBB3B2");
+            entity.HasKey(e => e.ProductId).HasName("PK__Stock__B40CC6EDDDA10FFF");
 
             entity.ToTable("Stock");
 

@@ -25,6 +25,7 @@ namespace FarmProductsWPF.stock_popup
         private Account _user;
         private Stock _stockProduct;
         private readonly IStockRepo _stockRepo;
+        private readonly IImportedStockRepo _importedStockRepo;
 
         public delegate void StockUpdatedEventHandler(object sender, EventArgs e);
         public event StockUpdatedEventHandler StockUpdated;
@@ -35,6 +36,7 @@ namespace FarmProductsWPF.stock_popup
             _user = account;
             _stockProduct = stockProduct;
             _stockRepo = new StockRepo();
+            _importedStockRepo = new ImportedStockRepo();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -57,12 +59,24 @@ namespace FarmProductsWPF.stock_popup
                 return;
             }
 
+            ImportedStock newStockHistory = new ImportedStock
+            {
+                ProductId = _stockProduct.ProductId,
+                StockBeforeUpdate = _stockProduct.Quantity,
+                UpdatedStockQuantity = addStock,
+                StockAfterUpdate = _stockProduct.Quantity + addStock,
+                Notes = txtNotes.Text,
+                UpdatedBy = _user.AccountId,
+                UpdatedAt = DateTime.Now
+            };
+
             _stockProduct.Quantity += addStock;
             _stockProduct.Notes = txtNotes.Text;
             _stockProduct.UpdatedBy = _user.AccountId;
 
             Stock updatedStock = _stockRepo.UpdateStockLevel(_stockProduct);
-            if (updatedStock != null)
+            ImportedStock addedStockHistory = _importedStockRepo.AddStock(newStockHistory);
+            if (updatedStock != null && addedStockHistory != null)
             {
                 MessageBox.Show($"Stock for {_stockProduct.Product.ProductName} updated successfully.\nNew stock level: {updatedStock.Quantity} {_stockProduct.Product.Unit}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 

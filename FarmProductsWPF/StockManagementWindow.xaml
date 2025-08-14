@@ -15,6 +15,33 @@
         <SolidColorBrush x:Key="LogoutRed" Color="#EF4444"/>
         <SolidColorBrush x:Key="LogoutRedHover" Color="#DC2626"/>
 
+        <Style x:Key="CreateButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="4"
+                        Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#333333"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!-- Navigation Button Style -->
         <Style x:Key="NavButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
@@ -228,38 +255,26 @@
             </Setter>
         </Style>
 
-        <!-- Replace the existing UpdateStockButton style with this one -->
-        <Style x:Key="UpdateStockButton" TargetType="Button">
-            <Setter Property="Background" Value="#E6F3FF"/>
-            <Setter Property="BorderBrush" Value="#2563EB"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Foreground" Value="#2563EB"/>
+        <!-- Updated StockDetailsButton style to match Create Account button format -->
+        <Style x:Key="StockDetailsButton" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Padding" Value="8,0"/>
-            <Setter Property="MinWidth" Value="80"/>
-            <Setter Property="Height" Value="32"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="buttonBorder"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4"
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="6"
                                 Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="buttonBorder" Property="Background" Value="#80B1FF"/>
-                                <Setter TargetName="buttonBorder" Property="BorderBrush" Value="#0D47A1"/>
-                                <Setter TargetName="buttonBorder" Property="Effect">
-                                    <Setter.Value>
-                                        <DropShadowEffect ShadowDepth="1" Color="#2563EB" BlurRadius="3" Opacity="0.5"/>
-                                    </Setter.Value>
-                                </Setter>
+                                <Setter Property="Background" Value="#333333"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -651,18 +666,17 @@
                         <DataGridTemplateColumn Header="Actions" Width="0.8*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <!-- Update the button in Actions Column template -->
-                                    <Button Style="{StaticResource UpdateStockButton}"
-                                            Click="UpdateStock_Click"
-                                            Height="28"
-                                            Margin="20,4">
+                                    <!-- Updated View Stock Details button with Create Account format -->
+                                    <Button Style="{StaticResource CreateButtonStyle}"
+                                            Click="StockDetail_Click"
+                                            Margin="12,4">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="🗳" 
+                                            <TextBlock Text="View Details" 
                                                        FontSize="12" 
-                                                       Margin="0,0,8,0" 
-                                                       VerticalAlignment="Center"/>
-                                            <TextBlock Text="Update" 
-                                                       VerticalAlignment="Center"/>
+                                                       FontWeight="SemiBold"
+                                                       Margin="0,0,4,0"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                 </DataTemplate>

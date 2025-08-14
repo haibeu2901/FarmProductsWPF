@@ -35,6 +35,7 @@ namespace FarmProductsWPF_DAOs
             return _context.Stocks
                 .Include(s => s.Product)
                 .ThenInclude(p => p.Category)
+                .Include(s => s.ImportedStocks)
                 .ToList();
         }
 
@@ -43,6 +44,7 @@ namespace FarmProductsWPF_DAOs
             return _context.Stocks
                 .Include(s => s.Product)
                 .ThenInclude(p => p.Category)
+                .Include(s => s.ImportedStocks)
                 .FirstOrDefault(s => s.ProductId == productId);
         }
 
@@ -51,6 +53,7 @@ namespace FarmProductsWPF_DAOs
             return _context.Stocks
                 .Include(s => s.Product)
                 .ThenInclude(p => p.Category)
+                .Include(s => s.ImportedStocks)
                 .AsEnumerable() // Switch to client-side evaluation
                 .Where(s => s.Product.ProductName.ToLower().Contains(searchText.ToLower()) ||
                             s.Product.ProductId.ToString().Equals(searchText) ||

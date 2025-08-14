@@ -15,6 +15,8 @@ public partial class Stock
 
     public string? Notes { get; set; }
 
+    public virtual ICollection<ImportedStock> ImportedStocks { get; set; } = new List<ImportedStock>();
+
     public virtual Product Product { get; set; } = null!;
 
     public virtual Account? UpdatedByNavigation { get; set; }

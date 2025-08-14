@@ -94,7 +94,7 @@ namespace FarmProductsWPF
             login.Show();
         }
 
-        private void UpdateStock_Click(object sender, RoutedEventArgs e)
+        private void StockDetail_Click(object sender, RoutedEventArgs e)
         {
             if (dtgStock.SelectedItem != null)
             {
@@ -104,12 +104,8 @@ namespace FarmProductsWPF
                     Stock stockProduct = _stockRepo.GetStockByProductId(selectedStock.ProductId);
                     if (stockProduct != null)
                     {
-                        UpdateStockPopup updateStockPopup = new UpdateStockPopup(_user, stockProduct);
-                        updateStockPopup.StockUpdated += (s, args) =>
-                        {
-                            LoadDataGrid(stockProduct.Product.ProductName);
-                        };
-                        updateStockPopup.ShowDialog();
+                        StockDetailsPopup stockDetailsPopup = new StockDetailsPopup(_user, stockProduct);
+                        stockDetailsPopup.ShowDialog();
                     }
                     else
                     {
@@ -117,6 +113,7 @@ namespace FarmProductsWPF
                     }
                 }
             }
+            LoadDataGrid(string.Empty);
         }
 
         private void btnCategoriesWindow_Click(object sender, RoutedEventArgs e)

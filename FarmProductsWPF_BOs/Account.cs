@@ -25,6 +25,8 @@ public partial class Account
 
     public bool? Status { get; set; }
 
+    public virtual ICollection<ImportedStock> ImportedStocks { get; set; } = new List<ImportedStock>();
+
     public virtual ICollection<Order> OrderCustomers { get; set; } = new List<Order>();
 
     public virtual ICollection<Order> OrderStaffs { get; set; } = new List<Order>();
