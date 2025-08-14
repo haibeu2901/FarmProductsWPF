@@ -100,7 +100,7 @@ namespace FarmProductsWPF.account_popup
             }
             else
             {
-                MessageBox.Show($"Account \"{createdAccount.FullName}\" created successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Account \"{createdAccount.Username}\" created successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 AccountCreated?.Invoke(this, EventArgs.Empty);
             }
             this.Close();

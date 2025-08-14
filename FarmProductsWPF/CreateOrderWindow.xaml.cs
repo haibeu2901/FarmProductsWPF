@@ -1,4 +1,5 @@
-﻿using FarmProductsWPF_BOs;
+﻿using FarmProductsWPF.account_popup;
+using FarmProductsWPF_BOs;
 using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
 using System;
@@ -79,7 +80,7 @@ namespace FarmProductsWPF
         private void dtgProducts_Loaded(object sender, RoutedEventArgs e)
         {
             var stocks = _stockRepo.GetAllStocks();
-            
+
             dtgProducts.ItemsSource = stocks.Select(s => new ProductViewModel
             {
                 Stock = s,
@@ -95,7 +96,7 @@ namespace FarmProductsWPF
         {
             string searchText = txtProductSearch.Text.Trim();
             var stocks = _stockRepo.SearchStock(searchText);
-            
+
             dtgProducts.ItemsSource = stocks.Select(s => new ProductViewModel
             {
                 Stock = s,
@@ -130,8 +131,30 @@ namespace FarmProductsWPF
             }
             else
             {
-                MessageBox.Show("Customer not found. Please check the phone number and try again.");
-                customerInfoPanel.Visibility = Visibility.Collapsed;
+                MessageBoxResult result = MessageBox.Show($"This customer is not found in the system. Do you want to create new account for this customer?", "Confirm Create", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Open the create account window
+                    CreateCustomerAccountPopup createCustomerAccountPopup = new CreateCustomerAccountPopup(customerSearchText);
+                    createCustomerAccountPopup.CustomerAccountCreated += (s, args) =>
+                    {
+                        if (args is CustomerAccountCreatedEventArgs customerArgs)
+                        {
+                            _selectedCustomer = customerArgs.CreatedAccount;
+                            customerInfoPanel.Visibility = Visibility.Visible;
+                            txtCustomerName.Text = _selectedCustomer.FullName;
+                            txtCustomerPhone.Text = _selectedCustomer.PhoneNumber;
+
+                            txtCustomerTotalSpent.Text = "0₫";
+                            txtCustomerTotalOrders.Text = "0";
+                        }
+                    };
+                    createCustomerAccountPopup.ShowDialog();
+                }
+                else
+                {
+                    customerInfoPanel.Visibility = Visibility.Collapsed;
+                }
             }
         }
 
@@ -158,7 +181,7 @@ namespace FarmProductsWPF
             {
                 if (orderDetail.Product == null)
                     continue;
-                    
+
                 // Don't modify UnitPrice, just calculate the total
                 orderDetail.Total = orderDetail.UnitPrice * orderDetail.Quantity;
                 totalPrice += orderDetail.Total ?? 0;
@@ -171,7 +194,7 @@ namespace FarmProductsWPF
             if (dtgProducts.SelectedItem is ProductViewModel selectedProductVM)
             {
                 Stock? selectedProduct = selectedProductVM.Stock;
-                
+
                 if (selectedProduct?.Quantity <= 0)
                 {
                     MessageBox.Show("Selected product is out of stock.");
@@ -206,7 +229,7 @@ namespace FarmProductsWPF
                         UnitPrice = selectedProduct?.Product?.SellingPrice ?? 0,
                         Total = selectedProduct?.Product?.SellingPrice ?? 0,
                     };
-                    
+
                     _order.OrderDetails.Add(orderDetail);
                 }
 
@@ -232,7 +255,7 @@ namespace FarmProductsWPF
             {
                 dynamic selectedItem = dtgOrderCart.SelectedItem;
                 var orderDetail = _order.OrderDetails.FirstOrDefault(od => od.Product?.ProductName == selectedItem.OrderDetailName);
-                
+
                 if (orderDetail != null)
                 {
                     if (orderDetail.Quantity > 1)
@@ -257,7 +280,7 @@ namespace FarmProductsWPF
             {
                 dynamic selectedItem = dtgOrderCart.SelectedItem;
                 var orderDetail = _order.OrderDetails.FirstOrDefault(od => od.Product?.ProductName == selectedItem.OrderDetailName);
-                
+
                 if (orderDetail != null)
                 {
                     orderDetail.Quantity += 1;
@@ -275,7 +298,7 @@ namespace FarmProductsWPF
             {
                 dynamic selectedItem = dtgOrderCart.SelectedItem;
                 var orderDetail = _order.OrderDetails.FirstOrDefault(od => od.Product?.ProductName == selectedItem.OrderDetailName);
-                
+
                 if (orderDetail != null)
                 {
                     _order.OrderDetails.Remove(orderDetail);
@@ -354,7 +377,7 @@ namespace FarmProductsWPF
         private void RefreshProductsGrid()
         {
             var stocks = _stockRepo.GetAllStocks();
-            
+
             dtgProducts.ItemsSource = stocks.Select(s => new ProductViewModel
             {
                 Stock = s,
