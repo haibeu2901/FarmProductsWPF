@@ -60,7 +60,7 @@ namespace FarmProductsWPF
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             LoginWindow loginWindow = new LoginWindow();
-            loginWindow.Show();
+            loginWindow.ShowDialog();
             this.Close();
         }
     }

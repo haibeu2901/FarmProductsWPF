@@ -116,9 +116,17 @@ namespace FarmProductsWPF
             if (_selectedCustomer != null)
             {
                 // Show customer info in the panel
+                customerInfoPanel.Visibility = Visibility.Visible;
                 txtCustomerName.Text = _selectedCustomer.FullName;
                 txtCustomerPhone.Text = _selectedCustomer.PhoneNumber;
-                customerInfoPanel.Visibility = Visibility.Visible;
+
+                int customerId = _selectedCustomer.AccountId;
+
+                decimal totalSpent = _orderRepo.GetOrdersByAccountId(customerId).Sum(o => o.TotalAmount);
+                txtCustomerTotalSpent.Text = string.Format("{0:#,##0}₫", totalSpent);
+
+                int totalOrders = _orderRepo.GetOrdersByAccountId(customerId).Count;
+                txtCustomerTotalOrders.Text = totalOrders.ToString();
             }
             else
             {
