@@ -126,6 +126,83 @@
             </Setter>
         </Style>
 
+        <!-- Filter ComboBox Style -->
+        <Style x:Key="FilterComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <Grid>
+                                <ToggleButton x:Name="ToggleButton"
+                                              Background="Transparent"
+                                              BorderThickness="0"
+                                              IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                              ClickMode="Press"
+                                              Grid.ColumnSpan="2">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <Border Background="Transparent">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="📅" 
+                                                               FontSize="16"
+                                                               Margin="15,0,0,0"
+                                                               VerticalAlignment="Center"
+                                                               Foreground="#9CA3AF"/>
+                                                    <Path Grid.Column="1"
+                                                          Data="M 0 0 L 4 4 L 8 0 Z"
+                                                          Fill="#9CA3AF"
+                                                          Margin="0,0,15,0"
+                                                          VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                                <ContentPresenter x:Name="ContentSite"
+                                                  IsHitTestVisible="False"
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                  Margin="40,0,30,0"
+                                                  VerticalAlignment="Center"/>
+                                <Popup x:Name="Popup"
+                                       Placement="Bottom"
+                                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                                       AllowsTransparency="True"
+                                       Focusable="False"
+                                       PopupAnimation="Slide">
+                                    <Border Background="White"
+                                            BorderBrush="{StaticResource BorderGray}"
+                                            BorderThickness="1"
+                                            CornerRadius="8"
+                                            MinWidth="{TemplateBinding ActualWidth}"
+                                            MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                        <ScrollViewer>
+                                            <StackPanel IsItemsHost="True"/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="OrderRowStyle" TargetType="DataGridRow">
             <Setter Property="Background" Value="{StaticResource BackgroundWhite}"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -199,6 +276,7 @@
                     CornerRadius="12" Padding="20" Margin="0,0,10,0">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -278,7 +356,40 @@
                         </Grid>
                     </Border>
 
-                    <ListBox x:Name="dtgOrders" Grid.Row="4"
+                    <!-- Filter Section -->
+                    <Grid Grid.Row="2" Margin="0,0,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ComboBox x:Name="cmbDateFilter" 
+                                  Grid.Column="0"
+                                  Style="{StaticResource FilterComboBoxStyle}"
+                                  SelectedIndex="0"
+                                  Margin="0,0,20,0">
+                            <ComboBoxItem Content="All Orders"/>
+                            <ComboBoxItem Content="Today"/>
+                            <ComboBoxItem Content="This Week"/>
+                            <ComboBoxItem Content="This Month"/>
+                        </ComboBox>
+
+                        <Button x:Name="btnFilter" 
+                                Grid.Column="1"
+                                Style="{StaticResource SearchButtonStyle}"
+                                Click="btnFilter_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📅 Filter" 
+                                           FontSize="14"
+                                           Padding="5" 
+                                           Width="80"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <ListBox x:Name="dtgOrders" Grid.Row="3"
                              d:ItemsSource="{d:SampleData ItemCount=5}"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -437,8 +548,11 @@
                             <ListBox x:Name="dtgOrderDetail" Height="280"
                                      d:ItemsSource="{d:SampleData ItemCount=5}"
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
                                      BorderThickness="0"
                                      Background="Transparent"
+                                     SelectionMode="Single"
+                                     IsHitTestVisible="True"
                                      VirtualizingPanel.IsVirtualizing="True"
                                      VirtualizingPanel.VirtualizationMode="Recycling"
                                      VirtualizingPanel.ScrollUnit="Pixel"
@@ -459,23 +573,11 @@
                                     </ControlTemplate>
                                 </ListBox.Template>
                                 <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
-                                        <Setter Property="Margin" Value="0,0,0,8"/>
-                                        <Setter Property="Padding" Value="0"/>
-                                        <Setter Property="Background" Value="Transparent"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="ListBoxItem">
-                                                    <Border x:Name="Border"
-                                                            Background="{StaticResource BackgroundWhite}"
-                                                            BorderBrush="{StaticResource BorderGray}"
-                                                            BorderThickness="1"
-                                                            CornerRadius="8">
-                                                        <ContentPresenter Margin="16,12"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource OrderItemContainerStyle}">
+                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                        <Setter Property="Focusable" Value="False"/>
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                        <Setter Property="Margin" Value="0,0,0,12"/>
                                     </Style>
                                 </ListBox.ItemContainerStyle>
                                 <ListBox.ItemTemplate>
@@ -490,40 +592,55 @@
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
 
-                                            <!-- Product Name and Selling Price -->
-                                            <TextBlock Grid.Column="0" Grid.Row="0"
+                                            <!-- Product Name and Total Price -->
+                                            <TextBlock Grid.Row="0" Grid.Column="0"
                                                        Text="{Binding ProductName}"
                                                        FontSize="16"
                                                        FontWeight="Medium"
                                                        Foreground="#1F2937"/>
-                                            <TextBlock Grid.Column="1" Grid.Row="0"
+
+                                            <TextBlock Grid.Row="0" Grid.Column="1"
                                                        Text="{Binding SellingPrice, StringFormat='{}{0:N0} đ'}"
                                                        FontSize="16"
                                                        FontWeight="Bold"
-                                                       Foreground="#1F2937"
-                                                       HorizontalAlignment="Right"/>
+                                                       Foreground="#1F2937"/>
 
-                                            <!-- Category, Quantity, Unit and Unit Price -->
-                                            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                                                        Orientation="Horizontal"
-                                                        Margin="0,8,0,0">
+                                            <!-- Category, Quantity and Unit Price on same line -->
+                                            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
                                                 <!-- Category Badge -->
-                                                <Border Style="{StaticResource CategoryBadgeStyle}"
-                                                        Background="{StaticResource LightGreen}">
+                                                <Border Grid.Column="0"
+                                                        Style="{StaticResource CategoryBadgeStyle}"
+                                                        Background="#E8F5E9"
+                                                        BorderBrush="#81C784"
+                                                        BorderThickness="1"
+                                                        CornerRadius="12"
+                                                        Padding="8,4"
+                                                        Margin="0,0,8,0">
                                                     <TextBlock Text="{Binding CategoryName}"
-                                                               Foreground="{StaticResource PrimaryGreen}"/>
+                                                               Foreground="#2E7D32"
+                                                               FontSize="12"
+                                                               FontWeight="SemiBold"/>
                                                 </Border>
 
-                                                <!-- Quantity, Unit and Unit Price -->
-                                                <TextBlock Text="{Binding Quantity, StringFormat='{}'}"
-                                                           Foreground="{StaticResource TextGray}"/>
-                                                <TextBlock Text="{Binding Unit, StringFormat=' {0}'}"
-                                                           Foreground="{StaticResource TextGray}"/>
-                                                <TextBlock Text=" × "
-                                                           Foreground="{StaticResource TextGray}"/>
-                                                <TextBlock Text="{Binding UnitPrice, StringFormat='{}{0:N0} VND'}"
-                                                           Foreground="{StaticResource TextGray}"/>
-                                            </StackPanel>
+                                                <!-- Quantity and Unit Price - aligned with category -->
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding Quantity}"
+                                                               Foreground="{StaticResource TextGray}"/>
+                                                    <TextBlock Text="{Binding Unit}"
+                                                               Foreground="{StaticResource TextGray}"
+                                                               Margin="3,0,0,0"/>
+                                                    <TextBlock Text=" × "
+                                                               Foreground="{StaticResource TextGray}"
+                                                               Margin="3,0,3,0"/>
+                                                    <TextBlock Text="{Binding UnitPrice, StringFormat='{}{0:N0} đ'}"
+                                                               Foreground="{StaticResource TextGray}"/>
+                                                </StackPanel>
+                                            </Grid>
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>

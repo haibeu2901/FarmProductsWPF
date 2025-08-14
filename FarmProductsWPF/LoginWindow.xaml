@@ -153,7 +153,7 @@
                        HorizontalAlignment="Center"
                        Margin="0,0,0,20"/>
 
-            <TextBlock Text="Username or Email:"
+            <TextBlock Text="Username or Email or Phone number"
                        Grid.Row="1"
                        Style="{StaticResource LabelTextStyle}"/>
 
@@ -165,7 +165,7 @@
                            Style="{StaticResource PlaceholderTextStyle}"/>
             </Grid>
 
-            <TextBlock Text="Password:"
+            <TextBlock Text="Password"
                        Grid.Row="3"
                        Style="{StaticResource LabelTextStyle}"/>
 

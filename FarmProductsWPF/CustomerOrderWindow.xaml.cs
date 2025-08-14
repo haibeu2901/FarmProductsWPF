@@ -118,5 +118,50 @@ namespace FarmProductsWPF
                     dtgOrderDetail.ItemsSource = null;
                 }
         }
+
+        private void FilterOrdersByDate(DateOnly minDate, DateOnly maxDate)
+        {
+            dtgOrders.ItemsSource = _orderRepo.FilterCustomerOrdersByDate(_user.AccountId, minDate, maxDate).Select(o => new
+            {
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate,
+                CustomerName = o.Customer?.FullName ?? "Guest",
+                CustomerPhoneNumber = o.Customer?.PhoneNumber ?? "N/A",
+                TotalAmount = o.TotalAmount,
+                OrderDetailsCount = o.OrderDetails.Count,
+            }).ToList();
+        }
+
+        private void btnFilter_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmbDateFilter.SelectedItem == null)
+            {
+                LoadOrderDataGrid(string.Empty);
+                return;
+            }
+
+            var selectedItem = cmbDateFilter.SelectedItem as ComboBoxItem;
+            var selectedDate = selectedItem?.Content?.ToString();
+            var today = DateOnly.FromDateTime(DateTime.Now);
+
+            switch (selectedDate)
+            {
+                case "Today":
+                    FilterOrdersByDate(today, today);
+                    break;
+                case "This Week":
+                    var startOfWeek = today.AddDays(-(int)today.DayOfWeek);
+                    FilterOrdersByDate(startOfWeek, today);
+                    break;
+                case "This Month":
+                    var startOfMonth = new DateOnly(today.Year, today.Month, 1);
+                    FilterOrdersByDate(startOfMonth, today);
+                    break;
+                case "All Orders":
+                default:
+                    LoadOrderDataGrid(string.Empty);
+                    break;
+            }
+        }
     }
 }

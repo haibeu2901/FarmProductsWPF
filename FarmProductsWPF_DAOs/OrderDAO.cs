@@ -129,5 +129,32 @@ namespace FarmProductsWPF_DAOs
             }
             return existingOrder;
         }
+
+        public List<Order> FilterOrdersByDate(DateOnly minDate, DateOnly maxDate)
+        {
+            return _context.Orders
+                .Include(o => o.OrderDetails)
+                .Include(o => o.Staff)
+                .Include(o => o.Customer == null ? null : o.Customer)
+                .Where(o => o.OrderDate.HasValue &&
+                            DateOnly.FromDateTime(o.OrderDate.Value) >= minDate &&
+                            DateOnly.FromDateTime(o.OrderDate.Value) <= maxDate)
+                .OrderByDescending(o => o.OrderDate)
+                .ToList();
+        }
+
+        public List<Order> FilterCustomerOrdersByDate(int customerId, DateOnly minDate, DateOnly maxDate)
+        {
+            return _context.Orders
+                .Include(o => o.OrderDetails)
+                .Include(o => o.Staff)
+                .Include(o => o.Customer == null ? null : o.Customer)
+                .Where(o => o.OrderDate.HasValue &&
+                            DateOnly.FromDateTime(o.OrderDate.Value) >= minDate &&
+                            DateOnly.FromDateTime(o.OrderDate.Value) <= maxDate &&
+                            o.CustomerId == customerId)
+                .OrderByDescending(o => o.OrderDate)
+                .ToList();
+        }
     }
 }

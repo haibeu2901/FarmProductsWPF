@@ -16,6 +16,9 @@ namespace FarmProductsWPF_Repositories.Implements
             return OrderDAO.Instance.CreateOrder(order);
         }
 
+        public List<Order> FilterCustomerOrdersByDate(int customerId, DateOnly minDate, DateOnly maxDate) => OrderDAO.Instance.FilterCustomerOrdersByDate(customerId, minDate, maxDate);
+
+        public List<Order> FilterOrdersByDate(DateOnly minDate, DateOnly maxDate) => OrderDAO.Instance.FilterOrdersByDate(minDate, maxDate);
         public List<Order> GetAllOrders()
         {
             return OrderDAO.Instance.GetAllOrders();

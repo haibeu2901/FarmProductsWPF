@@ -16,5 +16,7 @@ namespace FarmProductsWPF_Repositories.Interfaces
         Order CreateOrder(Order order);
         List<Order> GetOrdersHistory();
         List<Order> SearchOrdersHistory(string searchTerm);
+        List<Order> FilterOrdersByDate(DateOnly minDate, DateOnly maxDate);
+        List<Order> FilterCustomerOrdersByDate(int customerId, DateOnly minDate, DateOnly maxDate);
     }
 }
