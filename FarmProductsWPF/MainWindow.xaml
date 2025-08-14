@@ -70,16 +70,16 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Shutdown Button Style -->
-        <Style x:Key="ShutdownButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
-            <Setter Property="Background" Value="#DC3545"/>
-            <!-- Red color for shutdown -->
+        <!-- Register Button Style -->
+        <Style x:Key="RegisterButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
+            <Setter Property="Background" Value="#28A745"/>
+            <!-- Green color for register -->
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#C82333"/>
+                    <Setter Property="Background" Value="#218838"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#BD2130"/>
+                    <Setter Property="Background" Value="#1E7E34"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -223,10 +223,10 @@
                         Margin="927,0,0,0" Width="83" Click="btnLogin_Click"/>
 
                 <!-- Register App Button -->
-                <Button x:Name="btnShutDown" Content="❌ Shutdown"
-                        Style="{StaticResource ShutdownButton}"
+                <Button x:Name="btnRegister" Content="👨‍🌾 Register"
+                        Style="{StaticResource RegisterButton}"
                         HorizontalAlignment="Left"
-                        Margin="1027,0,0,0" Width="112" Click="btnShutDown_Click"/>
+                        Margin="1027,0,0,0" Width="112" Click="btnRegister_Click"/>
             </Grid>
         </Border>
 

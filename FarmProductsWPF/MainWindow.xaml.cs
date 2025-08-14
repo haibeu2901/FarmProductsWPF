@@ -1,4 +1,5 @@
-﻿using FarmProductsWPF_Repositories.Implements;
+﻿using FarmProductsWPF.account_popup;
+using FarmProductsWPF_Repositories.Implements;
 using FarmProductsWPF_Repositories.Interfaces;
 using System.Text;
 using System.Windows;
@@ -44,9 +45,10 @@ namespace FarmProductsWPF
             }).ToList();
         }
 
-        private void btnShutDown_Click(object sender, RoutedEventArgs e)
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            App.Current.Shutdown();
+            RegisterCustomerAccountPopup registerCustomerAccountPopup = new RegisterCustomerAccountPopup();
+            registerCustomerAccountPopup.ShowDialog();
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
