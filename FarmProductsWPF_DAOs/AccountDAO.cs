@@ -32,7 +32,7 @@ namespace FarmProductsWPF_DAOs
         public Account? GetAccountByLogin(string username, string password)
         {
             return _context.Accounts
-                .FirstOrDefault(a => (a.Username == username || a.Email == username) && 
+                .FirstOrDefault(a => (a.Username == username || a.PhoneNumber == username) && 
                                         a.Password == password);
         }
 
